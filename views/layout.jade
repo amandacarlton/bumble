@@ -3,6 +3,7 @@ html
   head
     title= title
     script(src='https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.3/angular.js')
+    script(src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-alpha1/jquery.js")
     link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css')
     link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css')
     script(src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js')
@@ -28,15 +29,15 @@ html
             ul.nav.navbar-nav
               li
                 a(href='#')
-                  | Link 
+                  | Sign-in
                   span.sr-only (current)
               |         
               li
-                a(href='#') Link
+                a(href='#') Sign-up
               |         
               li.dropdown
                 a.dropdown-toggle(href='#', data-toggle='dropdown', role='button', aria-haspopup='true', aria-expanded='false')
-                  | Dropdown 
+                  | Interests
                   span.caret
                 |           
                 ul.dropdown-menu
