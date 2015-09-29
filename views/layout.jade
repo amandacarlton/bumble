@@ -3,11 +3,11 @@ html
   head
     title= title
     script(src='https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.3/angular.js')
-    link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css')
     link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css')
     link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css')
     script(src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js')
-    link(rel='stylesheet', href='/stylesheets/style.css')
+    link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css')
+    link(rel='stylesheet', href='./stylesheets/style.css')
     
     nav.navbar.navbar-default
       .container-fluid
@@ -26,7 +26,7 @@ html
           // Collect the nav links, forms, and other content for toggling
           #bs-example-navbar-collapse-1.collapse.navbar-collapse
             ul.nav.navbar-nav
-              li.active
+              li
                 a(href='#')
                   | Link 
                   span.sr-only (current)
@@ -58,12 +58,14 @@ html
                   |             
                   li
                     a(href='#') One more separated link
-            |       
-            form.navbar-form.navbar-left(role='search')
+                     
+               
+            form.navbar-form.navbar-left.search(role='search')
               //- .form-group
-              //-   input.form-control(type='text', placeholder='Search')
-              |         
-              button.btn.btn-success(type='submit') Bumble
+              //-   input.form-control(type='text', placeholder='Search') 
+              i.fa-2x.fa.fa-thumbs-o-up   
+              button.btn.btn-success.bumblebtn(type='submit') Bumble
+              i.fa-2x.fa.fa-thumbs-o-down  
             |       
             ul.nav.navbar-nav.navbar-right
               li
@@ -91,6 +93,6 @@ html
           // /.navbar-collapse
         // /.container-fluid
   body
-  
+   
 
     block content

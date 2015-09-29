@@ -43,6 +43,20 @@ table {
 	border-spacing: 0;
 }
 
+.search{
+  margin-left: 250px;
+}
+
+.bumblebtn{
+  width: 110px;
+}
+
+i{
+  margin-left: 5px;
+  margin-right: 5px;
+  border: white;
+}
+
 /*.navbar-default {
   background-color:SlateGray;
   background-image: none;
