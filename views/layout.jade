@@ -1,12 +1,9 @@
 doctype html
-html
+html(ng-app="bumble")
   head
     title= title
-    script(src='https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.3/angular.js')
-    script(src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-alpha1/jquery.js")
     link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css')
     link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css')
-    script(src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js')
     link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css')
     link(rel='stylesheet', href='./stylesheets/style.css')
     
@@ -97,3 +94,10 @@ html
    
 
     block content
+    script(src='https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.3/angular.js')
+    script(src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-alpha1/jquery.js")
+    script(src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js')
+    script(src='bower_components\angular-modal-service\dst\angular-modal-service.min.js')
+    script(src="../javascripts/angular/app.js") 
+    script(src="../javascripts/angular/controller.js") 
+    script(src="../javascripts/angular/services.js") 
