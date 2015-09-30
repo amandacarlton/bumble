@@ -1,0 +1,13 @@
+div(ng-controller='MainController')
+ div(class="modal")
+      h1 Create an Account  
+       p
+       div(class="form-group")
+        input(type='text', placeholder='name' class="form-control" class="signupform") 
+        p        
+        input(type='email', placeholder='email' class="form-control" class="signupform")
+        p         
+        input(type='password', placeholder='password' class="form-control" class="signupform")
+        p         
+          button.btn.btn-primary.signupbutton(type='button', ng-click='ok()') Create WTF       
+          button.btn.btn-warning(type='button', ng-click="close('cancel')" class="signupbutton") Cancel

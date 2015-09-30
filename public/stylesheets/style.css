@@ -57,6 +57,36 @@ i{
   border: white;
 }
 
+.modal{
+    display: block;
+    position:relative;
+    margin: auto;
+    /*left: 50px;*/
+    width: 490px;
+    height: 300px;
+    background-color: white;
+    text-align: center;
+    padding: 50px;
+    border-radius: 25px;
+}
+
+h1{
+  font-size: 30px;
+}
+
+
+input{
+  margin-bottom: 10px;
+}
+
+.signupbutton{
+  margin: 10px;
+}
+
+/*button{
+  margin: 10px;
+}*/
+
 /*.navbar-default {
   background-color:SlateGray;
   background-image: none;
