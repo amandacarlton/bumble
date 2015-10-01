@@ -25,6 +25,10 @@ app.controller('MainController', ['$scope', 'ModalService', function ($scope, Mo
           });
       };
 
+  $scope.reddit = function () {
+    console.log('test');
+  };
+
 
   }]);
 
