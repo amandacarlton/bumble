@@ -1,5 +1,5 @@
 
-app.controller('MainController', ['$scope', 'ModalService', function ($scope, ModalService) {
+app.controller('MainController', ['$scope', 'ModalService', '$http', '$sce', function ($scope, ModalService, $http, $sce) {
 
   $scope.signup = function() {
           ModalService.showModal({
@@ -27,6 +27,12 @@ app.controller('MainController', ['$scope', 'ModalService', function ($scope, Mo
 
   $scope.reddit = function () {
     console.log('test');
+  $http.get('/reddit').then(function (info) {
+
+    $scope.url = $sce.trustAsResourceUrl(info.data);
+    console.log($scope.url);
+
+  });
   };
 
 
