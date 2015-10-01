@@ -31,7 +31,6 @@ app.controller('MainController', ['$scope', 'ModalService', '$http', '$sce', fun
 
     $scope.url = $sce.trustAsResourceUrl(info.data);
     console.log($scope.url);
-
   });
   };
 
