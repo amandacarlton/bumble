@@ -1,0 +1,9 @@
+div(ng-controller='MainController')
+ div(class="modal")
+      h1 Sign-in
+       p
+       div(class="form-group")       
+        input(type='email', placeholder='email' class="form-control" class="signupform")        
+        input(type='password', placeholder='password' class="form-control" class="signupform")   
+        button.btn.btn-primary.signupbutton(type='button', ng-click='ok()' data-dismiss="modal") Sign-in     
+        button.btn.btn-warning(type='button', ng-click="close('cancel')" data-dismiss="modal") Cancel

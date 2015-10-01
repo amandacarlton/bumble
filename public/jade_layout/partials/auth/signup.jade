@@ -9,5 +9,5 @@ div(ng-controller='MainController')
         p         
         input(type='password', placeholder='password' class="form-control" class="signupform")
         p         
-          button.btn.btn-primary.signupbutton(type='button', ng-click='ok()') Create WTF       
-          button.btn.btn-warning(type='button', ng-click="close('cancel')" class="signupbutton") Cancel
+          button.btn.btn-primary.signupbutton(type='button', ng-click='ok()' data-dismiss="modal") Create WTF       
+          button.btn.btn-warning(type='button', ng-click="close('cancel')" class="signupbutton" data-dismiss="modal") Cancel
