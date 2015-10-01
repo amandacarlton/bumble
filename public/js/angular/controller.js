@@ -13,6 +13,18 @@ app.controller('MainController', ['$scope', 'ModalService', function ($scope, Mo
           });
       };
 
+  $scope.signin = function() {
+          ModalService.showModal({
+              templateUrl: 'partials/signin.html',
+              controller: "ModalController"
+          }).then(function(modal) {
+              modal.element.modal();
+              modal.close.then(function(result) {
+                  $scope.message = "You said " + result;
+              });
+          });
+      };
+
 
   }]);
 
