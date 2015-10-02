@@ -3,7 +3,7 @@ var router = express.Router();
 var unirest = require('unirest');
 var userdb = require('monk')(process.env.MONGOLAB_URI);
 var userCollection = userdb.get('user');
-
+var bcrypt= require('bcrypt');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -36,7 +36,9 @@ router.get('/reddit', function (req,res,next) {
 });
 
 router.post('/insertuser', function (req, res, next) {
-  console.log(req.body);
+  var hash = bcrypt.hashSync(req.body.password, 8);
+  userCollection.insert({name:req.body.name, email:req.body.email, password:hash});
+
 
 });
 
