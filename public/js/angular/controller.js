@@ -35,15 +35,15 @@ app.controller('MainController', ['$scope', 'ModalService', '$http', '$sce', fun
   };
 
 
+
   }]);
 
 
-  app.controller('ModalController', function($scope, close) {
-    // $scope.ok = function (newMessage) {
-    //
-    //  $http.post('http://localhost:3000/api/insert', {newMessage:newMessage});
-    // };
-
+  app.controller('ModalController', function($scope, close, $http) {
+  $scope.ok = function (credentials) {
+    console.log(credentials);
+    $http.post("/insertuser", credentials);
+  };
    $scope.close = function(result) {
    	close(result); // close, but give 500ms for bootstrap to animate
    };

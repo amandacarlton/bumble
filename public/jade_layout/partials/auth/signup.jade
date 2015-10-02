@@ -3,11 +3,11 @@ div(ng-controller='MainController')
       h1 Create an Account  
        p
        div(class="form-group")
-        input(type='text', placeholder='name' class="form-control" class="signupform") 
+        input(type='text', placeholder='firstname' ng-model="credentials.name" class="form-control" class="signupform") 
         p        
-        input(type='email', placeholder='email' class="form-control" class="signupform")
+        input(type='email', placeholder='email' class="form-control" ng-model="credentials.email" class="signupform")
         p         
-        input(type='password', placeholder='password' class="form-control" class="signupform")
+        input(type='password', placeholder='password' class="form-control" ng-model="credentials.password" class="signupform")
         p         
-          button.btn.btn-primary.signupbutton(type='button', ng-click='ok()' data-dismiss="modal") Create WTF       
-          button.btn.btn-warning(type='button', ng-click="close('cancel')" class="signupbutton" data-dismiss="modal") Cancel
+        button.btn.btn-primary.signupbutton(type='button', ng-click='ok(credentials)' data-dismiss="modal") Create Account      
+        button.btn.btn-warning(type='button', ng-click="close('cancel')" class="signupbutton" data-dismiss="modal") Cancel
