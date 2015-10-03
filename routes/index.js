@@ -37,7 +37,9 @@ router.get('/reddit', function (req,res,next) {
 
 router.post('/insertuser', function (req, res, next) {
   var hash = bcrypt.hashSync(req.body.password, 8);
-  userCollection.insert({name:req.body.name, email:req.body.email, password:hash});
+  userCollection.insert({name:req.body.name, email:req.body.email, password:hash}).then(function (response) {
+   res.json(response);
+  });
 
 
 });

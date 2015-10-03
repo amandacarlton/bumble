@@ -1,5 +1,5 @@
 
-app.controller('MainController', ['$scope', 'ModalService', '$http', '$sce', function ($scope, ModalService, $http, $sce) {
+app.controller('MainController', ['$scope', 'ModalService', '$http', '$sce', '$cookies', '$cookieStore', function ($scope, ModalService, $http, $sce, $cookies, $cookieStore) {
 
   $scope.signup = function() {
           ModalService.showModal({
@@ -39,11 +39,16 @@ app.controller('MainController', ['$scope', 'ModalService', '$http', '$sce', fun
   }]);
 
 
-  app.controller('ModalController', function($scope, close, $http) {
+  app.controller('ModalController', function($scope, close, $http, $cookies) {
   $scope.ok = function (credentials) {
-    console.log(credentials);
-    $http.post("/insertuser", credentials);
+    $http.post("/insertuser", credentials).then(function (response) {
+      $cookies.put('name', credentials.name);
+      var cookiename = $cookies.get('name');
+      console.log(cookiename);
+      console.log($cookies.getAll());
+    });
   };
+
    $scope.close = function(result) {
    	close(result); // close, but give 500ms for bootstrap to animate
    };

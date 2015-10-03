@@ -1,4 +1,4 @@
-var app = angular.module('bumble', ['ui.router','angularModalService']);
+var app = angular.module('bumble', ['ui.router','angularModalService','ngCookies']);
 
 
 app.config(function ($stateProvider) {
