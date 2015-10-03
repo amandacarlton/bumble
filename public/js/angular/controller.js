@@ -1,5 +1,10 @@
 
-app.controller('MainController', ['$scope', 'ModalService', '$http', '$sce', '$cookies', '$cookieStore', function ($scope, ModalService, $http, $sce, $cookies, $cookieStore) {
+app.controller('MainController', ['$scope', 'ModalService', '$http', '$sce', '$cookies', '$cookieStore','SessionService', function ($scope, ModalService, $http, $sce, $cookies, $cookieStore, SessionService) {
+
+  $scope.loggedInUser = SessionService;
+
+
+
 
   $scope.signup = function() {
           ModalService.showModal({
@@ -34,18 +39,24 @@ app.controller('MainController', ['$scope', 'ModalService', '$http', '$sce', '$c
   });
   };
 
-
+  $scope.removeCookie = function () {
+    $cookies.remove('session_id');
+  SessionService.currentUser = null;
+  };
 
   }]);
 
 
-  app.controller('ModalController', function($scope, close, $http, $cookies) {
+  app.controller('ModalController', function($scope, close, $http, $cookies, SessionService) {
   $scope.ok = function (credentials) {
     $http.post("/insertuser", credentials).then(function (response) {
-      $cookies.put('name', credentials.name);
-      var cookiename = $cookies.get('name');
-      console.log(cookiename);
+      console.log(response);
+      SessionService.set(response.data._id);
       console.log($cookies.getAll());
+      // $cookies.put('id', response.data._id);
+      // $cookies.put('name', response.data.name);
+      // var cookiename = $cookies.get('id');
+      // console.log($cookies.get("name"));
     });
   };
 
