@@ -1,5 +1,5 @@
 
-app.controller('MainController', ['$scope', 'ModalService', '$http', '$sce', '$cookies', '$cookieStore','SessionService', function ($scope, ModalService, $http, $sce, $cookies, $cookieStore, SessionService) {
+app.controller('MainController', ['$scope', 'ModalService', '$http', '$sce', '$cookies', '$cookieStore','SessionService', '$location', function ($scope, ModalService, $http, $sce, $cookies, $cookieStore, SessionService, $location) {
 
   $scope.loggedInUser = SessionService;
 
@@ -47,13 +47,15 @@ app.controller('MainController', ['$scope', 'ModalService', '$http', '$sce', '$c
   }]);
 
 
-  app.controller('ModalController', function($scope, close, $http, $cookies, SessionService) {
+  app.controller('ModalController', function($scope, close, $http, $cookies, SessionService, $location) {
   $scope.ok = function (credentials) {
     $http.post("/insertuser", credentials).then(function (response) {
       console.log(response);
       SessionService.set(response.data._id);
-      $location.path('/userpref/' + response.data._id);
       console.log($cookies.getAll());
+      $location.path('/userpref');
+      console.log($location.path);
+
       // $cookies.put('id', response.data._id);
       // $cookies.put('name', response.data.name);
       // var cookiename = $cookies.get('id');
