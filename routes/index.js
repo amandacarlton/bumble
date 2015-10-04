@@ -35,11 +35,22 @@ router.get('/reddit', function (req,res,next) {
   });
 });
 
+router.post('/insert', function (req, res, next) {
+  console.log("here");
+  console.log(req.body.user_id);
+  console.log(req.body);
+ userCollection.update({_id:req.body.user_id}, { $push: { interest: req.body.interest } });
+
+
+});
+
 router.post('/insertuser', function (req, res, next) {
+  console.log(req.body);
   var hash = bcrypt.hashSync(req.body.password, 8);
-  userCollection.insert({name:req.body.name, email:req.body.email, password:hash}).then(function (response) {
+  userCollection.insert({name:req.body.name, email:req.body.email, password:hash, interest:[]}).then(function (response) {
    res.json(response);
   });
+
 
 
 });

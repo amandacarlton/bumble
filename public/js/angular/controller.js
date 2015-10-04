@@ -2,7 +2,7 @@
 app.controller('MainController', ['$scope', 'ModalService', '$http', '$sce', '$cookies', '$cookieStore','SessionService', '$location', 'CategoryService', function ($scope, ModalService, $http, $sce, $cookies, $cookieStore, SessionService, $location, CategoryService) {
 
   $scope.loggedInUser = $cookies.get('session_id');
-
+  console.log($scope.loggedInUser);
 
 
   $scope.signup = function() {
@@ -43,6 +43,14 @@ app.controller('MainController', ['$scope', 'ModalService', '$http', '$sce', '$c
 
   $scope.categories = CategoryService.categoryList();
 
+   $scope.interestInsert = function (category) {
+     var interestobj = {
+       user_id:$scope.loggedInUser,
+       interest:category
+     };
+     console.log(interestobj);
+     $http.post("/insert", interestobj);
+   };
 
 
   }]);
@@ -57,6 +65,6 @@ app.controller('MainController', ['$scope', 'ModalService', '$http', '$sce', '$c
   };
 
    $scope.close = function(result) {
-   	close(result); 
+   	close(result);
    };
    });
