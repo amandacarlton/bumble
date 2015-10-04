@@ -18,6 +18,7 @@ router.post('/reddit', function (req,res,next) {
   console.log(testcats[random]);
   unirest.get('https://www.reddit.com/r/'+testcats[random]+'.json?')
   .end(function (response) {
+    console.log(response.body);
     var randomchild = Math.floor(Math.random() * (response.body.data.children.length));
     console.log(randomchild);
     var info = response.body.data.children[randomchild].data;
@@ -43,7 +44,12 @@ router.post('/insert', function (req, res, next) {
   console.log("here");
   console.log(req.body.user_id);
   console.log(req.body);
- userCollection.update({_id:req.body.user_id}, { $push: { interest: req.body.interest } });
+  // var category = req.body.interest;
+  var category={};
+  category[req.body.interest] = {liked:[], disliked:[], time: {timeliked:[], timedisliked:[], timeall:[]}};
+  console.log(category);
+  userCollection.update({_id:req.body.user_id}, { $set: category});
+  userCollection.update({_id:req.body.user_id}, {$push:{interest:req.body.interest}});
 
 
 });
