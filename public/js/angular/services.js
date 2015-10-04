@@ -9,9 +9,7 @@ app.factory('SessionService', function ($cookies) {
 
 
 app.factory('CategoryService', function () {
- var categoryobj = {
-
-  categoryList: [
+  var categoryList = [
     "Art",
     "aww",
     "books",
@@ -53,7 +51,13 @@ app.factory('CategoryService', function () {
     "animals",
     "travel",
     "wtf"
-  ]
+  ];
+
+ var categoryobj = {
+
+  categoryList: function () {
+    return categoryList;
+  }
 };
 return categoryobj;
 

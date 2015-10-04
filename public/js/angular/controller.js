@@ -1,5 +1,5 @@
 
-app.controller('MainController', ['$scope', 'ModalService', '$http', '$sce', '$cookies', '$cookieStore','SessionService', '$location', function ($scope, ModalService, $http, $sce, $cookies, $cookieStore, SessionService, $location) {
+app.controller('MainController', ['$scope', 'ModalService', '$http', '$sce', '$cookies', '$cookieStore','SessionService', '$location', 'CategoryService', function ($scope, ModalService, $http, $sce, $cookies, $cookieStore, SessionService, $location, CategoryService) {
 
   $scope.loggedInUser = SessionService;
 
@@ -43,6 +43,10 @@ app.controller('MainController', ['$scope', 'ModalService', '$http', '$sce', '$c
     $cookies.remove('session_id');
     SessionService.currentUser = null;
   };
+
+  $scope.categories = CategoryService.categoryList();
+
+  console.log($scope.categories);
 
   }]);
 
