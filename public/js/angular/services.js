@@ -2,7 +2,8 @@ app.factory('SessionService', function ($cookies) {
   return {
     set: function(id){
       $cookies.put('session_id', id);
-      this.currentUser = id;
+      this.currentUser = $cookies.get('session_id');
+      console.log($cookies.get('session_id'));
     }
   };
 });
