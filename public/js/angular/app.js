@@ -5,7 +5,12 @@ app.config(function ($stateProvider) {
   $stateProvider
     .state('home', {
       url: '/',
-      templateUrl: './views/index.jade',
+      templateUrl: './public/index.html',
       controller: 'MainController'
+    })
+    .state('userPref', {
+      url: '/userpref/:id',
+      templateUrl:'./public/partials/categories.html',
+      contoller:'MainController'
     });
   });

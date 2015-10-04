@@ -41,7 +41,7 @@ app.controller('MainController', ['$scope', 'ModalService', '$http', '$sce', '$c
 
   $scope.removeCookie = function () {
     $cookies.remove('session_id');
-  SessionService.currentUser = null;
+    SessionService.currentUser = null;
   };
 
   }]);
@@ -52,6 +52,7 @@ app.controller('MainController', ['$scope', 'ModalService', '$http', '$sce', '$c
     $http.post("/insertuser", credentials).then(function (response) {
       console.log(response);
       SessionService.set(response.data._id);
+      $location.path('/userpref/' + response.data._id);
       console.log($cookies.getAll());
       // $cookies.put('id', response.data._id);
       // $cookies.put('name', response.data.name);

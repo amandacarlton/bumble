@@ -5,6 +5,8 @@ var jadeLayout = ['./public/jade_layout/*jade'];
 
 var jadeAuthPartials = ['./public/jade_layout/partials/auth/*jade'];
 
+var jadePartials = ['./public/jade_layout/partials/*jade'];
+
 gulp.task('jadeLayout', function() {
   var YOUR_LOCALS = {};
 
@@ -25,14 +27,26 @@ gulp.task('jadeAuthPartials', function() {
     .pipe(gulp.dest('./public/partials'));
 });
 
+gulp.task('jadePartials', function() {
+  var YOUR_LOCALS = {};
+
+  gulp.src(jadePartials)
+    .pipe(jade({
+      locals: YOUR_LOCALS
+    }))
+    .pipe(gulp.dest('./public/partials'));
+});
+
 
 gulp.task('watchout', function () {
-  gulp.watch(jadeLayout,['jadeLayout']),
-  gulp.watch(jadeAuthPartials,['jadeAuthPartials'])
+  gulp.watch(jadeLayout,['jadeLayout']);
+  gulp.watch(jadeAuthPartials,['jadeAuthPartials']);
+  gulp.watch(jadePartials,['jadePartials']);
 });
 
 gulp.task('default',[
   'jadeLayout',
   'jadeAuthPartials',
+  'jadePartials',
   'watchout'
 ]);
