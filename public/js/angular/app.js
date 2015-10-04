@@ -8,10 +8,15 @@ app.config(function ($stateProvider) {
       templateUrl: 'partials/stumble.html',
       controller: 'MainController'
     })
-
     .state('userpref', {
       url: '/userpref',
       templateUrl:'partials/categories.html',
       contoller:'MainController'
+    })
+    .state('stumble', {
+      url: '/stumble',
+      templateUrl:'partials/stumble.html',
+      contoller:'MainController'
     });
+
   });

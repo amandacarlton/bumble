@@ -30,9 +30,12 @@ app.controller('MainController', ['$scope', 'ModalService', '$http', '$sce', '$c
       };
 
   $scope.reddit = function () {
-  $http.get('/reddit').then(function (info) {
-
+    var redditobj = {
+      user_id: $scope.loggedInUser
+    };
+  $http.post('/reddit', redditobj ).then(function (info) {
     $scope.url = $sce.trustAsResourceUrl(info.data);
+    $location.path('/stumble');
   });
   };
 

@@ -10,8 +10,10 @@ router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
 
-router.get('/reddit', function (req,res,next) {
-  var testcats = ['videos', 'sports', 'news', 'puppies', 'pics', 'travel'];
+router.post('/reddit', function (req,res,next) {
+  userCollection.findOne({_id:req.body.user_id}).then(function (response) {
+  var testcats = response.interest;
+  console.log(testcats);
   var random = Math.floor(Math.random() * (testcats.length));
   console.log(testcats[random]);
   unirest.get('https://www.reddit.com/r/'+testcats[random]+'.json?')
@@ -30,9 +32,11 @@ router.get('/reddit', function (req,res,next) {
        res.json(matches[1]);
      });
     }else{
+      console.log(info.url);
     res.json(info.url);
     }
   });
+});
 });
 
 router.post('/insert', function (req, res, next) {
