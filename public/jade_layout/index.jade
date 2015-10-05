@@ -76,9 +76,9 @@ html(ng-app="bumble")
               form.navbar-form.navbar-left.search(role='search')
                 //- .form-group
                 //-   input.form-control(type='text', placeholder='Search') 
-                i.fa-2x.fa.fa-thumbs-o-up(ng-show="loggedInUser")   
+                i.fa-2x.fa.fa-thumbs-o-up(ng-show="loggedInUser", ng-click="liked()")   
                 button.btn.btn-success.bumblebtn(type='submit' ng-click="reddit()") Search
-                i.fa-2x.fa.fa-thumbs-o-down(ng-show="loggedInUser") 
+                i.fa-2x.fa.fa-thumbs-o-down(ng-show="loggedInUser" ng-click="dislike()") 
               |       
               ul.nav.navbar-nav.navbar-right
                 li

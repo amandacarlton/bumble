@@ -2,6 +2,9 @@
 app.controller('MainController', ['$scope', 'ModalService', '$http', '$sce', '$cookies', '$cookieStore','SessionService', '$location', 'CategoryService', function ($scope, ModalService, $http, $sce, $cookies, $cookieStore, SessionService, $location, CategoryService) {
 
   $scope.loggedInUser = $cookies.get('session_id');
+  $scope.categoryChosen="";
+  $scope.preurl="";
+
   console.log($scope.loggedInUser);
 
 
@@ -34,7 +37,9 @@ app.controller('MainController', ['$scope', 'ModalService', '$http', '$sce', '$c
       user_id: $scope.loggedInUser
     };
   $http.post('/reddit', redditobj ).then(function (info) {
-    $scope.url = $sce.trustAsResourceUrl(info.data);
+    $scope.categoryChosen = info.data.category;
+    $scope.preurl = info.data.url;
+    $scope.url = $sce.trustAsResourceUrl(info.data.url);
     $location.path('/stumble');
   });
   };
@@ -51,10 +56,20 @@ app.controller('MainController', ['$scope', 'ModalService', '$http', '$sce', '$c
        user_id:$scope.loggedInUser,
        interest:category
      };
-     console.log(interestobj);
+
      $http.post("/insert", interestobj);
    };
 
+  $scope.liked = function () {
+    console.log($scope.preurl);
+    var likedobj = {
+      user_id:$scope.loggedInUser,
+      category : $scope.categoryChosen,
+      site: $scope.preurl
+    };
+    console.log(likedobj);
+    $http.post("/likedinsert", likedobj);
+  };
 
   }]);
 
