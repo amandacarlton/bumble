@@ -47,6 +47,11 @@ router.post("/likedinsert", function (req, res, next) {
    catCollection.update({user_id:req.body.user_id, categoryname:req.body.category}, {$push: {liked:req.body.site}});
 });
 
+router.post("/dislikedinsert", function (req, res, next) {
+  console.log(req.body);
+  catCollection.update({user_id:req.body.user_id, categoryname:req.body.category}, {$push: {disliked:req.body.site}});
+});
+
 router.post('/insert', function (req, res, next) {
   //var category={};
   // category[req.body.interest] = {liked:[], disliked:[], time: {timeliked:[], timedisliked:[], timeall:[]}};

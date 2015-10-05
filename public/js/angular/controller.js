@@ -71,6 +71,16 @@ app.controller('MainController', ['$scope', 'ModalService', '$http', '$sce', '$c
     $http.post("/likedinsert", likedobj);
   };
 
+  $scope.disliked = function () {
+    console.log("here");
+    var dislikedobj = {
+      user_id:$scope.loggedInUser,
+      category : $scope.categoryChosen,
+      site: $scope.preurl
+    };
+    $http.post("/dislikedinsert", dislikedobj);
+  };
+
   }]);
 
 
