@@ -49,9 +49,8 @@ router.post('/insert', function (req, res, next) {
   // category[req.body.interest] = {liked:[], disliked:[], time: {timeliked:[], timedisliked:[], timeall:[]}};
   catCollection.insert({user_id:req.body.user_id, categoryname:req.body.interest, liked:[], disliked:[], indifferent:[]});
   userCollection.update({_id:req.body.user_id}, {$push:{interest:req.body.interest}});
-
-
 });
+
 
 router.post('/insertuser', function (req, res, next) {
   var hash = bcrypt.hashSync(req.body.password, 8);

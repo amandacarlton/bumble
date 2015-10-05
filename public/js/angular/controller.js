@@ -4,8 +4,20 @@ app.controller('MainController', ['$scope', 'ModalService', '$http', '$sce', '$c
   $scope.loggedInUser = $cookies.get('session_id');
   $scope.categoryChosen="";
   $scope.preurl="";
+   $scope.prevStart ="";
 
+  $scope.starttimer = function () {
+   $scope.prevStart = $scope.startTime;
+   $scope.startTime = new Date();
+  };
 
+  $scope.endtimer = function () {
+    $scope.endTime = new Date();
+    var timeDiff = $scope.endTime - $scope.prevStart;
+    timeDiff /= 1000;
+    console.log(timeDiff);
+    
+  };
 
 
   $scope.signup = function() {
