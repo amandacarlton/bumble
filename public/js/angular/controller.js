@@ -17,8 +17,6 @@ app.controller('MainController', ['$scope', 'ModalService', '$http', '$sce', '$c
     $scope.endTime = new Date();
     $scope.timeDiff = $scope.endTime - $scope.prevStart;
     //timeDiff /= 1000;
-    console.log($scope.timeDiff);
-    console.log($scope.preliked);
     var timeobj = {
       user_id:$scope.loggedInUser,
       category : $scope.categoryChosen,
