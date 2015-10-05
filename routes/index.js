@@ -20,10 +20,13 @@ router.post('/reddit', function (req,res,next) {
     .end(function (response) {
       var randomchild = Math.floor(Math.random() * (response.body.data.children.length));
       var info = response.body.data.children[randomchild].data;
+      console.log(info.domain);
+      // if(info.domain === "self."+categoryChosen)
       info.category = categoryChosen;
-      if(info.domain === "youtube.com" || info.domain === "twitter.com" || info.domain === "vine.co" || info.domain === "m.youtube.com"){
+      if(info.domain === "youtube.com" || info.domain === "twitter.com" || info.domain === "vine.co" || info.domain === "m.youtube.com" || info.domain === "google.com" || info.domain === "en-maktoob.news.yahoo.com"){
         unirest.get('http://api.embed.ly/1/oembed?key=:'+process.env.EMBEDLY_API+'&url='+info.url)
         .end(function (tube) {
+          console.log(tube.body);
           var regex = /src="(.+?)"/;
           var matches = regex.exec(tube.body.html);
           res.json(matches[1]);
@@ -36,32 +39,37 @@ router.post('/reddit', function (req,res,next) {
 });
 
 
-router.post("/likedinsert", function (req, res, next) {
-  catCollection.update({user_id:req.body.user_id, categoryname:req.body.category}, {$push: {liked:req.body.site}});
-});
-
-router.post("/dislikedinsert", function (req, res, next) {
-  catCollection.update({user_id:req.body.user_id, categoryname:req.body.category}, {$push: {disliked:req.body.site}});
-});
+// router.post("/likedinsert", function (req, res, next) {
+//   catCollection.update({user_id:req.body.user_id, categoryname:req.body.category}, {$push: {liked:req.body.site}});
+// });
+//
+// router.post("/dislikedinsert", function (req, res, next) {
+//   catCollection.update({user_id:req.body.user_id, categoryname:req.body.category}, {$push: {disliked:req.body.site}});
+// });
 
 router.post('/insert', function (req, res, next) {
   //var category={};
   // category[req.body.interest] = {liked:[], disliked:[], time: {timeliked:[], timedisliked:[], timeall:[]}};
   catCollection.insert({user_id:req.body.user_id, categoryname:req.body.interest, liked:[], disliked:[], indifferent:[], alltime:[], timeliked:[], timedisliked:[]});
+  //catCollection.insert({user_id:req.body.user_id, categoryname:req.body.interest, site:[]});
   userCollection.update({_id:req.body.user_id}, {$push:{interest:req.body.interest}});
 });
 
-router.post('/timeliked', function (req,res,next) {
-  catCollection.update({user_id:req.body.user_id, categoryname:req.body.category}, {$push: {timeliked:req.body.timer}});
+router.post('/articleInfo', function (req, res, next) {
+  console.log(req.body);
+  catCollection.update({user_id:req.body.user_id, categoryname:req.body.category}, {$push:{site:{url:req.body.url, opinion:req.body.opinion, time:req.body.timer}}});
 });
-
-router.post('/timedisliked', function (req,res,next) {
-  catCollection.update({user_id:req.body.user_id, categoryname:req.body.category}, {$push: {timedisliked:req.body.timer}});
-});
-
-router.post('/alltime', function (req,res,next) {
-  catCollection.update({user_id:req.body.user_id, categoryname:req.body.category}, {$push: {alltime:req.body.timer}});
-});
+// router.post('/timeliked', function (req,res,next) {
+//   catCollection.update({user_id:req.body.user_id, categoryname:req.body.category}, {$push: {timeliked:req.body.timer}});
+// });
+//
+// router.post('/timedisliked', function (req,res,next) {
+//   catCollection.update({user_id:req.body.user_id, categoryname:req.body.category}, {$push: {timedisliked:req.body.timer}});
+// });
+//
+// router.post('/alltime', function (req,res,next) {
+//   catCollection.update({user_id:req.body.user_id, categoryname:req.body.category}, {$push: {alltime:req.body.timer}});
+// });
 
 router.post('/insertuser', function (req, res, next) {
   var hash = bcrypt.hashSync(req.body.password, 8);

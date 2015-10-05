@@ -5,8 +5,9 @@ app.controller('MainController', ['$scope', 'ModalService', '$http', '$sce', '$c
   $scope.categoryChosen="";
   $scope.preurl="";
   $scope.prevStart ="";
-  $scope.likedvalue=null;
+  $scope.likedvalue="indifferent";
   $scope.preliked="";
+  $scope.timeDiff="";
 
   $scope.starttimer = function () {
    $scope.prevStart = $scope.startTime;
@@ -17,21 +18,22 @@ app.controller('MainController', ['$scope', 'ModalService', '$http', '$sce', '$c
     $scope.endTime = new Date();
     $scope.timeDiff = $scope.endTime - $scope.prevStart;
     //timeDiff /= 1000;
-    var timeobj = {
-      user_id:$scope.loggedInUser,
-      category : $scope.categoryChosen,
-      timer: $scope.timeDiff
-    };
-    if($scope.preliked===true){
-      $http.post('/timeliked', timeobj);
-      $http.post('/alltime', timeobj);
-    }else if($scope.preliked===false){
-      $http.post("/timedisliked", timeobj);
-      $http.post("/alltime", timeobj);
-    }else{
-      $http.post("/alltime", timeobj);
-    }
-
+    // var timeobj = {
+    //   user_id:$scope.loggedInUser,
+    //   category : $scope.categoryChosen,
+    //   timer: $scope.timeDiff
+    // };
+    // if($scope.preliked===true){
+    //   $http.post('/timeliked', timeobj);
+    //   $http.post('/alltime', timeobj);
+    // }else if($scope.preliked===false){
+    //   $http.post("/timedisliked", timeobj);
+    //   $http.post("/alltime", timeobj);
+    // // }else{
+    // //   $http.post("/alltime", timeobj);
+    // }
+    console.log(timeobj);
+    console.log($scope.preliked);
   };
 
 
@@ -61,7 +63,7 @@ app.controller('MainController', ['$scope', 'ModalService', '$http', '$sce', '$c
 
   $scope.reddit = function () {
     $scope.preliked = $scope.likedvalue;
-    $scope.likedvalue=null;
+    $scope.likedvalue="indifferent";
     var redditobj = {
       user_id: $scope.loggedInUser
     };
@@ -71,6 +73,18 @@ app.controller('MainController', ['$scope', 'ModalService', '$http', '$sce', '$c
       $scope.url = $sce.trustAsResourceUrl(info.data.url);
       $location.path('/stumble');
     });
+  };
+
+  $scope.articleInfo = function () {
+     var articleObj = {
+       category: $scope.categoryChosen,
+       user_id: $scope.loggedInUser,
+       timer:$scope.timeDiff,
+       opinion:$scope.preliked,
+       url: $scope.preurl
+     };
+     console.log(articleObj);
+     $http.post('/articleInfo', articleObj);
   };
 
   $scope.removeCookie = function () {
@@ -90,23 +104,21 @@ app.controller('MainController', ['$scope', 'ModalService', '$http', '$sce', '$c
   };
 
   $scope.liked = function () {
-    $scope.likedvalue = true;
+    $scope.likedvalue = "liked";
     var likedobj = {
       user_id:$scope.loggedInUser,
       category : $scope.categoryChosen,
       site: $scope.preurl
     };
-    $http.post("/likedinsert", likedobj);
   };
 
   $scope.disliked = function () {
-    $scope.likedvalue = false;
+    $scope.likedvalue = "disliked";
     var dislikedobj = {
       user_id:$scope.loggedInUser,
       category : $scope.categoryChosen,
       site: $scope.preurl
     };
-    $http.post("/dislikedinsert", dislikedobj);
   };
 
 }]);
