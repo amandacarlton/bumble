@@ -47,16 +47,28 @@ router.post("/dislikedinsert", function (req, res, next) {
 router.post('/insert', function (req, res, next) {
   //var category={};
   // category[req.body.interest] = {liked:[], disliked:[], time: {timeliked:[], timedisliked:[], timeall:[]}};
-  catCollection.insert({user_id:req.body.user_id, categoryname:req.body.interest, liked:[], disliked:[], indifferent:[]});
+  catCollection.insert({user_id:req.body.user_id, categoryname:req.body.interest, liked:[], disliked:[], indifferent:[], alltime:[], timeliked:[], timedisliked:[]});
   userCollection.update({_id:req.body.user_id}, {$push:{interest:req.body.interest}});
 });
 
+router.post('/timeliked', function (req,res,next) {
+  catCollection.update({user_id:req.body.user_id, categoryname:req.body.category}, {$push: {timeliked:req.body.timer}});
+});
+
+router.post('/timedisliked', function (req,res,next) {
+  catCollection.update({user_id:req.body.user_id, categoryname:req.body.category}, {$push: {timedisliked:req.body.timer}});
+});
+
+router.post('/alltime', function (req,res,next) {
+  catCollection.update({user_id:req.body.user_id, categoryname:req.body.category}, {$push: {alltime:req.body.timer}});
+});
 
 router.post('/insertuser', function (req, res, next) {
   var hash = bcrypt.hashSync(req.body.password, 8);
   userCollection.insert({name:req.body.name, email:req.body.email, password:hash, interest:[]}).then(function (response) {
     res.json(response);
   });
+
 
 
 

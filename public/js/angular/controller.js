@@ -4,7 +4,9 @@ app.controller('MainController', ['$scope', 'ModalService', '$http', '$sce', '$c
   $scope.loggedInUser = $cookies.get('session_id');
   $scope.categoryChosen="";
   $scope.preurl="";
-   $scope.prevStart ="";
+  $scope.prevStart ="";
+  $scope.likedvalue=null;
+  $scope.preliked="";
 
   $scope.starttimer = function () {
    $scope.prevStart = $scope.startTime;
@@ -13,10 +15,25 @@ app.controller('MainController', ['$scope', 'ModalService', '$http', '$sce', '$c
 
   $scope.endtimer = function () {
     $scope.endTime = new Date();
-    var timeDiff = $scope.endTime - $scope.prevStart;
-    timeDiff /= 1000;
-    console.log(timeDiff);
-    
+    $scope.timeDiff = $scope.endTime - $scope.prevStart;
+    //timeDiff /= 1000;
+    console.log($scope.timeDiff);
+    console.log($scope.preliked);
+    var timeobj = {
+      user_id:$scope.loggedInUser,
+      category : $scope.categoryChosen,
+      timer: $scope.timeDiff
+    };
+    if($scope.preliked===true){
+      $http.post('/timeliked', timeobj);
+      $http.post('/alltime', timeobj);
+    }else if($scope.preliked===false){
+      $http.post("/timedisliked", timeobj);
+      $http.post("/alltime", timeobj);
+    }else{
+      $http.post("/alltime", timeobj);
+    }
+
   };
 
 
@@ -45,6 +62,8 @@ app.controller('MainController', ['$scope', 'ModalService', '$http', '$sce', '$c
   };
 
   $scope.reddit = function () {
+    $scope.preliked = $scope.likedvalue;
+    $scope.likedvalue=null;
     var redditobj = {
       user_id: $scope.loggedInUser
     };
@@ -73,6 +92,7 @@ app.controller('MainController', ['$scope', 'ModalService', '$http', '$sce', '$c
   };
 
   $scope.liked = function () {
+    $scope.likedvalue = true;
     var likedobj = {
       user_id:$scope.loggedInUser,
       category : $scope.categoryChosen,
@@ -82,6 +102,7 @@ app.controller('MainController', ['$scope', 'ModalService', '$http', '$sce', '$c
   };
 
   $scope.disliked = function () {
+    $scope.likedvalue = false;
     var dislikedobj = {
       user_id:$scope.loggedInUser,
       category : $scope.categoryChosen,
