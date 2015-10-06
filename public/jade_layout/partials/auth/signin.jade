@@ -2,7 +2,9 @@ div(ng-controller='MainController')
  div(class="modal")
       h1 Sign-in
        p
-       div(class="form-group")       
+       div(class="form-group")
+         h1(ng-show="errors === 'User not found'") User Not Found  
+         h1(ng-show="errors === 'Password does not match'") Password does not match 
         input(type='email', placeholder='email' class="form-control" class="signupform" ng-model="checking.email")        
         input(type='password', placeholder='password' class="form-control" class="signupform" ng-model="checking.password")   
         button.btn.btn-primary.signupbutton(type='button', ng-click='checkuser(checking)' data-dismiss="modal") Sign-in     

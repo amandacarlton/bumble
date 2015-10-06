@@ -51,13 +51,16 @@ router.post('/reddit', function (req,res,next) {
 // });
 
 router.post('/insert', function (req, res, next) {
-  console.log(req.body);
   //var category={};
   // category[req.body.interest] = {liked:[], disliked:[], time: {timeliked:[], timedisliked:[], timeall:[]}};
-  catCollection.insert({user_id:req.body.user_id, categoryname:req.body.interest, liked:[], disliked:[], indifferent:[], alltime:[], timeliked:[], timedisliked:[]});
-  //catCollection.insert({user_id:req.body.user_id, categoryname:req.body.interest, site:[]});
+  //catCollection.insert({user_id:req.body.user_id, categoryname:req.body.interest, liked:[], disliked:[], indifferent:[], alltime:[], timeliked:[], timedisliked:[]});
+  catCollection.insert({user_id:req.body.user_id, categoryname:req.body.interest, site:[]}).then(function () {
   userCollection.update({_id:req.body.user_id}, {$push:{interest:req.body.interest}});
+  }).then(function (response) {
+   res.json(response);
+  });
 });
+
 
 router.post('/articleInfo', function (req, res, next) {
   console.log(req.body);

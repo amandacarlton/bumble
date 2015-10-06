@@ -9,6 +9,7 @@ app.controller('MainController', ['$scope', 'ModalService', '$http', '$sce', '$c
   $scope.preliked="";
   $scope.timeDiff="";
 
+
   $scope.starttimer = function () {
    $scope.prevStart = $scope.startTime;
    $scope.startTime = new Date();
@@ -100,7 +101,7 @@ app.controller('MainController', ['$scope', 'ModalService', '$http', '$sce', '$c
       user_id:$scope.loggedInUser,
       interest:category
     };
-
+     console.log(interestobj);
     $http.post("/insert", interestobj);
   };
 
@@ -148,7 +149,6 @@ app.controller('ModalController', function($scope, close, $http, $cookies, Sessi
         SessionService.set(response.data._id);
         $location.path('/stumble');
       }
-
     });
   };
 
