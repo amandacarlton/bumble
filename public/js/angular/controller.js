@@ -32,8 +32,7 @@ app.controller('MainController', ['$scope', 'ModalService', '$http', '$sce', '$c
     // // }else{
     // //   $http.post("/alltime", timeobj);
     // }
-    console.log(timeobj);
-    console.log($scope.preliked);
+
   };
 
 
@@ -71,6 +70,7 @@ app.controller('MainController', ['$scope', 'ModalService', '$http', '$sce', '$c
       $scope.categoryChosen = info.data.category;
       $scope.preurl = info.data.url;
       $scope.url = $sce.trustAsResourceUrl(info.data.url);
+       //console.log($scope.url);
       $location.path('/stumble');
     });
   };
@@ -83,7 +83,7 @@ app.controller('MainController', ['$scope', 'ModalService', '$http', '$sce', '$c
        opinion:$scope.preliked,
        url: $scope.preurl
      };
-     console.log(articleObj);
+     //console.log(articleObj);
      $http.post('/articleInfo', articleObj);
   };
 
@@ -122,6 +122,8 @@ app.controller('MainController', ['$scope', 'ModalService', '$http', '$sce', '$c
     };
   };
 
+
+
 }]);
 
 
@@ -130,6 +132,23 @@ app.controller('ModalController', function($scope, close, $http, $cookies, Sessi
     $http.post("/insertuser", credentials).then(function (response) {
       SessionService.set(response.data._id);
       $location.path('/userpref');
+    });
+  };
+
+  $scope.checkuser = function (checking) {
+    console.log("here");
+    console.log(checking);
+    $http.post("/checkuser", checking).then(function (response) {
+      console.log(response);
+      if(response.data === null){
+        $scope.errors = "User not found";
+      }else if (response.data.good === false){
+        $scope.errors = "Password does not match";
+      }else{
+        SessionService.set(response.data._id);
+        $location.path('/stumble');
+      }
+
     });
   };
 

@@ -12,14 +12,17 @@ router.get('/', function(req, res, next) {
 });
 
 router.post('/reddit', function (req,res,next) {
+  console.log("step 1");
   userCollection.findOne({_id:req.body.user_id}).then(function (response) {
     var testcats = response.interest;
     var random = Math.floor(Math.random() * (testcats.length));
     var categoryChosen = (testcats[random]);
+    console.log(categoryChosen);
     unirest.get('https://www.reddit.com/r/'+testcats[random]+'.json?')
     .end(function (response) {
       var randomchild = Math.floor(Math.random() * (response.body.data.children.length));
       var info = response.body.data.children[randomchild].data;
+      console.log(info);
       console.log(info.domain);
       // if(info.domain === "self."+categoryChosen)
       info.category = categoryChosen;
@@ -48,6 +51,7 @@ router.post('/reddit', function (req,res,next) {
 // });
 
 router.post('/insert', function (req, res, next) {
+  console.log(req.body);
   //var category={};
   // category[req.body.interest] = {liked:[], disliked:[], time: {timeliked:[], timedisliked:[], timeall:[]}};
   catCollection.insert({user_id:req.body.user_id, categoryname:req.body.interest, liked:[], disliked:[], indifferent:[], alltime:[], timeliked:[], timedisliked:[]});
@@ -70,6 +74,25 @@ router.post('/articleInfo', function (req, res, next) {
 // router.post('/alltime', function (req,res,next) {
 //   catCollection.update({user_id:req.body.user_id, categoryname:req.body.category}, {$push: {alltime:req.body.timer}});
 // });
+
+
+router.post('/checkuser', function (req, res, next) {
+   userCollection.findOne({email:req.body.email}).then(function (response) {
+     if (response === null){
+     console.log(response);
+     res.json(response);
+   }else{
+     var compare = response.password;
+     if(bcrypt.compareSync(req.body.password, compare)){
+       response.good = true;
+       res.json(response);
+     }else{
+       response.good = false;
+       res.json(response);
+     }
+   }
+   });
+});
 
 router.post('/insertuser', function (req, res, next) {
   var hash = bcrypt.hashSync(req.body.password, 8);
