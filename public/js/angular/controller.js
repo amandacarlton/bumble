@@ -90,6 +90,7 @@ app.controller('MainController', ['$scope', 'ModalService', '$http', '$sce', '$c
   $scope.removeCookie = function () {
     $cookies.remove('session_id');
     $scope.loggedInUser = null;
+    $location.path("/");
   };
 
   $scope.categories = CategoryService.categoryList();
