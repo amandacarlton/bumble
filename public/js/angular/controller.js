@@ -121,6 +121,16 @@ $scope.checkArrayFor = function (category) {
   return ($scope.checkedInterest.indexOf(category)>-1);
 };
 
+  $scope.getSubredditInfo = function () {
+   var subscriberobj = {
+     category:  CategoryService.categoryList()
+   };
+
+   console.log(subscriberobj);
+   $http.post("/subscriber", subscriberobj).then(function (response) {
+     console.log(response);
+   });
+  };
 
 
   $scope.interestInsert = function (category) {

@@ -1,2 +1,6 @@
-div(ng-repeat="trending in trendings | limitTo:10")
-  div.title {{trending.data.title}}
+div.col-md-12(ng-repeat="trending in trendings | limitTo:10")
+  div.trend
+   div.pic
+    img(src="{{trending.data.thumbnail}}")
+   div.title
+    h2 {{trending.data.title}}

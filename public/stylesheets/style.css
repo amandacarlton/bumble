@@ -120,6 +120,28 @@ iframe{
 	color:green;
 }
 
+.trend{
+
+	text-align: center;
+	/*margin: 20px;*/
+	/*border-radius: 25px;*/
+}
+
+h2{
+	font-size: 20px;
+}
+
+.pic{
+	float: left;
+}
+
+.title{
+	float: left;
+}
+
+/*.title{
+	background-color: blue;
+}*/
 /*.liked{
 	color:green;
 }*/

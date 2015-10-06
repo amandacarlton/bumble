@@ -42,6 +42,7 @@ router.post('/reddit', function (req,res,next) {
 });
 
 
+
 router.get("/reddittrend", function (req, res, next) {
   unirest.get("https://www.reddit.com/.json")
   .end(function (response) {
@@ -68,10 +69,26 @@ router.post('/articleInfo', function (req, res, next) {
   });
 });
 
+router.post("/subscriber", function (req, res, next) {
+  var subscriberinfo = {};
+  var counter = 0;
+  var length = req.body.category.length;
+ for (var i = 0; i < length; i++) {
+   var last = req.body.category[length-1];
+   var catname = req.body.category[i];
+   unirest.get('https://www.reddit.com/r/'+req.body.category[i]+'/about.json?')
+   .end(function (response) {
+     subscriberinfo[response.body.data.display_name] = response.body.data.subscribers;
+     counter ++;
+     if(counter === length){
+       res.json(subscriberinfo);
+     }
+   });
+ };
+});
+
 router.post("/userinfo", function (req, res, next) {
-  console.log(req.body);
   userCollection.findOne({_id:req.body.user_id}).then(function (response) {
-    console.log(response);
     res.json(response);
   });
 });
