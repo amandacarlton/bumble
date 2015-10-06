@@ -79,6 +79,13 @@ router.post('/articleInfo', function (req, res, next) {
 //   catCollection.update({user_id:req.body.user_id, categoryname:req.body.category}, {$push: {alltime:req.body.timer}});
 // });
 
+router.post("/userinfo", function (req, res, next) {
+  console.log(req.body);
+  userCollection.findOne({_id:req.body.user_id}).then(function (response) {
+    console.log(response);
+    res.json(response);
+  });
+});
 
 router.post('/checkuser', function (req, res, next) {
    userCollection.findOne({email:req.body.email}).then(function (response) {

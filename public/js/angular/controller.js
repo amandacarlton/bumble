@@ -99,7 +99,26 @@ app.controller('MainController', ['$scope', 'ModalService', '$http', '$sce', '$c
     $location.path("/");
   };
 
-  $scope.categories = CategoryService.categoryList();
+$scope.categories = CategoryService.categoryList();
+
+  $scope.categoryList = function () {
+  // $scope.allcats = CategoryService.categoryList();
+  var userobj = {
+    user_id:$scope.loggedInUser
+  };
+  $http.post("/userinfo", userobj).then(function (response) {
+    console.log(response);
+    $scope.checkedInterest= response.data.interest;
+
+    //console.log(checkedData);
+  });
+};
+
+$scope.checkArrayFor = function (category) {
+  return ($scope.checkedInterest.indexOf(category)>-1);
+};
+
+ $scope.categoryList();
 
   $scope.interestInsert = function (category) {
     $scope.interest = [];
