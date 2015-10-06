@@ -82,7 +82,10 @@ html(ng-app="bumble")
               |       
               ul.nav.navbar-nav.navbar-right
                 li
-                  a(href='#') Link
+                  a(href='#') Sitewide Data
+                  
+                li
+                  a(href='/#/trending' ng-click="trending()") Top 10 Trending
                 |         
                 li.dropdown
                   a.dropdown-toggle(href='#', data-toggle='dropdown', role='button', aria-haspopup='true', aria-expanded='false')

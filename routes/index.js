@@ -42,13 +42,13 @@ router.post('/reddit', function (req,res,next) {
 });
 
 
-// router.post("/likedinsert", function (req, res, next) {
-//   catCollection.update({user_id:req.body.user_id, categoryname:req.body.category}, {$push: {liked:req.body.site}});
-// });
-//
-// router.post("/dislikedinsert", function (req, res, next) {
-//   catCollection.update({user_id:req.body.user_id, categoryname:req.body.category}, {$push: {disliked:req.body.site}});
-// });
+router.get("/reddittrend", function (req, res, next) {
+  unirest.get("https://www.reddit.com/.json")
+  .end(function (response) {
+    var info = response.body.data.children;
+    res.json(info);
+  });
+});
 
 router.post('/insert', function (req, res, next) {
   //var category={};
@@ -67,17 +67,6 @@ router.post('/articleInfo', function (req, res, next) {
     res.json(response);
   });
 });
-// router.post('/timeliked', function (req,res,next) {
-//   catCollection.update({user_id:req.body.user_id, categoryname:req.body.category}, {$push: {timeliked:req.body.timer}});
-// });
-//
-// router.post('/timedisliked', function (req,res,next) {
-//   catCollection.update({user_id:req.body.user_id, categoryname:req.body.category}, {$push: {timedisliked:req.body.timer}});
-// });
-//
-// router.post('/alltime', function (req,res,next) {
-//   catCollection.update({user_id:req.body.user_id, categoryname:req.body.category}, {$push: {alltime:req.body.timer}});
-// });
 
 router.post("/userinfo", function (req, res, next) {
   console.log(req.body);

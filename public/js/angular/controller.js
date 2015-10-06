@@ -10,6 +10,7 @@ app.controller('MainController', ['$scope', 'ModalService', '$http', '$sce', '$c
   $scope.timeDiff="";
   $scope.likedchecked=false;
   $scope.dislikedchecked=false;
+  $scope.checkedInterest="";
 
 
   $scope.starttimer = function () {
@@ -99,7 +100,7 @@ app.controller('MainController', ['$scope', 'ModalService', '$http', '$sce', '$c
     $location.path("/");
   };
 
-$scope.categories = CategoryService.categoryList();
+ $scope.allcats = CategoryService.categoryList();
 
   $scope.categoryList = function () {
   // $scope.allcats = CategoryService.categoryList();
@@ -109,16 +110,18 @@ $scope.categories = CategoryService.categoryList();
   $http.post("/userinfo", userobj).then(function (response) {
     console.log(response);
     $scope.checkedInterest= response.data.interest;
-
+    console.log($scope.checkedInterest);
     //console.log(checkedData);
   });
 };
+
+$scope.categoryList();
 
 $scope.checkArrayFor = function (category) {
   return ($scope.checkedInterest.indexOf(category)>-1);
 };
 
- $scope.categoryList();
+
 
   $scope.interestInsert = function (category) {
     $scope.interest = [];
@@ -150,6 +153,12 @@ $scope.checkArrayFor = function (category) {
     };
   };
 
+  $scope.trending = function () {
+    $http.get("/reddittrend").then(function (response) {
+      console.log(response.data[0]);
+       $scope.trendings = response.data;
+    });
+  };
 
 
 }]);

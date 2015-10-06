@@ -17,6 +17,11 @@ app.config(function ($stateProvider) {
       url: '/stumble',
       templateUrl:'partials/stumble.html',
       contoller:'MainController'
+    })
+    .state('trending', {
+      url: '/trending',
+      templateUrl:'partials/trending.html',
+      contoller:'MainController'
     });
 
   });
