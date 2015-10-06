@@ -8,6 +8,8 @@ app.controller('MainController', ['$scope', 'ModalService', '$http', '$sce', '$c
   $scope.likedvalue="indifferent";
   $scope.preliked="";
   $scope.timeDiff="";
+  $scope.likedchecked=false;
+  $scope.dislikedchecked=false;
 
 
   $scope.starttimer = function () {
@@ -62,6 +64,8 @@ app.controller('MainController', ['$scope', 'ModalService', '$http', '$sce', '$c
   };
 
   $scope.reddit = function () {
+    $scope.likedchecked=false;
+    $scope.dislikedchecked=false;
     $scope.preliked = $scope.likedvalue;
     $scope.likedvalue="indifferent";
     var redditobj = {
@@ -107,6 +111,8 @@ app.controller('MainController', ['$scope', 'ModalService', '$http', '$sce', '$c
   };
 
   $scope.liked = function () {
+    $scope.likedchecked=true;
+    console.log($scope.likedchecked=true);
     $scope.likedvalue = "liked";
     var likedobj = {
       user_id:$scope.loggedInUser,
@@ -116,6 +122,7 @@ app.controller('MainController', ['$scope', 'ModalService', '$http', '$sce', '$c
   };
 
   $scope.disliked = function () {
+    $scope.dislikedchecked=true;
     $scope.likedvalue = "disliked";
     var dislikedobj = {
       user_id:$scope.loggedInUser,

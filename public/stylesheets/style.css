@@ -116,6 +116,16 @@ iframe{
 	vertical-align: middle;
 }
 
+.unliked{
+	color:green;
+}
+
+/*.liked{
+	color:green;
+}*/
+
+
+
 /*button{
   margin: 10px;
 }*/
