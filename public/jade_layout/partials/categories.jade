@@ -1,4 +1,7 @@
 
-div(ng-repeat="category in categories")
+div.allcats
+ div.inthead
+  h1 Choose your interests!
+ div.col-md-4.categories(ng-repeat="category in categories")
   input(type="checkbox" value='category' id="cat" ng-click="interestInsert(category)") 
   label(id="cat") {{category}}

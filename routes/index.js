@@ -63,8 +63,9 @@ router.post('/insert', function (req, res, next) {
 
 
 router.post('/articleInfo', function (req, res, next) {
-  console.log(req.body);
-  catCollection.update({user_id:req.body.user_id, categoryname:req.body.category}, {$push:{site:{url:req.body.url, opinion:req.body.opinion, time:req.body.timer}}});
+  catCollection.update({user_id:req.body.user_id, categoryname:req.body.category}, {$push:{site:{url:req.body.url, opinion:req.body.opinion, time:req.body.timer}}}).then(function (response) {
+    res.json(response);
+  });
 });
 // router.post('/timeliked', function (req,res,next) {
 //   catCollection.update({user_id:req.body.user_id, categoryname:req.body.category}, {$push: {timeliked:req.body.timer}});

@@ -71,7 +71,8 @@ app.controller('MainController', ['$scope', 'ModalService', '$http', '$sce', '$c
       $scope.categoryChosen = info.data.category;
       $scope.preurl = info.data.url;
       $scope.url = $sce.trustAsResourceUrl(info.data.url);
-       //console.log($scope.url);
+       console.log($scope.url);
+       console.log($scope.categoryChosen);
       $location.path('/stumble');
     });
   };
@@ -97,11 +98,11 @@ app.controller('MainController', ['$scope', 'ModalService', '$http', '$sce', '$c
   $scope.categories = CategoryService.categoryList();
 
   $scope.interestInsert = function (category) {
+    $scope.interest = [];
     var interestobj = {
       user_id:$scope.loggedInUser,
       interest:category
     };
-     console.log(interestobj);
     $http.post("/insert", interestobj);
   };
 
@@ -132,9 +133,14 @@ app.controller('ModalController', function($scope, close, $http, $cookies, Sessi
   $scope.ok = function (credentials) {
     $http.post("/insertuser", credentials).then(function (response) {
       SessionService.set(response.data._id);
+      $scope.loggedInUser = $cookies.get('session_id');
+      console.log($scope.loggedInUser);
+      console.log("here");
       $location.path('/userpref');
     });
   };
+
+
 
   $scope.checkuser = function (checking) {
     console.log("here");
