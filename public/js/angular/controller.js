@@ -40,6 +40,13 @@ app.controller('MainController', ['$scope', 'ModalService', '$http', '$sce', '$c
   };
 
 
+
+  // $scope.stats = function () {
+  //   return CategoryService.stateStats(CategoryService.getState);
+  // };
+  //
+  // console.log($scope.stats());
+
   $scope.signup = function() {
     ModalService.showModal({
       templateUrl: 'partials/signup.html',
@@ -76,8 +83,6 @@ app.controller('MainController', ['$scope', 'ModalService', '$http', '$sce', '$c
       $scope.categoryChosen = info.data.category;
       $scope.preurl = info.data.url;
       $scope.url = $sce.trustAsResourceUrl(info.data.url);
-       console.log($scope.url);
-       console.log($scope.categoryChosen);
       $location.path('/stumble');
     });
   };
@@ -108,9 +113,8 @@ app.controller('MainController', ['$scope', 'ModalService', '$http', '$sce', '$c
     user_id:$scope.loggedInUser
   };
   $http.post("/userinfo", userobj).then(function (response) {
-    console.log(response);
+
     $scope.checkedInterest= response.data.interest;
-    console.log($scope.checkedInterest);
     //console.log(checkedData);
   });
 };
@@ -132,6 +136,21 @@ $scope.checkArrayFor = function (category) {
    });
   };
 
+  $scope.getStateInfo = function () {
+    return CategoryService.getState().then(function (response) {
+      console.log(response);
+    });
+  //   console.log("here");
+  //  var subscriberobj = {
+  //    category:  CategoryService.states()
+  //  };
+  //  console.log(subscriberobj);
+  //  $http.post("/subscriberstate", subscriberobj).then(function (response) {
+  //    console.log(response);
+  //  });
+  };
+
+  console.log($scope.getStateInfo());
 
   $scope.interestInsert = function (category) {
     $scope.interest = [];

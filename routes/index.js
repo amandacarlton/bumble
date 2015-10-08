@@ -5,7 +5,8 @@ var bumdb = require('monk')(process.env.MONGOLAB_URI);
 var userCollection = bumdb.get('user');
 var catCollection = bumdb.get('cat');
 var bcrypt= require('bcrypt');
-
+// var google = require('googleapis');
+// var urlshortener = google.urlshortener('v1');
 /* GET home page. */
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
@@ -81,6 +82,27 @@ router.post("/subscriber", function (req, res, next) {
      subscriberinfo[response.body.data.display_name] = response.body.data.subscribers;
      counter ++;
      if(counter === length){
+       res.json(subscriberinfo);
+     }
+   });
+ };
+});
+
+router.post("/subscriberstate", function (req, res, next) {
+  console.log(req.body);
+  var subscriberinfo = {};
+  var counter = 0;
+  var length = req.body.category.length;
+ for (var i = 0; i < length; i++) {
+   var last = req.body.category[length-1];
+   var catname = req.body.category[i];
+   unirest.get('https://www.reddit.com/r/'+req.body.category[i]+'/about.json?')
+   .end(function (response) {
+     console.log(response.body.data.display_name);
+     subscriberinfo[response.body.data.display_name] = response.body.data.subscribers;
+     counter ++;
+     if(counter === length){
+       console.log(subscriberinfo);
        res.json(subscriberinfo);
      }
    });
