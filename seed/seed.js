@@ -1,51 +1,164 @@
-{Alabama: 0.0029181528017446987},
-{Alaska: 0.015937068362265234},
-{Arizona: 0.004451177147995695},
-{Arkansas: 0.003231229410429237},
-{California: 0.0033248817924195757},
-{Colorado: 0.010605870202712323},
-{Connecticut: 0.00380207923847618},
-{Delaware: 0.007824628536173037},
-{Florida: 0.001977043089018797},
-{Georgia: 0.004092116016128984},
-{Hawaii: 0.008550313496792254},
-{Idaho: 0.004247305723081791},
-{Illinois: 0.006182937831901032},
-{Indiana: 0.0028142438649422052},
-{Iowa: 0.00259063700717743},
-{Kansas: 0.0069695680304845435},
-{Kentucky: 0.004154522998400458},
-{Louisiana: 0.005414071468213948},
-{Maine: 0.0057634935081653255},
-{Maryland: 0.004863730334463082},
-{Massachusetts: 0.009089091639126162},
-{Michigan: 0.004390588892351401},
-{Minnesota: 0.006072484056618447},
-{Mississippi: 0.001104709100572002},
-{Missouri: 0.0005815732935131785},
-{Montana: 0.006749442852594715},
-{Nebraska: 0.006533829115154289},
-{Nevada: 0.0035929704715815403},
-{NewHampshire: 0.004812111176099722},
-{NewJersey: 0.0027553789888731597},
-{NewMexico: 0.004449831704771659},
-{NewYork: 0.005404089626527923},
-{NorthCarolina: 0.0030505009552216707},
-{NorthDakota: 0.0067723177978890586},
-{Ohio: 0.002934771227054574},
-{Oklahoma: 0.0036557496219362037},
-{Oregon: 0.018892091356105364},
-{Pennsylvania: 0.004561507730166137},
-{RhodeIsland: 0.006791016628870181},
-{SouthCarolina: 0.002601741181883199},
-{SouthDakota: 0.005719865386032572},
-{Tennessee: 0.003053999264115548},
-{Texas: 0.0035953463118202056},
-{Utah: 0.0054188216948244956},
-{Vermont: 0.13942853488111798},
-{Virginia: 0.0015925461540922763},
-{Washington: 0.013559886624215188},
-{WashingtonDC: 0.059025498443636026},
-{WestVirginia: 0.0015936371083770373},
-{Wisconsin: 0.0026203686803519476},
-{Wyoming: 0.003486354426516875}
+
+
+
+{
+Vermont: 0.139, place: 1
+},
+{
+WashingtonDC: 0.059, place: 2
+},
+{
+Oregon: 0.019, place: 3
+},
+{
+Alaska: 0.016, place: 4
+},
+{
+Washington: 0.014, place: 5
+},
+{
+Colorado: 0.011, place: 6
+},
+{
+Massachusetts: 0.009, place: 7
+},
+{
+Hawaii: 0.008, place: 8
+},
+{
+Delaware: 0.008, place: 9
+},
+{
+Kansas: 0.007, place: 10
+},
+{
+RhodeIsland: 0.007, place: 11
+},
+{
+NorthDakota: 0.007, place: 12
+},
+{
+Montana: 0.007, place: 13
+},
+{
+Nebraska: 0.006, place: 14
+},
+{
+Illinois: 0.006, place: 15
+},
+{
+Minnesota: 0.006, place: 16
+},
+{
+Maine: 0.006, place: 17
+},
+{
+SouthDakota: 0.006, place: 18
+},
+{
+Utah: 0.005, place: 19
+},
+{
+Louisiana: 0.005, place: 20
+},
+{
+NewYork: 0.005, place: 21
+},
+{
+Maryland: 0.005, place: 22
+},
+{
+NewHampshire: 0.005, place: 23
+},
+{
+Pennsylvania: 0.005, place: 24
+},
+{
+Arizona: 0.004, place: 25
+},
+{
+NewMexico: 0.004, place: 26
+},
+{
+Michigan: 0.004, place: 27
+},
+{
+Idaho: 0.004, place: 28
+},
+{
+Kentucky: 0.004, place: 29
+},
+{
+Georgia: 0.004, place: 30
+},
+{
+Connecticut: 0.004, place: 31
+},
+{
+Oklahoma: 0.004, place: 32
+},
+{
+Texas: 0.004, place: 33
+},
+{
+Nevada: 0.004, place: 34
+},
+{
+Wyoming: 0.004, place: 35
+},
+{
+California: 0.003, place: 36
+},
+{
+Arkansas: 0.003, place: 37
+},
+{
+Tennessee: 0.003, place: 38
+},
+{
+NorthCarolina: 0.003, place: 39
+},
+{
+Ohio: 0.003, place: 40
+},
+{
+Alabama: 0.003, place: 41
+},
+{
+Indiana: 0.003, place: 42
+},
+{
+NewJersey: 0.003, place: 43
+},
+{
+Wisconsin: 0.003, place: 44
+},
+{
+SouthCarolina: 0.003, place: 45
+},
+{
+Iowa: 0.003, place: 46
+},
+{
+Florida: 0.002, place: 47
+},
+{
+WestVirginia: 0.002, place: 48
+},
+{
+Virginia: 0.002, place: 49
+},
+{
+Mississippi: 0.001, place: 50
+},
+{
+Missouri: 0.0006 , place: 51
+}
+
+
+
+});
+
+// .then(function(){
+// db.close();
+// });

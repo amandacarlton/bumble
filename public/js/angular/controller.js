@@ -11,6 +11,7 @@ app.controller('MainController', ['$scope', 'ModalService', '$http', '$sce', '$c
   $scope.likedchecked=false;
   $scope.dislikedchecked=false;
   $scope.checkedInterest="";
+  $scope.statenums = "";
 
 
   $scope.starttimer = function () {
@@ -150,7 +151,7 @@ $scope.checkArrayFor = function (category) {
   //  });
   };
 
- console.log($scope.getStateInfo());
+ // console.log($scope.getStateInfo());
 
   $scope.interestInsert = function (category) {
     $scope.interest = [];
@@ -189,6 +190,210 @@ $scope.checkArrayFor = function (category) {
     });
   };
 
+  $scope.statesubinfo =
+  {
+  Vermont:{
+
+  sub: 0.139, place: 1,
+},
+
+  WashingtonDC:{
+    sub: 0.059, place: 2,
+  },
+
+  Oregon:{
+  sub: 0.019, place: 3
+  },
+
+  Alaska: {
+   sub:  0.016, place: 4
+  },
+
+  Washington: {
+    sub: 0.014, place: 5
+  },
+
+  Colorado: {
+    sub: 0.011, place: 6
+  },
+  Massachusetts: {
+    sub: 0.009, place: 7
+  },
+  Hawaii: {
+    sub:0.008, place: 8
+  },
+  Delaware: {
+    sub: 0.008, place: 9
+  },
+  Kansas: {
+    sub: 0.007, place: 10
+  },
+
+  RhodeIsland: {
+    sub: 0.007, place: 11
+  },
+
+  NorthDakota: {
+
+  sub: 0.007, place: 12
+  },
+
+  Montana: {
+    sub: 0.007, place: 13
+},
+
+  Nebraska: {
+    sub: 0.006, place: 14
+  },
+
+  Illinois: {
+    sub: 0.006, place: 15
+  },
+
+  Minnesota: {
+    sub: 0.006, place: 16
+  },
+
+  Maine: {
+    sub: 0.006, place: 17
+  },
+
+  SouthDakota: {
+    sub: 0.006, place: 18
+  },
+
+  Utah: {
+    sub: 0.005, place: 19
+  },
+
+  Louisiana: {
+    sub: 0.005, place: 20
+  },
+
+  NewYork: {
+    sub: 0.005, place: 21
+  },
+
+  Maryland: {
+    sub: 0.005, place: 22
+  },
+
+  NewHampshire: {
+    sub: 0.005, place: 23
+  },
+
+  Pennsylvania: {
+    sub: 0.005, place: 24
+  },
+
+  Arizona: {
+    sub: 0.004, place: 25
+  },
+
+  NewMexico: {
+    sub: 0.004, place: 26
+  },
+
+  Michigan: {
+    sub: 0.004, place: 27
+  },
+
+  Idaho: {
+    sub: 0.004, place: 28
+  },
+
+  Kentucky: {
+    sub: 0.004, place: 29
+  },
+
+  Georgia: {
+    sub: 0.004, place: 30
+  },
+
+  Connecticut: {
+    sub: 0.004, place: 31
+  },
+
+  Oklahoma: {
+    sub: 0.004, place: 32
+  },
+
+  Texas: {
+    sub: 0.004, place: 33
+  },
+
+  Nevada: {
+    sub: 0.004, place: 34
+  },
+
+  Wyoming: {
+    sub: 0.004, place: 35
+  },
+
+  California: {
+    sub: 0.003, place: 36
+  },
+
+  Arkansas: {
+    sub: 0.003, place: 37
+  },
+
+  Tennessee: {
+    sub: 0.003, place: 38
+  },
+
+  NorthCarolina: {
+    sub: 0.003, place: 39
+  },
+
+  Ohio: {
+    sub: 0.003, place: 40
+  },
+
+  Alabama: {
+    sub: 0.003, place: 41
+  },
+
+  Indiana: {
+    sub: 0.003, place: 42
+  },
+
+  NewJersey: {
+    sub: 0.003, place: 43
+  },
+
+  Wisconsin: {
+    sub: 0.003, place: 44
+  },
+
+  SouthCarolina: {
+    sub: 0.003, place: 45
+  },
+
+  Iowa: {
+    sub: 0.003, place: 46
+  },
+
+  Florida: {
+    sub: 0.002, place: 47
+  },
+
+  WestVirginia: {
+    sub: 0.002, place: 48
+  },
+
+  Virginia: {
+    sub: 0.002, place: 49
+  },
+
+  Mississippi: {
+    sub: 0.001, place: 50
+  },
+
+  Missouri: {
+    sub: 0.0006 , place: 51
+  }
+  };
 
   $scope.mapObject = {
   scope: 'usa',
@@ -198,176 +403,236 @@ $scope.checkArrayFor = function (category) {
   },
   geographyConfig: {
     highlighBorderColor: '#EAA9A8',
-    highlighBorderWidth: 2
+    highlighBorderWidth: 2,
+    popupTemplate: function(geo, data) {
+      var searchterm = geo.properties.name.replace(" ","");
+        return ['<div class="hoverinfo"><strong>',
+                geo.properties.name, ' ranked ' + $scope.statesubinfo[searchterm].place,
+
+                '</strong></div>'].join('');
+    }
   },
   fills: {
-    'HIGH': '#006400',
-    'HIGHMEDIUM': '#008000',
-    'MEDIUM': '#3CB371',
-    'MEDIUMLOW': '#32CD32',
-    'LOW': '#00FF7F',
+    '.139': '#3B5323',
+    '.059': '#4A7023',
+    '.016': '#4A7023',
+    '.014': '#4A7023',
+    '.019': '#4A7023',
+    '.011': '#4A7023',
+    '.009': '#458B00',
+    '.008': '#458B00',
+    '.007': '#7F9A65',
+    '.006': '#7F9A65',
+    '.005': '#8BA870',
+    '.004': '#8BA870',
+    '.003': '#C0D9AF',
+    '.002': '#C0D9AF',
+    '.001': '#E0EEE0',
+    '.0006': '#E0EEE0',
     'defaultFill': '#DDDDDD'
   },
+
   data: {
     "AZ": {
-      "fillKey": "MEDIUM",
+      "fillKey": '.004'
     },
     "CO": {
-      "fillKey": "HIGH",
+      "fillKey": '.011',
     },
     "DE": {
-      "fillKey": "LOW",
+      "fillKey": '.008',
     },
     "GA": {
-      "fillKey": "MEDIUM",
+      "fillKey": ".004"
     },
     "FL":{
-      "fillKey": "MEDIUM"
+      "fillKey": ".002"
     },
   'AL':{
-
+     "fillKey": ".003"
   },
-
+  //
 	'AK':{
-
+     "fillKey": ".016"
   },
-
+  //
 	'AR':{
-
+     "fillKey": ".003"
   },
-
+  //
 	'CA':{
-
+    "fillKey": ".003"
   },
-
-
+  //
+  //
 	'CT':{
-
+    "fillKey": ".004"
   },
-
+  //
 	'DC':{
+    "fillKey": '.059'
   },
-
+  //
 	'HI':{
+    "fillKey": ".008"
   },
-
+  //
 	'ID':{
+    "fillKey": ".004"
   },
-
+  //
 	'IL':{
+    "fillKey": ".006"
   },
-
+  //
 	'IN':{
+    "fillKey": ".003"
   },
-
+  //
 	'IA':{
+    "fillKey": ".003"
   },
-
+  //
 	'KS':{
+    "fillKey": ".007"
   },
-
+  //
 	'KY':{
+    "fillKey": ".004"
   },
-
+  //
 	'LA':{
+    "fillKey": ".005"
   },
-
+  //
 	'ME':{
+    "fillKey": ".006"
   },
-
+  //
 	'MD':{
+    "fillKey": ".005"
   },
-
+  //
 	'MA':{
+    "fillKey": ".009"
   },
-
+  //
 	'MI':{
+    "fillKey": ".004"
   },
-
+  //
 	'MN':{
+    "fillKey": ".006"
   },
-
+  //
 	'MS':{
+    "fillKey":".001"
   },
 
 	'MO':{
+    "fillKey": ".0006"
   },
-
+  //
 	'MT':{
+    "fillKey": ".007"
   },
-
+  //
 	'NE':{
+    "fillKey": ".006"
   },
-
+  //
 	'NV':{
+    "fillKey": ".004"
   },
-
+  //
 	'NH':{
+    "fillKey": ".005"
   },
-
+  //
 	'NJ':{
+    "fillKey": ".003"
   },
-
+  //
 	'NM':{
+    "fillKey": ".004"
   },
-
+  //
 	'NY':{
+    "fillKey": ".005"
   },
-
+  //
 	'NC':{
+    "fillKey": ".003"
   },
-
+  //
 	'ND':{
+    "fillKey": ".007"
   },
-
+  //
 	'OH':{
+    "fillKey": ".003"
   },
-
+  //
 	'OK':{
+    "fillKey": ".004"
   },
-
+  //
 	'OR':{
+    "fillKey": ".019"
   },
-
+  //
 	'PA':{
+    "fillKey": ".005"
   },
 
 	'RI':{
+    "fillKey":".007"
   },
 
 	'SC':{
+    "fillKey":".003"
   },
-
 	'SD':{
+    "fillKey": ".006"
   },
-
-	'TN':{
+  'TN':{
+    "fillKey": ".003"
   },
 
 	'TX':{
+    "fillKey": ".004"
   },
-
+  //
 	'UT':{
+    "fillKey": ".005"
   },
-
+  //
 	'VT':{
+    "fillKey": ".139"
   },
-
+  //
 	'VA':{
+    "fillKey": ".002"
   },
-
+  //
 	'WA':{
+    "fillKey": ".014"
   },
-
+  //
 	'WV':{
+    "fillKey": ".002"
   },
-
+  //
 	'WI':{
+    "fillKey": ".003"
+  },
+  //
+	'WY':{
+    "fillKey": ".004"
+  },
   },
 
-	'WY':{
-  },
-  },
+
 };
 
 $scope.updateActiveGeography = function(geography) {

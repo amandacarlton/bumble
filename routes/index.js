@@ -5,6 +5,7 @@ var bumdb = require('monk')(process.env.MONGOLAB_URI);
 var userCollection = bumdb.get('user');
 var catCollection = bumdb.get('cat');
 var bcrypt= require('bcrypt');
+var states = bumdb.get('states');
 // var google = require('googleapis');
 // var urlshortener = google.urlshortener('v1');
 /* GET home page. */
@@ -23,8 +24,7 @@ router.post('/reddit', function (req,res,next) {
     .end(function (response) {
       var randomchild = Math.floor(Math.random() * (response.body.data.children.length));
       var info = response.body.data.children[randomchild].data;
-      console.log(info);
-      console.log(info.domain);
+
       // if(info.domain === "self."+categoryChosen)
       info.category = categoryChosen;
       if(info.domain === "youtube.com" || info.domain === "twitter.com" || info.domain === "vine.co" || info.domain === "m.youtube.com" || info.domain === "google.com" || info.domain === "en-maktoob.news.yahoo.com"){
@@ -98,15 +98,20 @@ router.post("/subscriberstate", function (req, res, next) {
    var catname = req.body.category[i];
    unirest.get('https://www.reddit.com/r/'+req.body.category[i]+'/about.json?')
    .end(function (response) {
-     console.log(response.body.data.display_name);
      subscriberinfo[response.body.data.display_name] = response.body.data.subscribers;
      counter ++;
      if(counter === length){
-       console.log(subscriberinfo);
        res.json(subscriberinfo);
      }
    });
  };
+});
+
+router.get("/statefind", function (req, res, next) {
+  console.log("here");
+ states.find({}).then(function (response) {
+   res.json(response);
+ });
 });
 
 router.post("/userinfo", function (req, res, next) {
@@ -118,7 +123,6 @@ router.post("/userinfo", function (req, res, next) {
 router.post('/checkuser', function (req, res, next) {
    userCollection.findOne({email:req.body.email}).then(function (response) {
      if (response === null){
-     console.log(response);
      res.json(response);
    }else{
      var compare = response.password;
