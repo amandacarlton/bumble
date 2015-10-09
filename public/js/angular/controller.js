@@ -150,7 +150,7 @@ $scope.checkArrayFor = function (category) {
   //  });
   };
 
-  console.log($scope.getStateInfo());
+ console.log($scope.getStateInfo());
 
   $scope.interestInsert = function (category) {
     $scope.interest = [];
@@ -188,6 +188,194 @@ $scope.checkArrayFor = function (category) {
        $scope.trendings = response.data;
     });
   };
+
+
+  $scope.mapObject = {
+  scope: 'usa',
+  options: {
+    width: 1110,
+    legendHeight: 60 // optionally set the padding for the legend
+  },
+  geographyConfig: {
+    highlighBorderColor: '#EAA9A8',
+    highlighBorderWidth: 2
+  },
+  fills: {
+    'HIGH': '#006400',
+    'HIGHMEDIUM': '#008000',
+    'MEDIUM': '#3CB371',
+    'MEDIUMLOW': '#32CD32',
+    'LOW': '#00FF7F',
+    'defaultFill': '#DDDDDD'
+  },
+  data: {
+    "AZ": {
+      "fillKey": "MEDIUM",
+    },
+    "CO": {
+      "fillKey": "HIGH",
+    },
+    "DE": {
+      "fillKey": "LOW",
+    },
+    "GA": {
+      "fillKey": "MEDIUM",
+    },
+    "FL":{
+      "fillKey": "MEDIUM"
+    },
+  'AL':{
+
+  },
+
+	'AK':{
+
+  },
+
+	'AR':{
+
+  },
+
+	'CA':{
+
+  },
+
+
+	'CT':{
+
+  },
+
+	'DC':{
+  },
+
+	'HI':{
+  },
+
+	'ID':{
+  },
+
+	'IL':{
+  },
+
+	'IN':{
+  },
+
+	'IA':{
+  },
+
+	'KS':{
+  },
+
+	'KY':{
+  },
+
+	'LA':{
+  },
+
+	'ME':{
+  },
+
+	'MD':{
+  },
+
+	'MA':{
+  },
+
+	'MI':{
+  },
+
+	'MN':{
+  },
+
+	'MS':{
+  },
+
+	'MO':{
+  },
+
+	'MT':{
+  },
+
+	'NE':{
+  },
+
+	'NV':{
+  },
+
+	'NH':{
+  },
+
+	'NJ':{
+  },
+
+	'NM':{
+  },
+
+	'NY':{
+  },
+
+	'NC':{
+  },
+
+	'ND':{
+  },
+
+	'OH':{
+  },
+
+	'OK':{
+  },
+
+	'OR':{
+  },
+
+	'PA':{
+  },
+
+	'RI':{
+  },
+
+	'SC':{
+  },
+
+	'SD':{
+  },
+
+	'TN':{
+  },
+
+	'TX':{
+  },
+
+	'UT':{
+  },
+
+	'VT':{
+  },
+
+	'VA':{
+  },
+
+	'WA':{
+  },
+
+	'WV':{
+  },
+
+	'WI':{
+  },
+
+	'WY':{
+  },
+  },
+};
+
+$scope.updateActiveGeography = function(geography) {
+  $scope.stateName = geography.properties.name;
+  $scope.stateCode = geography.id;
+};
+
+$scope.mapObject.responsive = true;
 
 
 }]);

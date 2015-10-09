@@ -1,4 +1,4 @@
-var app = angular.module('bumble', ['ui.router','angularModalService','ngCookies']);
+var app = angular.module('bumble', ['ui.router','angularModalService','ngCookies','datamaps']);
 
 
 app.config(function ($stateProvider) {
@@ -21,6 +21,11 @@ app.config(function ($stateProvider) {
     .state('trending', {
       url: '/trending',
       templateUrl:'partials/trending.html',
+      contoller:'MainController'
+    })
+    .state('statesub', {
+      url: '/statesub',
+      templateUrl:'partials/mappop.html',
       contoller:'MainController'
     });
 

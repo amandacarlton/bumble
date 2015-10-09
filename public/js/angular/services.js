@@ -175,7 +175,7 @@ app.factory('CategoryService', function ($http) {
   'LasCruces',
   'SantaFe',
   'NewYork',
-  //'nyc',
+  'nyc',
   'Buffalo',
   'NorthCarolina',
   'Charlotte',
@@ -319,20 +319,15 @@ var categoryobj = {
 
   getState: function () {
 
-      console.log("here");
+
      var subscriberobj = {
        category: states
      };
-     console.log(subscriberobj);
+
      return $http.post("/subscriberstate", subscriberobj).then(function (response) {
           var info = response.data;
-          console.log("wash", populations.WashingtonDC);
-          console.log("pop", populations.Wyoming);
-          console.log("Wyoming", info.wyoming);
-          console.log("chey", info.Cheyenne);
+          console.log(response.nyc);
           var populate = function (state, state11, state1, state2, state3) {
-            console.log(populations[state]);
-            console.log(info.state11);
               return (info[state11]+info[state1]+info[state2]+info[state3])/(populations[state]);
             };
           var populate2 = function (state, state11, state1, state2) {
@@ -358,7 +353,7 @@ var categoryobj = {
            "Montana" : populate("Montana", "Montana", "missoula", "GreatFalls", "Billings"),
            "RhodeIsland": (info.RhodeIsland+info.providence+info.Warwick)/populations.RhodeIsland,
            "NewHampshire": (info.newhampshire)/populations.NewHampshire,
-           ///"Maine": (info.Maine+info.Bangor+info.)/populations.Maine
+           "Maine": populate1("Maine", "Maine", "Bangor"),
            "Arkansas": populate("Arkansas","Arkansas", "LittleRock", "fortsmith", "fayetteville"),
            "Colorado": populate("Colorado", "Colorado", "ColoradoSprings", "Denver", "aurora"),
            "Connecticut" : populate2("Connecticut", "Connecticut", "Hartford", "newhaven"),
@@ -378,8 +373,28 @@ var categoryobj = {
            "Michigan": populate("Michigan", "grandrapids", "Michigan", "Detroit", "warren"),
            "NewJersey": populate1("NewJersey", "jerseycity", "newjersey"),
            "NewMexico": populate("NewMexico", "NewMexico", "Albuquerque", "LasCruces", "SantaFe"),
-           "NewYork": populate("NewYork", "newyork"),
+           "NewYork": (info.newyork+ 91318 +info.Buffalo)/populations.NewYork,
            "NorthCarolina": populate("NorthCarolina", "NorthCarolina", "Charlotte", "raleigh", "Greensboro"),
+           "SouthCarolina" : populate2  ("SouthCarolina", "southcarolina", "Charleston", "greenville"),
+           "Oregon": populate("Oregon", "oregon", "Portland", "Eugene", "SALEM"),
+           "Washington": populate("Washington", "Washington", "Seattle", "Spokane", "Tacoma"),
+           "WestVirginia": populate1("WestVirginia", "WestVirginia", "Parkersburg"),
+           "Utah": populate1("Utah", "Utah", "SaltLakeCity"),
+           "Texas": populate2("Texas", "texas", "Dallas", "houston", "sanantonio"),
+           "Pennsylvania": populate2("Pennsylvania", "Pennsylvania", "pittsburgh", "philadelphia", "allentown" ),
+           "Tennessee": populate2("Tennessee", "Tennessee", "Knoxville", "nashville", "memphis"),
+           "Oklahoma": populate2("Oklahoma", "oklahoma", "oklahomacity", "tulsa"),
+           "Wisconsin": populate2("Wisconsin", "wisconsin", "Madison", "Kenosha"),
+           "Maryland": populate2("Maryland", "maryland", "baltimore", "SilverSpring"),
+           "Massachusetts" : populate("Massachusetts", "massachusetts", "boston", "Worcester", "Springfield"),
+           "Ohio": populate2("Ohio", "Ohio", "cincinnati", "Cleveland"),
+           "Virginia": populate("Virginia", "Virginia", "VirginiaBeach", "Chesapeake", "norfolk"),
+           "Missouri": (info.missouri)/populations.Missouri,
+
+
+
+
+
 
 
 
@@ -511,3 +526,9 @@ $("input#button").click(function () {
     setTimeout(display, 1000);
 });
 });
+
+// app.factory('d3Service', [function(){
+//     var d3;
+//     // insert d3 code here
+//     return d3;
+//   }]);

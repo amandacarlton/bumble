@@ -9,6 +9,10 @@ html(ng-app="bumble")
     script(src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-alpha1/jquery.js")
     script(src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js')
     script(src='https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.3/angular.js')
+    script(src='bower_components/d3/d3.js')
+    script(src='bower_components/topojson/topojson.js')
+    script(src='bower_components/datamaps/dist/datamaps.all.js')
+    script(src='bower_components/angular-datamaps/dist/angular-datamaps.js')
     script(src='https://rawgit.com/dwmkerr/angular-modal-service/master/dst/angular-modal-service.js')
     script(src='https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.15/angular-ui-router.min.js')
     script(src='https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0-beta.1/angular-cookies.min.js')
@@ -61,7 +65,7 @@ html(ng-app="bumble")
                       a(href='#' ng-click="getSubredditInfo()") Subscriber
                     |             
                     li
-                      a(href='#' ng-click="getStateInfo()") State Subscriber
+                      a(href='/#/statesub') State Subscriber
                     |             
                     li.divider(role='separator')
                     |             
