@@ -6,6 +6,7 @@ var userCollection = bumdb.get('user');
 var catCollection = bumdb.get('cat');
 var bcrypt= require('bcrypt');
 var states = bumdb.get('states');
+var posts = bumdb.get('posts');
 // var google = require('googleapis');
 // var urlshortener = google.urlshortener('v1');
 /* GET home page. */
@@ -112,6 +113,14 @@ router.get("/statefind", function (req, res, next) {
  states.find({}).then(function (response) {
    res.json(response);
  });
+});
+
+router.get("/getposts", function (req, res, next) {
+  console.log("here");
+  posts.find({}).then(function (response) {
+    console.log(response);
+    res.json(response);
+  });
 });
 
 router.post("/userinfo", function (req, res, next) {
