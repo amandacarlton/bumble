@@ -355,7 +355,7 @@ var categoryobj = {
            "NewHampshire": (info.newhampshire)/populations.NewHampshire,
            "Maine": populate1("Maine", "Maine", "Bangor"),
            "Arkansas": populate("Arkansas","Arkansas", "LittleRock", "fortsmith", "fayetteville"),
-           "Colorado": populate("Colorado", "Colorado", "ColoradoSprings", "Denver", "aurora"),
+           "Colorado": populate2("Colorado", "Colorado", "ColoradoSprings", "Denver"),
            "Connecticut" : populate2("Connecticut", "Connecticut", "Hartford", "newhaven"),
            "Georgia": populate2("Georgia", "Georgia", "Atlanta", "savannah"),
            "Hawaii": populate("Hawaii", "Hawaii", "hilo", "Honolulu", "Kailua"),
