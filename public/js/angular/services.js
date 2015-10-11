@@ -247,246 +247,251 @@ app.factory('CategoryService', function ($http) {
 
 
 var populations = {"California": (37253956) ,
-	"Texas":	(25145561),
- "NewYork":	(19378102),
+"Texas":	(25145561),
+"NewYork":	(19378102),
 "Florida":	(18801310),
-  "Illinois":	(12830632),
-  "Pennsylvania":	(12702379),
-  "Ohio":	(11536504),
-	"Michigan":	(9883640),
-  "Georgia":	(9687653),
-	"NorthCarolina":	(9535483),
-	"NewJersey":	(8791894),
-	"Virginia":	(8001024),
-	"Washington":	(6724540),
-	"Massachusetts":	(6547629),
-	"Indiana":	(6483802),
-	"Arizona":	(6392017),
-	"Tennessee":	(6346105),
-	"Missouri":	(5988927),
-	"Maryland":	(5773552),
-	"Wisconsin":	(5686986),
-	"Minnesota":	(5303925),
-	"Colorado":	(5029196),
-	"Alabama":	(4779736),
-	"SouthCarolina":	(4625364),
-	"Louisiana":	(4533372),
-	"Kentucky":	(4339367),
-	"Oregon":	(3831074),
-	"Oklahoma":	(3751351),
-	"Connecticut":	(3574097),
-	"Iowa":	(3046355),
-	"Mississippi":	(2967297),
-	"Arkansas":	(2915918),
-	"Kansas":	(2853118),
-	"Utah":	(2763885),
-	"Nevada":	(2700551),
-	"NewMexico":	(2059179),
-	"WestVirginia":	(1852994),
-	"Nebraska":	(1826341),
-	"Idaho":	(1567582),
-	"Hawaii":	(1360301),
-	"Maine":	(1328361),
-	"NewHampshire":	(1316470),
-	"RhodeIsland":	(1052567),
-	"Montana":	(989415),
-	"Delaware":	(897934),
-	"SouthDakota":	(814180),
-	"Alaska":	(710231),
-	"NorthDakota":	(672591),
-	"Vermont":	(62541),
-	"WashingtonDC":(601723),
-	"Wyoming":(563626),
+"Illinois":	(12830632),
+"Pennsylvania":	(12702379),
+"Ohio":	(11536504),
+"Michigan":	(9883640),
+"Georgia":	(9687653),
+"NorthCarolina":	(9535483),
+"NewJersey":	(8791894),
+"Virginia":	(8001024),
+"Washington":	(6724540),
+"Massachusetts":	(6547629),
+"Indiana":	(6483802),
+"Arizona":	(6392017),
+"Tennessee":	(6346105),
+"Missouri":	(5988927),
+"Maryland":	(5773552),
+"Wisconsin":	(5686986),
+"Minnesota":	(5303925),
+"Colorado":	(5029196),
+"Alabama":	(4779736),
+"SouthCarolina":	(4625364),
+"Louisiana":	(4533372),
+"Kentucky":	(4339367),
+"Oregon":	(3831074),
+"Oklahoma":	(3751351),
+"Connecticut":	(3574097),
+"Iowa":	(3046355),
+"Mississippi":	(2967297),
+"Arkansas":	(2915918),
+"Kansas":	(2853118),
+"Utah":	(2763885),
+"Nevada":	(2700551),
+"NewMexico":	(2059179),
+"WestVirginia":	(1852994),
+"Nebraska":	(1826341),
+"Idaho":	(1567582),
+"Hawaii":	(1360301),
+"Maine":	(1328361),
+"NewHampshire":	(1316470),
+"RhodeIsland":	(1052567),
+"Montana":	(989415),
+"Delaware":	(897934),
+"SouthDakota":	(814180),
+"Alaska":	(710231),
+"NorthDakota":	(672591),
+"Vermont":	(62541),
+"WashingtonDC":(601723),
+"Wyoming":(563626),
 };
 
-var categoryobj = {
+var commonWords =  [
+  'i','a','about', 'an','and','are','as','at',
+  'be', 'been','by','com','for', 'from','how','in',
+  'is','it','not', 'of','on','or','that',
+  'the', 'then', 'than', 'this','to','was', 'what','when','where', 'which',
+  'who','will','with', 'www', 'http*','the',
+  'we', 'us', 'our', 'ours',
+  'they', 'them', 'their', 'he', 'him', 'his',
+  'she', 'her', 'hers', 'it', 'its', 'you', 'yours', 'your',
+  'has', 'have', 'would', 'could', 'should', 'shall',
+  'can', 'may', 'if', 'then', 'else', 'but',
+  'there', 'these', 'those','my','so',"", "oc", "x"];
 
-  categoryList: function () {
-    return categoryList;
-  },
+  var categoryobj = {
 
-  states: function () {
-    return states;
-  },
+    commonWords: function () {
+      return commonWords;
+    },
 
-  populations: function () {
-    return populations;
-  },
+    getwords: function () {
+      var wordCount = {};
+      $http.get("/findwords").then(function (response) {
+        for (var i = 0; i < categoryList.length; i++) {
+          var filtered = [];
+          for (var m = 0; m < response.data.length; m++) {
+           if(categoryList[i] === response.data[m].subreddit){
+             //console.log(response.data[m].subreddit);
+              text = response.data[m].title.toLowerCase()
+              .replace(/[\n,\r]/g,' ')
+                  .replace(/[^a-zA-Z ]/g, "")
+                  .replace(/\s{2,}/g, ' ')
+                  .split(' ');
+                  filtered.push(text);
 
-  populate:  function (state, state11, state1, state2, state3) {
+                }
+              }
+              var noncommon = [];
+                for (var j = 0; j < filtered.length; j++) {
+                  for (var k = 0; k < filtered[j].length; k++) {
+                    if (commonWords.indexOf(filtered[j][k])<0){
+                      noncommon.push(filtered[j][k]);
+                    }
+                  }
+                }
+
+                var sortObj = function (obj) {
+                  var sortable = [];
+                  for (var key in obj) {
+                    sortable.push([key, obj[key]]);
+                  }
+                  sortable.sort(function (a, b) {
+                    return b[1]-a[1];
+                  });
+                  return sortable;
+                };
+
+
+                wordCount[categoryList[i]]={};
+                noncommon.forEach(function (e) {
+
+                  wordCount[categoryList[i]][e] = wordCount[categoryList[i]][e] || 0;
+                  wordCount[categoryList[i]][e] += 1;
+                });
+
+                wordCount[categoryList[i]] = sortObj(wordCount[categoryList[i]]);
+
+                // console.log(wordCount);
+
+
+            }
+            console.log(wordCount);
+          });
+        },
+
+
+        //
+
+    //
+    // });
+
+
+
+
+
+    categoryList: function () {
+      return categoryList;
+    },
+
+    states: function () {
+      return states;
+    },
+
+    populations: function () {
+      return populations;
+    },
+
+    populate:  function (state, state11, state1, state2, state3) {
       return (populations.state)/(info.state11+info.state1+info.state2+info.state3);
     },
 
-  getState: function () {
+    getState: function () {
 
 
-     var subscriberobj = {
-       category: states
-     };
-
-     return $http.post("/subscriberstate", subscriberobj).then(function (response) {
-          var info = response.data;
-          console.log(response.nyc);
-          var populate = function (state, state11, state1, state2, state3) {
-              return (info[state11]+info[state1]+info[state2]+info[state3])/(populations[state]);
-            };
-          var populate2 = function (state, state11, state1, state2) {
-              return (info[state11]+info[state1]+info[state2])/(populations[state]);
-          };
-
-          var populate1 = function (state, state11, state1) {
-              return (info[state11]+info[state1])/(populations[state]);
-          };
-
-          var stateobj = {
-           "California": (info.LosAngeles+info.California+info.sandiego+info.SanJose)/(populations.California),
-           "Alaska": populate( "Alaska", "alaska", "anchorage", "Fairbanks", "Juneau"),
-           "Alabama": populate("Alabama", "Alabama", "montgomery", "mobile", "Birmingham"),
-           "Arizona": populate("Arizona", "arizona", "Tucson", "Mesa", "phoenix"),
-           "Florida": populate("Florida", "florida", "Miami", "tampa", "jacksonville"),
-           "Wyoming": (info.wyoming +info.Cheyenne)/populations.Wyoming,
-           "WashingtonDC": (info.washingtondc)/populations.WashingtonDC ,
-           "Vermont": (info.vermont+info.burlington+info.rutland)/populations.Vermont,
-           "NorthDakota": populate("NorthDakota", "northdakota", "bismarck", "minot", "fargo"),
-           "SouthDakota": populate("SouthDakota", "SouthDakota","RapidCity", "SiouxFalls", "Aberdeen"),
-           "Delaware": populate("Delaware", "Delaware", "dover", "Wilmington", "Newark"),
-           "Montana" : populate("Montana", "Montana", "missoula", "GreatFalls", "Billings"),
-           "RhodeIsland": (info.RhodeIsland+info.providence+info.Warwick)/populations.RhodeIsland,
-           "NewHampshire": (info.newhampshire)/populations.NewHampshire,
-           "Maine": populate1("Maine", "Maine", "Bangor"),
-           "Arkansas": populate("Arkansas","Arkansas", "LittleRock", "fortsmith", "fayetteville"),
-           "Colorado": populate2("Colorado", "Colorado", "ColoradoSprings", "Denver"),
-           "Connecticut" : populate2("Connecticut", "Connecticut", "Hartford", "newhaven"),
-           "Georgia": populate2("Georgia", "Georgia", "Atlanta", "savannah"),
-           "Hawaii": populate("Hawaii", "Hawaii", "hilo", "Honolulu", "Kailua"),
-           "Idaho": populate2("Idaho", "Boise", "Idaho", "nampa"),
-           "Illinois": populate("Illinois", "illinois", "chicago", "Naperville", "rockford"),
-           "Indiana": populate("Indiana", "Indiana", "indianapolis", "fortwayne", "evansville"),
-           "Iowa": populate2("Iowa", "Iowa", "cedarrapids", "davenport"),
-           "Kansas": populate2("Kansas", "kansas", "wichita", "kansascity"),
-           "Kentucky": populate("Kentucky", "Kentucky", "Louisville", "Owensboro", "lexington"),
-           "Louisiana": populate("Louisiana", "Louisiana", "NewOrleans", "shreveport", "batonrouge"),
-           "Nebraska": populate2("Nebraska", "Nebraska", "Omaha", "lincoln"),
-           "Nevada": populate2("Nevada", "Nevada", "LasVegas", "Reno"),
-           "Mississippi":(info.mississippi+info.Biloxi)/populations.Mississippi,
-           "Minnesota": populate2("Minnesota", "minnesota", "duluth", "Minneapolis"),
-           "Michigan": populate("Michigan", "grandrapids", "Michigan", "Detroit", "warren"),
-           "NewJersey": populate1("NewJersey", "jerseycity", "newjersey"),
-           "NewMexico": populate("NewMexico", "NewMexico", "Albuquerque", "LasCruces", "SantaFe"),
-           "NewYork": (info.newyork+ 91318 +info.Buffalo)/populations.NewYork,
-           "NorthCarolina": populate("NorthCarolina", "NorthCarolina", "Charlotte", "raleigh", "Greensboro"),
-           "SouthCarolina" : populate2  ("SouthCarolina", "southcarolina", "Charleston", "greenville"),
-           "Oregon": populate("Oregon", "oregon", "Portland", "Eugene", "SALEM"),
-           "Washington": populate("Washington", "Washington", "Seattle", "Spokane", "Tacoma"),
-           "WestVirginia": populate1("WestVirginia", "WestVirginia", "Parkersburg"),
-           "Utah": populate1("Utah", "Utah", "SaltLakeCity"),
-           "Texas": populate2("Texas", "texas", "Dallas", "houston", "sanantonio"),
-           "Pennsylvania": populate2("Pennsylvania", "Pennsylvania", "pittsburgh", "philadelphia", "allentown" ),
-           "Tennessee": populate2("Tennessee", "Tennessee", "Knoxville", "nashville", "memphis"),
-           "Oklahoma": populate2("Oklahoma", "oklahoma", "oklahomacity", "tulsa"),
-           "Wisconsin": populate2("Wisconsin", "wisconsin", "Madison", "Kenosha"),
-           "Maryland": populate2("Maryland", "maryland", "baltimore", "SilverSpring"),
-           "Massachusetts" : populate("Massachusetts", "massachusetts", "boston", "Worcester", "Springfield"),
-           "Ohio": populate2("Ohio", "Ohio", "cincinnati", "Cleveland"),
-           "Virginia": populate("Virginia", "Virginia", "VirginiaBeach", "Chesapeake", "norfolk"),
-            "Missouri": (info.missouri)/populations.Missouri,
+      var subscriberobj = {
+        category: states
+      };
 
 
+      return $http.post("/subscriberstate", subscriberobj).then(function (response) {
+        var info = response.data;
+        console.log(response.nyc);
+        var populate = function (state, state11, state1, state2, state3) {
+          return (info[state11]+info[state1]+info[state2]+info[state3])/(populations[state]);
+        };
+        var populate2 = function (state, state11, state1, state2) {
+          return (info[state11]+info[state1]+info[state2])/(populations[state]);
+        };
 
+        var populate1 = function (state, state11, state1) {
+          return (info[state11]+info[state1])/(populations[state]);
+        };
 
+        var stateobj = {
+          "California": (info.LosAngeles+info.California+info.sandiego+info.SanJose)/(populations.California),
+          "Alaska": populate( "Alaska", "alaska", "anchorage", "Fairbanks", "Juneau"),
+          "Alabama": populate("Alabama", "Alabama", "montgomery", "mobile", "Birmingham"),
+          "Arizona": populate("Arizona", "arizona", "Tucson", "Mesa", "phoenix"),
+          "Florida": populate("Florida", "florida", "Miami", "tampa", "jacksonville"),
+          "Wyoming": (info.wyoming +info.Cheyenne)/populations.Wyoming,
+          "WashingtonDC": (info.washingtondc)/populations.WashingtonDC ,
+          "Vermont": (info.vermont+info.burlington+info.rutland)/populations.Vermont,
+          "NorthDakota": populate("NorthDakota", "northdakota", "bismarck", "minot", "fargo"),
+          "SouthDakota": populate("SouthDakota", "SouthDakota","RapidCity", "SiouxFalls", "Aberdeen"),
+          "Delaware": populate("Delaware", "Delaware", "dover", "Wilmington", "Newark"),
+          "Montana" : populate("Montana", "Montana", "missoula", "GreatFalls", "Billings"),
+          "RhodeIsland": (info.RhodeIsland+info.providence+info.Warwick)/populations.RhodeIsland,
+          "NewHampshire": (info.newhampshire)/populations.NewHampshire,
+          "Maine": populate1("Maine", "Maine", "Bangor"),
+          "Arkansas": populate("Arkansas","Arkansas", "LittleRock", "fortsmith", "fayetteville"),
+          "Colorado": populate2("Colorado", "Colorado", "ColoradoSprings", "Denver"),
+          "Connecticut" : populate2("Connecticut", "Connecticut", "Hartford", "newhaven"),
+          "Georgia": populate2("Georgia", "Georgia", "Atlanta", "savannah"),
+          "Hawaii": populate("Hawaii", "Hawaii", "hilo", "Honolulu", "Kailua"),
+          "Idaho": populate2("Idaho", "Boise", "Idaho", "nampa"),
+          "Illinois": populate("Illinois", "illinois", "chicago", "Naperville", "rockford"),
+          "Indiana": populate("Indiana", "Indiana", "indianapolis", "fortwayne", "evansville"),
+          "Iowa": populate2("Iowa", "Iowa", "cedarrapids", "davenport"),
+          "Kansas": populate2("Kansas", "kansas", "wichita", "kansascity"),
+          "Kentucky": populate("Kentucky", "Kentucky", "Louisville", "Owensboro", "lexington"),
+          "Louisiana": populate("Louisiana", "Louisiana", "NewOrleans", "shreveport", "batonrouge"),
+          "Nebraska": populate2("Nebraska", "Nebraska", "Omaha", "lincoln"),
+          "Nevada": populate2("Nevada", "Nevada", "LasVegas", "Reno"),
+          "Mississippi":(info.mississippi+info.Biloxi)/populations.Mississippi,
+          "Minnesota": populate2("Minnesota", "minnesota", "duluth", "Minneapolis"),
+          "Michigan": populate("Michigan", "grandrapids", "Michigan", "Detroit", "warren"),
+          "NewJersey": populate1("NewJersey", "jerseycity", "newjersey"),
+          "NewMexico": populate("NewMexico", "NewMexico", "Albuquerque", "LasCruces", "SantaFe"),
+          "NewYork": (info.newyork+ 91318 +info.Buffalo)/populations.NewYork,
+          "NorthCarolina": populate("NorthCarolina", "NorthCarolina", "Charlotte", "raleigh", "Greensboro"),
+          "SouthCarolina" : populate2  ("SouthCarolina", "southcarolina", "Charleston", "greenville"),
+          "Oregon": populate("Oregon", "oregon", "Portland", "Eugene", "SALEM"),
+          "Washington": populate("Washington", "Washington", "Seattle", "Spokane", "Tacoma"),
+          "WestVirginia": populate1("WestVirginia", "WestVirginia", "Parkersburg"),
+          "Utah": populate1("Utah", "Utah", "SaltLakeCity"),
+          "Texas": populate2("Texas", "texas", "Dallas", "houston", "sanantonio"),
+          "Pennsylvania": populate2("Pennsylvania", "Pennsylvania", "pittsburgh", "philadelphia", "allentown" ),
+          "Tennessee": populate2("Tennessee", "Tennessee", "Knoxville", "nashville", "memphis"),
+          "Oklahoma": populate2("Oklahoma", "oklahoma", "oklahomacity", "tulsa"),
+          "Wisconsin": populate2("Wisconsin", "wisconsin", "Madison", "Kenosha"),
+          "Maryland": populate2("Maryland", "maryland", "baltimore", "SilverSpring"),
+          "Massachusetts" : populate("Massachusetts", "massachusetts", "boston", "Worcester", "Springfield"),
+          "Ohio": populate2("Ohio", "Ohio", "cincinnati", "Cleveland"),
+          "Virginia": populate("Virginia", "Virginia", "VirginiaBeach", "Chesapeake", "norfolk"),
+          "Missouri": (info.missouri)/populations.Missouri,
+        };
+        return stateobj;
+      });
 
-
-
-
-
-
-          //  "Alabama": (populations.Alabama)/(info.Alabama+info.montgomery+info.Birmingham+info.mobile),
-          //  "Alaska": (populations.Alaska)/(info.alaska+info.anchorage+)
-         };
-         return stateobj;
-     });
-
-},
+    },
 
 
 
-
-  stateStats: function (func) {
-    var statereturn = func().then(function (response) {
-
-
-   var stateobj = {
-    "California": (response.LosAngeles)
-    // 	"Texas":	(25,145,561),
-    //  "New York":	(19,378,102),
-    // "Florida":	(18,801,310),
-    //   "Illinois":	(12,830,632),
-    //   "Pennsylvania":	(12,702,379),
-    //   "Ohio":	(11,536,504),
-    // 	"Michigan":	(9,883,640),
-    //   "Georgia":	(9,687,653),
-    // 	"North Carolina":	(9,535,483),
-    // 	"New Jersey":	(8,791,894),
-    // 	"Virginia":	(8,001,024),
-    // 	"Washington":	(6,724,540),
-    // 	"Massachusetts":	(6,547,629),
-    // 	"Indiana":	(6,483,802),
-    // 	"Arizona":	(6,392,017),
-    // 	"Tennessee":	(6,346,105),
-    // 	"Missouri":	(5,988,927),
-    // 	"Maryland":	(5,773,552),
-    // 	"Wisconsin":	(5,686,986),
-    // 	"Minnesota":	(5,303,925),
-    // 	"Colorado":	(5,029,196),
-    // 	"Alabama":	(4,779,736),
-    // 	"South Carolina":	(4,625,364),
-    // 	"Louisiana":	(4,533,372),
-    // 	"Kentucky":	(4,339,367),
-    // 	"Oregon":	(3,831,074),
-    // 	"Oklahoma":	(3,751,351),
-    // 	"Connecticut":	(3,574,097),
-    // 	"Iowa":	(3,046,355),
-    // 	"Mississippi":	(2,967,297),
-    // 	"Arkansas":	(2,915,918),
-    // 	"Kansas":	(2,853,118),
-    // 	"Utah":	(2,763,885),
-    // 	"Nevada":	(2,700,551),
-    // 	"New Mexico":	(2,059,179),
-    // 	"West Virginia":	(1,852,994),
-    // 	"Nebraska":	(1,826,341),
-    // 	"Idaho":	(1,567,582),
-    // 	"Hawaii":	(1,360,301),
-    // 	"Maine":	(1,328,361),
-    // 	"New Hampshire":	(1,316,470),
-    // 	"Rhode Island":	(1,052,567),
-    // 	"Montana":	(989,415),
-    // 	"Delaware":	(897,934),
-    // 	"South Dakota":	(814,180),
-    // 	"Alaska":	(710,231),
-    // 	"North Dakota":	(672,591),
-    // 	"Vermont":	(625,741),
-    // 	"Washington, D. C.":(601,723),
-    // 	"Wyoming":	(563,626),
-
-
- };
-return stateobj;
-});
-
-
-
-}
-};
-return categoryobj;
+  };
+  return categoryobj;
 
 });
 
 
 app.factory('TimeService', function () {
   // body...
-var startTime;
+  var startTime;
 
-function display(startTime) {
+  function display(startTime) {
     // later record end time
     var endTime = new Date();
 
@@ -519,12 +524,12 @@ function display(startTime) {
 
     // $(".time").text(days + " days, " + hours + ":" + minutes + ":" + seconds);
     // setTimeout(display, 1000);
-}
+  }
 
-$("input#button").click(function () {
+  $("input#button").click(function () {
     startTime = new Date();
     setTimeout(display, 1000);
-});
+  });
 });
 
 // app.factory('d3Service', [function(){

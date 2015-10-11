@@ -196,7 +196,16 @@ app.controller('MainController', ['$scope', 'ModalService', '$http', '$sce', '$c
       };
     };
 
+
     $scope.getwords = function () {
+      CategoryService.getwords().then(function (response) {
+        console.log(response);
+      });
+    };
+
+    $scope.getwords();
+
+    $scope.getstuff = function () {
       $http.get("/getposts").then(function (response) {
         var returns = response.data;
         var filtered = [];
@@ -243,7 +252,7 @@ app.controller('MainController', ['$scope', 'ModalService', '$http', '$sce', '$c
     };
 
 
-    $scope.getwords();
+
 
     $scope.trending = function () {
       $http.get("/reddittrend").then(function (response) {

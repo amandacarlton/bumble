@@ -7,6 +7,7 @@ var catCollection = bumdb.get('cat');
 var bcrypt= require('bcrypt');
 var states = bumdb.get('states');
 var posts = bumdb.get('posts');
+var wordcount= bumdb.get('wordcount');
 // var google = require('googleapis');
 // var urlshortener = google.urlshortener('v1');
 /* GET home page. */
@@ -106,6 +107,12 @@ router.post("/subscriberstate", function (req, res, next) {
      }
    });
  };
+});
+
+router.get("/findwords", function (req, res, next) {
+  wordcount.find().then(function (response) {
+    res.json(response);
+  });
 });
 
 router.get("/statefind", function (req, res, next) {
