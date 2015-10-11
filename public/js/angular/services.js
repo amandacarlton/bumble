@@ -389,7 +389,7 @@ var categoryobj = {
            "Massachusetts" : populate("Massachusetts", "massachusetts", "boston", "Worcester", "Springfield"),
            "Ohio": populate2("Ohio", "Ohio", "cincinnati", "Cleveland"),
            "Virginia": populate("Virginia", "Virginia", "VirginiaBeach", "Chesapeake", "norfolk"),
-           "Missouri": (info.missouri)/populations.Missouri,
+            "Missouri": (info.missouri)/populations.Missouri,
 
 
 
