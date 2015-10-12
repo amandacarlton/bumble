@@ -32,6 +32,11 @@ app.config(function ($stateProvider) {
       url: '/bubble',
       templateUrl:'partials/bubble.html',
       contoller:'MainController'
+    })
+    .state('zoom', {
+      url: '/zoom',
+      templateUrl:'partials/zoom.html',
+      contoller:'MainController'
     });
 
   });

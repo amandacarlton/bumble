@@ -449,6 +449,248 @@ app.controller('MainController', ['$scope', 'ModalService', '$http', '$sce', '$c
       }
     };
 
+    $scope.mapzoomObject = {
+      scope: 'usa',
+      options: {
+        width: 1110,
+        legendHeight: 60 // optionally set the padding for the legend
+      },
+
+      geographyConfig: {
+        highlightBorderColor: '#bada55',
+        highlighBorderWidth: 2,
+        popupTemplate: function(geo, data) {
+          var searchterm = geo.properties.name.replace(" ","");
+          return ['<div class="hoverinfo"><strong>',
+          geo.properties.name, ' ranked ' + $scope.statesubinfo[searchterm].place,
+
+          '</strong></div>'].join('');
+        }
+      },
+      fills: {
+        '.139': '#3B5323',
+        '.059': '#4A7023',
+        '.016': '#4A7023',
+        '.014': '#4A7023',
+        '.019': '#4A7023',
+        '.011': '#4A7023',
+        '.009': '#458B00',
+        '.008': '#458B00',
+        '.007': '#7F9A65',
+        '.006': '#7F9A65',
+        '.005': '#8BA870',
+        '.004': '#8BA870',
+        '.003': '#C0D9AF',
+        '.002': '#C0D9AF',
+        '.001': '#E0EEE0',
+        '.0006': '#E0EEE0',
+        'defaultFill': '#DDDDDD'
+      },
+
+      data: {
+        "AZ": {
+          "fillKey": '.004'
+        },
+        "CO": {
+          "fillKey": '.011',
+        },
+        "DE": {
+          "fillKey": '.008',
+        },
+        "GA": {
+          "fillKey": ".004"
+        },
+        "FL":{
+          "fillKey": ".002"
+        },
+        'AL':{
+          "fillKey": ".003"
+        },
+        //
+        'AK':{
+          "fillKey": ".016"
+        },
+        //
+        'AR':{
+          "fillKey": ".003"
+        },
+        //
+        'CA':{
+          "fillKey": ".003"
+        },
+        //
+        //
+        'CT':{
+          "fillKey": ".004"
+        },
+        //
+        'DC':{
+          "fillKey": '.059'
+        },
+        //
+        'HI':{
+          "fillKey": ".008"
+        },
+        //
+        'ID':{
+          "fillKey": ".004"
+        },
+        //
+        'IL':{
+          "fillKey": ".006"
+        },
+        //
+        'IN':{
+          "fillKey": ".003"
+        },
+        //
+        'IA':{
+          "fillKey": ".003"
+        },
+        //
+        'KS':{
+          "fillKey": ".007"
+        },
+        //
+        'KY':{
+          "fillKey": ".004"
+        },
+        //
+        'LA':{
+          "fillKey": ".005"
+        },
+        //
+        'ME':{
+          "fillKey": ".006"
+        },
+        //
+        'MD':{
+          "fillKey": ".005"
+        },
+        //
+        'MA':{
+          "fillKey": ".009"
+        },
+        //
+        'MI':{
+          "fillKey": ".004"
+        },
+        //
+        'MN':{
+          "fillKey": ".006"
+        },
+        //
+        'MS':{
+          "fillKey":".001"
+        },
+
+        'MO':{
+          "fillKey": ".0006"
+        },
+        //
+        'MT':{
+          "fillKey": ".007"
+        },
+        //
+        'NE':{
+          "fillKey": ".006"
+        },
+        //
+        'NV':{
+          "fillKey": ".004"
+        },
+        //
+        'NH':{
+          "fillKey": ".005"
+        },
+        //
+        'NJ':{
+          "fillKey": ".003"
+        },
+        //
+        'NM':{
+          "fillKey": ".004"
+        },
+        //
+        'NY':{
+          "fillKey": ".005"
+        },
+        //
+        'NC':{
+          "fillKey": ".003"
+        },
+        //
+        'ND':{
+          "fillKey": ".007"
+        },
+        //
+        'OH':{
+          "fillKey": ".003"
+        },
+        //
+        'OK':{
+          "fillKey": ".004"
+        },
+        //
+        'OR':{
+          "fillKey": ".019"
+        },
+        //
+        'PA':{
+          "fillKey": ".005"
+        },
+
+        'RI':{
+          "fillKey":".007"
+        },
+
+        'SC':{
+          "fillKey":".003"
+        },
+        'SD':{
+          "fillKey": ".006"
+        },
+        'TN':{
+          "fillKey": ".003"
+        },
+
+        'TX':{
+          "fillKey": ".004"
+        },
+        //
+        'UT':{
+          "fillKey": ".005"
+        },
+        //
+        'VT':{
+          "fillKey": ".139"
+        },
+        //
+        'VA':{
+          "fillKey": ".002"
+        },
+        //
+        'WA':{
+          "fillKey": ".014"
+        },
+        //
+        'WV':{
+          "fillKey": ".002"
+        },
+        //
+        'WI':{
+          "fillKey": ".003"
+        },
+        //
+        'WY':{
+          "fillKey": ".004"
+        },
+      },
+
+
+    };
+
+
     $scope.mapObject = {
       scope: 'usa',
       options: {
