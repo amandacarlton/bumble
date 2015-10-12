@@ -6,10 +6,12 @@ html(ng-app="bumble")
     link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css')
     link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css')
     link(rel='stylesheet', href='/stylesheets/style.css')
+    script(src='bower_components/underscore/underscore.js')
     script(src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-alpha1/jquery.js")
     script(src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js')
     script(src='https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.3/angular.js')
     script(src='bower_components/d3/d3.js')
+    script(src='bower_components/ng-bubble-cloud/src/bubble-cloud.js')
     script(src='bower_components/topojson/topojson.js')
     script(src='bower_components/datamaps/dist/datamaps.all.js')
     script(src='bower_components/angular-datamaps/dist/angular-datamaps.js')
@@ -70,7 +72,7 @@ html(ng-app="bumble")
                     li.divider(role='separator')
                     |             
                     li
-                      a(href='#') Separated link
+                      a(href='/#/bubble') Bubble
                     |             
                     li.divider(role='separator')
                     |             

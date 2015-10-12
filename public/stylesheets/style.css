@@ -143,6 +143,11 @@ h2{
 	text-align: center;
 }
 
+bubble-cloud{
+	height: 500px;
+	width: 500px;
+}
+
 /*.title{
 	background-color: blue;
 }*/
