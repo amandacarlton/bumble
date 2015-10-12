@@ -24,7 +24,7 @@ app.controller('MainController', ['$scope', 'ModalService', '$http', '$sce', '$c
     'she', 'her', 'hers', 'it', 'its', 'you', 'yours', 'your',
     'has', 'have', 'would', 'could', 'should', 'shall',
     'can', 'may', 'if', 'then', 'else', 'but',
-    'there', 'these', 'those', "s"];
+    'there', 'these', 'those', "s",'philosophy'];
 
 
 
@@ -203,18 +203,13 @@ app.controller('MainController', ['$scope', 'ModalService', '$http', '$sce', '$c
     return CategoryService.getwords().then(function (response) {
       $scope.wordarray = response;
       // console.log($scope.wordarray.Art);
-       console.log(testing);
+      testing=[];
+      console.log('before', testing);
       for (var i = 0; i < 30; i++) {
 
         testing.push({name:$scope.wordarray[category][i][0] , balance:$scope.wordarray[category][i][1]});
       }
-    });
-
-    };
-
-    $scope.getwords();
-
-
+      console.log(testing);
 
     $scope.net_worth = {
         assets: testing,
@@ -224,6 +219,9 @@ app.controller('MainController', ['$scope', 'ModalService', '$http', '$sce', '$c
           //     { name: 'Student Loans', balance: 35000 },
           // ],
       };
+    });
+
+  };
 
         $scope.fill_color = function (group) {
           return group === 'assets' ? '#3eb536' : '#641726';

@@ -310,7 +310,7 @@ var commonWords =  [
   'she', 'her', 'hers', 'it', 'its', 'you', 'yours', 'your',
   'has', 'have', 'would', 'could', 'should', 'shall',
   'can', 'may', 'if', 'then', 'else', 'but',
-  'there', 'these', 'those','my','so',"", "oc", "x"];
+  'there', 'these', 'those','my','so',"", "oc", "x",'s','philosophy'];
 
   var categoryobj = {
 
