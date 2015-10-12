@@ -24,7 +24,7 @@ app.controller('MainController', ['$scope', 'ModalService', '$http', '$sce', '$c
     'she', 'her', 'hers', 'it', 'its', 'you', 'yours', 'your',
     'has', 'have', 'would', 'could', 'should', 'shall',
     'can', 'may', 'if', 'then', 'else', 'but',
-    'there', 'these', 'those'];
+    'there', 'these', 'those', "s"];
 
 
 
@@ -198,11 +198,15 @@ app.controller('MainController', ['$scope', 'ModalService', '$http', '$sce', '$c
       };
     };
 
-
+    var testing = [];
     $scope.getwords = function () {
     return CategoryService.getwords().then(function (response) {
       $scope.wordarray = response;
-      console.log($scope.wordarray);
+      // console.log($scope.wordarray.Art);
+
+      for (var i = 0; i < 30; i++) {
+        testing.push({name:$scope.wordarray.aww[i][0], balance:$scope.wordarray.aww[i][1]});
+      } console.log(testing);
     });
 
     };
@@ -212,17 +216,12 @@ app.controller('MainController', ['$scope', 'ModalService', '$http', '$sce', '$c
 
 
     $scope.net_worth = {
-        assets: [
-            { name: 'Checking & Savings', balance: 2000 },
-            { name: 'Money Market', balance: 11000 },
-            { name: 'Retirement account', balance: 28000 },
-            { name: 'Car', balance: 3000 },
-        ],
-        liabilities: [
-            { name: 'Credit Cards', balance: 5000 },
-            { name: 'Laptop', balance: 1500 },
-            { name: 'Student Loans', balance: 35000 },
-        ],
+        assets: testing,
+          // liabilities: [
+          //     { name: 'Credit Cards', balance: 5000 },
+          //     { name: 'Laptop', balance: 1500 },
+          //     { name: 'Student Loans', balance: 35000 },
+          // ],
       };
 
         $scope.fill_color = function (group) {

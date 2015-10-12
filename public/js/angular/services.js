@@ -358,7 +358,6 @@ var commonWords =  [
 
                 wordCount[categoryList[i]]={};
                 noncommon.forEach(function (e) {
-
                   wordCount[categoryList[i]][e] = wordCount[categoryList[i]][e] || 0;
                   wordCount[categoryList[i]][e] += 1;
                 });
@@ -369,7 +368,7 @@ var commonWords =  [
 
 
             }
-            
+            console.log(wordCount);
             return wordCount;
           });
         },

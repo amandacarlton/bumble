@@ -53,7 +53,7 @@ angular.module('bubbleCloud', [])
 
             // Set size of element
             element.css('height', scope.diameter + 'px');
-
+             console.log(element);
             // Publish renderChart into the parent scope
             scope.renderChartFn = ctrl.renderChart;
 
@@ -117,14 +117,13 @@ angular.module('bubbleCloud', [])
         if (! valueAttr) throw new Error('value-attr is required on <bubble>');
 
         var diameter = parseInt($scope.diameter);
-
+        console.log($scope.diameter);
         svg_element
             .attr('width', diameter)
             .attr('height', diameter)
             .attr('class', 'bubble');
 
         $scope.selection = d3.selectAll(svg_element);
-
         // Create a pack layout
         $scope.pack_layout = d3.layout.pack()
             .sort(null)
@@ -179,7 +178,7 @@ angular.module('bubbleCloud', [])
         enter.append('title');
         enter.append('circle');
         enter.append('text')
-            .attr('dy', '.3em')
+            .attr('dy', '.5em')
             .style('text-anchor', 'middle')
 
         // Handle each node
@@ -192,6 +191,7 @@ angular.module('bubbleCloud', [])
         var tooltip_format_fn = $scope.tooltip_format_fn;
 
         node.attr('transform', function (datum) {
+          console.log(datum.x);
             return 'translate(' + datum.x + ',' + datum.y + ')';
         });
 
@@ -209,7 +209,9 @@ angular.module('bubbleCloud', [])
                 return datum.r;
             })
             .style('fill', function (datum) {
-                return fill_color_fn(datum.group);
+              var colors = ['#2fcbff','#04a0be','#324fff','#0024ff'];
+              var random =  Math.floor(Math.random() * (colors.length));
+                return colors[random];
             });
 
         node.select('text')
