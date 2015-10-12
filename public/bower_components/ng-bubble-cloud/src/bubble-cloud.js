@@ -191,7 +191,7 @@ angular.module('bubbleCloud', [])
         var tooltip_format_fn = $scope.tooltip_format_fn;
 
         node.attr('transform', function (datum) {
-          console.log(datum.x);
+          // console.log(datum.x);
             return 'translate(' + datum.x + ',' + datum.y + ')';
         });
 

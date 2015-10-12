@@ -199,14 +199,15 @@ app.controller('MainController', ['$scope', 'ModalService', '$http', '$sce', '$c
     };
 
     var testing = [];
-    $scope.getwords = function () {
+    $scope.getwords = function (category) {
     return CategoryService.getwords().then(function (response) {
       $scope.wordarray = response;
       // console.log($scope.wordarray.Art);
-
+       console.log(testing);
       for (var i = 0; i < 30; i++) {
-        testing.push({name:$scope.wordarray.aww[i][0], balance:$scope.wordarray.aww[i][1]});
-      } console.log(testing);
+
+        testing.push({name:$scope.wordarray[category][i][0] , balance:$scope.wordarray[category][i][1]});
+      }
     });
 
     };
