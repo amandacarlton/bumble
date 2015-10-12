@@ -12,6 +12,7 @@ app.controller('MainController', ['$scope', 'ModalService', '$http', '$sce', '$c
   $scope.dislikedchecked=false;
   $scope.checkedInterest="";
   $scope.statenums = "";
+  $scope.wordarray="";
   $scope.commonWords = [
     'i','a','about', 'an','and','are','as','at',
     'be', 'been','by','com','for', 'from','how','in',
@@ -25,32 +26,6 @@ app.controller('MainController', ['$scope', 'ModalService', '$http', '$sce', '$c
     'can', 'may', 'if', 'then', 'else', 'but',
     'there', 'these', 'those'];
 
-    $scope.net_worth = {
-        assets: [
-            { name: 'Checking & Savings', balance: 2000 },
-            { name: 'Money Market', balance: 11000 },
-            { name: 'Retirement account', balance: 28000 },
-            { name: 'Car', balance: 3000 },
-        ],
-        liabilities: [
-            { name: 'Credit Cards', balance: 5000 },
-            { name: 'Laptop', balance: 1500 },
-            { name: 'Student Loans', balance: 35000 },
-        ],
-      };
-
-        $scope.fill_color = function (group) {
-          return group === 'assets' ? '#3eb536' : '#641726';
-        };
-
-        $scope.label_color = function (group) {
-          return group === 'assets' ? 'black' : '#8c8c8c';
-        };
-
-
-        $scope.tooltip_format = function (datum) {
-            return datum.object.name + ': $' + d3.format(',d')(datum.object.balance);
-        };
 
 
 
@@ -224,61 +199,44 @@ app.controller('MainController', ['$scope', 'ModalService', '$http', '$sce', '$c
     };
 
 
-    // $scope.getwords = function () {
-    //   CategoryService.getwords().then(function (response) {
-    //
-    //   });
-    // };
-    //
-    // $scope.getwords();
+    $scope.getwords = function () {
+    return CategoryService.getwords().then(function (response) {
+      $scope.wordarray = response;
+      console.log($scope.wordarray);
+    });
 
-    $scope.getstuff = function () {
-      $http.get("/getposts").then(function (response) {
-        var returns = response.data;
-        var filtered = [];
-        for (var i = 0; i < returns.length; i++) {
-          text = returns[i].title.toLowerCase()
-          .replace(/[\n,\r]/g,' ')
-          .replace(/[^a-zA-Z ]/g, "")
-          .replace(/\s{2,}/g, ' ')
-          .split(' ');
-          filtered.push(text);
-        }
-        var noncommon = [];
-        for (var j = 0; j < filtered.length; j++) {
-          for (var k = 0; k < filtered[j].length; k++) {
-            if ($scope.commonWords.indexOf(filtered[j][k])<0){
-              noncommon.push(filtered[j][k]);
-            }
-          }
-        }
+    };
 
-        var sortObj = function (obj) {
-          var sortable = [];
-          for (var key in obj) {
-            sortable.push([key, obj[key]]);
-          }
-          sortable.sort(function (a, b) {
-            return b[1]-a[1];
-          });
-          return sortable;
+    $scope.getwords();
+
+
+
+    $scope.net_worth = {
+        assets: [
+            { name: 'Checking & Savings', balance: 2000 },
+            { name: 'Money Market', balance: 11000 },
+            { name: 'Retirement account', balance: 28000 },
+            { name: 'Car', balance: 3000 },
+        ],
+        liabilities: [
+            { name: 'Credit Cards', balance: 5000 },
+            { name: 'Laptop', balance: 1500 },
+            { name: 'Student Loans', balance: 35000 },
+        ],
+      };
+
+        $scope.fill_color = function (group) {
+          return group === 'assets' ? '#3eb536' : '#641726';
+        };
+
+        $scope.label_color = function (group) {
+          return group === 'assets' ? 'black' : '#8c8c8c';
         };
 
 
-        var wordCount = {};
-
-        noncommon.forEach(function (e) {
-          wordCount[e] = wordCount[e] || 0;
-          wordCount[e] += 1;
-        });
-
-        wordCount = sortObj(wordCount);
-
-        console.log(wordCount);
-      });
-    };
-
-
+        $scope.tooltip_format = function (datum) {
+            return datum.object.name + ': $' + d3.format(',d')(datum.object.balance);
+        };
 
 
     $scope.trending = function () {

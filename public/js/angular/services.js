@@ -320,7 +320,7 @@ var commonWords =  [
 
     getwords: function () {
       var wordCount = {};
-      $http.get("/findwords").then(function (response) {
+      return $http.get("/findwords").then(function (response) {
         for (var i = 0; i < categoryList.length; i++) {
           var filtered = [];
           for (var m = 0; m < response.data.length; m++) {
@@ -369,7 +369,8 @@ var commonWords =  [
 
 
             }
-            console.log(wordCount);
+            
+            return wordCount;
           });
         },
 
