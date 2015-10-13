@@ -55,7 +55,13 @@ app.controller('MainController', ['$scope', 'ModalService', '$http', '$sce', '$c
 
     };
 
+  $scope.created = function () {
+    $http.get("/created").then(function (response) {
+      console.log(response);
+    });
+  };
 
+  // $scope.created();
 
     // $scope.stats = function () {
     //   return CategoryService.stateStats(CategoryService.getState);
@@ -137,9 +143,9 @@ app.controller('MainController', ['$scope', 'ModalService', '$http', '$sce', '$c
 
     $scope.categoryList();
 
-    $scope.checkArrayFor = function (category) {
-      return ($scope.checkedInterest.indexOf(category)>-1);
-    };
+    // $scope.checkArrayFor = function (category) {
+    //   return ($scope.checkedInterest.indexOf(category)>-1);
+    // };
 
     $scope.getSubredditInfo = function () {
       var subscriberobj = {

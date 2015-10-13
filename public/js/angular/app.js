@@ -1,4 +1,4 @@
-var app = angular.module('bumble', ['ui.router','angularModalService','ngCookies','datamaps','bubbleCloud']);
+var app = angular.module('bumble', ['ui.router','angularModalService','ngCookies','datamaps','bubbleCloud','calHeatmap']);
 
 
 app.config(function ($stateProvider) {
@@ -36,6 +36,11 @@ app.config(function ($stateProvider) {
     .state('zoom', {
       url: '/zoom',
       templateUrl:'partials/zoom.html',
+      contoller:'MainController'
+    })
+    .state('heat', {
+      url: '/heat',
+      templateUrl:'partials/heatmap.html',
       contoller:'MainController'
     });
 
