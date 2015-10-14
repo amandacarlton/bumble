@@ -58,8 +58,15 @@ app.controller('MainController', ['$scope', 'ModalService', '$http', '$sce', '$c
     $scope.datainfo = {'1417915843':1, '1437288110':1};
     console.log($scope.datainfo);
     $scope.trafficobj={};
-  $scope.created = function () {
-    $http.get("/created").then(function (response) {
+  $scope.created = function (heatcategory) {
+    console.log(heatcategory);
+    if (heatcategory==='undefined'){
+      heatcategory = 'aww';
+    }
+    var sendcat = {
+      category: heatcategory
+    };
+    $http.post("/created", sendcat).then(function (response) {
       $scope.traffic = response.data;
       var trafficarray=[];
       for (var i = 0; i < $scope.traffic.length; i++) {
