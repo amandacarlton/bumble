@@ -55,13 +55,26 @@ app.controller('MainController', ['$scope', 'ModalService', '$http', '$sce', '$c
 
     };
 
+    $scope.datainfo = {'1417915843':1, '1437288110':1};
+    console.log($scope.datainfo);
+    $scope.trafficobj={};
   $scope.created = function () {
     $http.get("/created").then(function (response) {
-      console.log(response);
+      $scope.traffic = response.data;
+      var trafficarray=[];
+      for (var i = 0; i < $scope.traffic.length; i++) {
+        trafficarray.push($scope.traffic[i].created.toString());
+      }
+      //console.log(trafficarray);
+      //$scope.trafficobj={};
+      for (var j = 0; j < trafficarray.length; j++) {
+        $scope.trafficobj[trafficarray[j]] = $scope.trafficobj[trafficarray[j]] || 0;
+        $scope.trafficobj[trafficarray[j]]+= 1;
+      } console.log($scope.trafficobj);
     });
   };
 
-  // $scope.created();
+  $scope.created();
 
     // $scope.stats = function () {
     //   return CategoryService.stateStats(CategoryService.getState);

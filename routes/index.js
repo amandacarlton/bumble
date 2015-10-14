@@ -87,7 +87,7 @@ router.post('/articleInfo', function (req, res, next) {
 
 router.get('/created', function (req, res, next) {
   console.log('here');
-  heatmap.find().then(function (response) {
+  heatmap.find({subreddit:'puppies'}).then(function (response) {
     console.log(response);
     res.json(response);
   });
