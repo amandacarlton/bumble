@@ -61,9 +61,23 @@ router.post('/insert', function (req, res, next) {
   // category[req.body.interest] = {liked:[], disliked:[], time: {timeliked:[], timedisliked:[], timeall:[]}};
   //catCollection.insert({user_id:req.body.user_id, categoryname:req.body.interest, liked:[], disliked:[], indifferent:[], alltime:[], timeliked:[], timedisliked:[]});
   catCollection.insert({user_id:req.body.user_id, categoryname:req.body.interest, site:[]}).then(function () {
-  userCollection.update({_id:req.body.user_id}, {$push:{interest:req.body.interest}});
+    userCollection.update({_id:req.body.user_id}, {$push:{interest:req.body.interest}});
   }).then(function (response) {
-   res.json(response);
+    res.json(response);
+  });
+});
+
+router.post('/userpref', function (req, res, next) {
+  userCollection.findOne({_id:req.body.id}).then(function (response) {
+    res.json(response);
+  });
+});
+
+router.post('/userlikes', function (req, res, next) {
+  console.log(req.body);
+  catCollection.find({user_id:req.body.id}).then(function (response) {
+    console.log(response);
+    res.json(response);
   });
 });
 
@@ -72,8 +86,8 @@ router.get('/senddata', function (req, res, next) {
     root: __dirname,
     dotfiles: 'deny',
     headers: {
-        'x-timestamp': Date.now(),
-        'x-sent': true
+      'x-timestamp': Date.now(),
+      'x-sent': true
     }
   };
   console.log(__dirname);
@@ -98,18 +112,18 @@ router.post("/subscriber", function (req, res, next) {
   var subscriberinfo = {};
   var counter = 0;
   var length = req.body.category.length;
- for (var i = 0; i < length; i++) {
-   var last = req.body.category[length-1];
-   var catname = req.body.category[i];
-   unirest.get('https://www.reddit.com/r/'+req.body.category[i]+'/about.json?')
-   .end(function (response) {
-     subscriberinfo[response.body.data.display_name] = response.body.data.subscribers;
-     counter ++;
-     if(counter === length){
-       res.json(subscriberinfo);
-     }
-   });
- };
+  for (var i = 0; i < length; i++) {
+    var last = req.body.category[length-1];
+    var catname = req.body.category[i];
+    unirest.get('https://www.reddit.com/r/'+req.body.category[i]+'/about.json?')
+    .end(function (response) {
+      subscriberinfo[response.body.data.display_name] = response.body.data.subscribers;
+      counter ++;
+      if(counter === length){
+        res.json(subscriberinfo);
+      }
+    });
+  };
 });
 
 router.post("/subscriberstate", function (req, res, next) {
@@ -117,18 +131,18 @@ router.post("/subscriberstate", function (req, res, next) {
   var subscriberinfo = {};
   var counter = 0;
   var length = req.body.category.length;
- for (var i = 0; i < length; i++) {
-   var last = req.body.category[length-1];
-   var catname = req.body.category[i];
-   unirest.get('https://www.reddit.com/r/'+req.body.category[i]+'/about.json?')
-   .end(function (response) {
-     subscriberinfo[response.body.data.display_name] = response.body.data.subscribers;
-     counter ++;
-     if(counter === length){
-       res.json(subscriberinfo);
-     }
-   });
- };
+  for (var i = 0; i < length; i++) {
+    var last = req.body.category[length-1];
+    var catname = req.body.category[i];
+    unirest.get('https://www.reddit.com/r/'+req.body.category[i]+'/about.json?')
+    .end(function (response) {
+      subscriberinfo[response.body.data.display_name] = response.body.data.subscribers;
+      counter ++;
+      if(counter === length){
+        res.json(subscriberinfo);
+      }
+    });
+  };
 });
 
 router.get("/findwords", function (req, res, next) {
@@ -139,9 +153,9 @@ router.get("/findwords", function (req, res, next) {
 
 router.get("/statefind", function (req, res, next) {
   console.log("here");
- states.find({}).then(function (response) {
-   res.json(response);
- });
+  states.find({}).then(function (response) {
+    res.json(response);
+  });
 });
 
 router.get("/getposts", function (req, res, next) {
@@ -159,20 +173,20 @@ router.post("/userinfo", function (req, res, next) {
 });
 
 router.post('/checkuser', function (req, res, next) {
-   userCollection.findOne({email:req.body.email}).then(function (response) {
-     if (response === null){
-     res.json(response);
-   }else{
-     var compare = response.password;
-     if(bcrypt.compareSync(req.body.password, compare)){
-       response.good = true;
-       res.json(response);
-     }else{
-       response.good = false;
-       res.json(response);
-     }
-   }
-   });
+  userCollection.findOne({email:req.body.email}).then(function (response) {
+    if (response === null){
+      res.json(response);
+    }else{
+      var compare = response.password;
+      if(bcrypt.compareSync(req.body.password, compare)){
+        response.good = true;
+        res.json(response);
+      }else{
+        response.good = false;
+        res.json(response);
+      }
+    }
+  });
 });
 
 router.post('/insertuser', function (req, res, next) {

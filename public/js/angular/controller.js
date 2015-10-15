@@ -27,37 +27,63 @@ app.controller('MainController', ['$scope', 'ModalService', '$http', '$sce', '$c
     'there', 'these', 'those', "s",'philosophy'];
 
 
-    $scope.config = {
-    title: 'Products',
-    tooltips: true,
-    labels: false,
-    mouseover: function() {},
-    mouseout: function() {},
-    click: function() {},
-    legend: {
-      display: true,
-      //could be 'left, right'
-      position: 'right'
-    }
-  };
+    $scope.barinfo = [{
+      x:'test',
+      y:[10,20,30]},
+    { x:'test2',
+      y:[10,30,40]
+      }];
 
-  $scope.data = {
-    series: ['Liked', 'Disliked', 'Indiff'],
-    data: [{
-      x: "Laptops",
-      y: [100, 500, 0],
-      tooltip: "this is tooltip"
-    }, {
-      x: "Desktops",
-      y: [300, 100, 100]
-    }, {
-      x: "Mobiles",
-      y: [351]
-    }, {
-      x: "Tablets",
-      y: [54, 0, 879]
-    }]
-  };
+  console.log($scope.barinfo);
+
+    $scope.bardata = "";
+    $scope.userpref = function () {
+      var user = {
+        id:$scope.loggedInUser
+      };
+      return $http.post('/userpref', user).then(function (response) {
+       console.log(response);
+      return  $http.post('/userlikes',user).then(function (catresponse) {
+         console.log(catresponse);
+         var bararray = [];
+         for (var i = 0; i < catresponse.data.length; i++) {
+           bararray.push({x: catresponse.data[i].categoryname,
+                          y:[catresponse.data[i].site[0].url.length, catresponse.data[i].site[1].url.length, catresponse.data[i].site[2].url.length]});
+         } $scope.bardata = (bararray);
+         console.log($scope.bardata);
+
+         $scope.config = {
+         title: 'Products',
+         tooltips: true,
+         labels: false,
+         mouseover: function() {},
+         mouseout: function() {},
+         click: function() {},
+         legend: {
+           display: true,
+           //could be 'left, right'
+           position: 'right'
+         }
+       };
+
+
+       $scope.data = {
+         series: ['Liked', 'Disliked', 'Indiff'],
+         data: $scope.bardata,
+       };
+
+       });
+
+      });
+    };
+
+    $scope.userpref();
+
+
+
+
+  console.log($scope.bardata);
+
 
 
 
