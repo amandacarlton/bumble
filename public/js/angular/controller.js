@@ -46,14 +46,26 @@ app.controller('MainController', ['$scope', 'ModalService', '$http', '$sce', '$c
       return  $http.post('/userlikes',user).then(function (catresponse) {
          console.log(catresponse);
          var bararray = [];
+         var indiff = 0;
+         var liked = 0;
+         var disliked = 0;
          for (var i = 0; i < catresponse.data.length; i++) {
+           for (var j = 0; j < catresponse.data[i].site.length; j++) {
+             if(catresponse.data[i].site[j].opinion === 'indifferent'){
+             indiff++;
+           } else if(catresponse.data[i].site[j].opinion === 'liked'){
+             liked++;
+           } else{
+             disliked++;
+           }
+        }
            bararray.push({x: catresponse.data[i].categoryname,
-                          y:[catresponse.data[i].site[0].url.length, catresponse.data[i].site[1].url.length, catresponse.data[i].site[2].url.length]});
-         } $scope.bardata = (bararray);
-         console.log($scope.bardata);
+                          y:[liked, disliked, indiff]});
+         }
 
+         $scope.bardata = (bararray);
          $scope.config = {
-         title: 'Products',
+         title: 'Preference By Category',
          tooltips: true,
          labels: false,
          mouseover: function() {},
@@ -66,11 +78,53 @@ app.controller('MainController', ['$scope', 'ModalService', '$http', '$sce', '$c
          }
        };
 
-
+         $scope.pieconfig = {
+         title: 'Total Preference',
+         tooltips: true,
+         labels: false,
+         mouseover: function() {},
+         mouseout: function() {},
+         click: function() {},
+         legend: {
+           display: true,
+           //could be 'left, right'
+           position: 'right'
+         }
+       };
        $scope.data = {
          series: ['Liked', 'Disliked', 'Indiff'],
          data: $scope.bardata,
        };
+
+       var positive = 0;
+       var neg = 0;
+       var neutral = 0;
+
+       for (var k = 0; k < $scope.bardata.length; k++) {
+         positive += $scope.bardata[k].y[0];
+        //  console.log(bardata[k].y[0]);
+         neg += $scope.bardata[k].y[1];
+         neutral +=$scope.bardata[k].y[2];
+         console.log(neutral);
+       }
+
+       $scope.datapie = {
+          series: ['Liked', 'Disliked', 'Indiff'],
+          data:[
+          {
+          x:'liked',
+          y: [positive,0,0]
+        },
+          {
+          x:'disliked',
+          y: [neg,0,0]
+        },
+          {x: 'indifferent',
+          y: [neutral,0,0]
+        }],
+      };
+
+      console.log($scope.datapie);
 
        });
 
@@ -78,13 +132,6 @@ app.controller('MainController', ['$scope', 'ModalService', '$http', '$sce', '$c
     };
 
     $scope.userpref();
-
-
-
-
-  console.log($scope.bardata);
-
-
 
 
     $scope.starttimer = function () {
