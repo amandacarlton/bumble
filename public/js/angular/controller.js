@@ -134,8 +134,9 @@ app.controller('MainController', ['$scope', 'ModalService', '$http', '$sce', '$c
 
     $scope.userpref();
 
-    $scope.trendart = function () {
-      console.log('here');
+    $scope.trendart = function (article) {
+      $scope.trendurl = $sce.trustAsResourceUrl(article);
+      $location.path("/trendart");
     };
 
     $scope.starttimer = function () {
@@ -359,6 +360,7 @@ app.controller('MainController', ['$scope', 'ModalService', '$http', '$sce', '$c
     $scope.trending = function () {
       $http.get("/reddittrend").then(function (response) {
         $scope.trendings = response.data;
+        console.log($scope.trendings);
       });
     };
 

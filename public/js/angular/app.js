@@ -47,6 +47,11 @@ app.config(function ($stateProvider) {
       url: '/dashboard',
       templateUrl:'partials/dashboard.html',
       contoller:'MainController'
+    })
+    .state('trendart', {
+      url: '/trendart',
+      templateUrl:'partials/trendart.html',
+      contoller:'MainController'
     });
 
   });
