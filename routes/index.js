@@ -20,6 +20,7 @@ router.post('/reddit', function (req,res,next) {
   console.log("step 1");
   userCollection.findOne({_id:req.body.user_id}).then(function (response) {
     var testcats = response.interest;
+    console.log(testcats);
     var random = Math.floor(Math.random() * (testcats.length));
     var categoryChosen = (testcats[random]);
     console.log(categoryChosen);
@@ -86,8 +87,8 @@ router.post('/articleInfo', function (req, res, next) {
 });
 
 router.post('/created', function (req, res, next) {
-  console.log(req.body);
-  heatmap.find({subreddit:'puppies'}).then(function (response) {
+  console.log(req.body.category);
+  heatmap.find({subreddit:"puppies"}).then(function (response) {
     console.log(response);
     res.json(response);
   });

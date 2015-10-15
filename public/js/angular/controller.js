@@ -27,6 +27,38 @@ app.controller('MainController', ['$scope', 'ModalService', '$http', '$sce', '$c
     'there', 'these', 'those', "s",'philosophy'];
 
 
+    $scope.config = {
+    title: 'Products',
+    tooltips: true,
+    labels: false,
+    mouseover: function() {},
+    mouseout: function() {},
+    click: function() {},
+    legend: {
+      display: true,
+      //could be 'left, right'
+      position: 'right'
+    }
+  };
+
+  $scope.data = {
+    series: ['Liked', 'Disliked', 'Indiff'],
+    data: [{
+      x: "Laptops",
+      y: [100, 500, 0],
+      tooltip: "this is tooltip"
+    }, {
+      x: "Desktops",
+      y: [300, 100, 100]
+    }, {
+      x: "Mobiles",
+      y: [351]
+    }, {
+      x: "Tablets",
+      y: [54, 0, 879]
+    }]
+  };
+
 
 
     $scope.starttimer = function () {
@@ -55,33 +87,31 @@ app.controller('MainController', ['$scope', 'ModalService', '$http', '$sce', '$c
 
     };
 
-    $scope.datainfo = {'1417915843':1, '1437288110':1};
-    console.log($scope.datainfo);
+
     $scope.trafficobj={};
   $scope.created = function (heatcategory) {
-    console.log(heatcategory);
+
     if (heatcategory==='undefined'){
       heatcategory = 'aww';
     }
     var sendcat = {
       category: heatcategory
     };
+    $scope.trafficobj={};
     $http.post("/created", sendcat).then(function (response) {
       $scope.traffic = response.data;
       var trafficarray=[];
       for (var i = 0; i < $scope.traffic.length; i++) {
         trafficarray.push($scope.traffic[i].created.toString());
       }
-      //console.log(trafficarray);
-      //$scope.trafficobj={};
       for (var j = 0; j < trafficarray.length; j++) {
         $scope.trafficobj[trafficarray[j]] = $scope.trafficobj[trafficarray[j]] || 0;
         $scope.trafficobj[trafficarray[j]]+= 1;
-      } console.log($scope.trafficobj);
+      }
     });
   };
 
-  $scope.created();
+  //$scope.created();
 
     // $scope.stats = function () {
     //   return CategoryService.stateStats(CategoryService.getState);
@@ -137,7 +167,6 @@ app.controller('MainController', ['$scope', 'ModalService', '$http', '$sce', '$c
         opinion:$scope.preliked,
         url: $scope.preurl
       };
-      //console.log(articleObj);
       $http.post('/articleInfo', articleObj);
     };
 
@@ -157,44 +186,40 @@ app.controller('MainController', ['$scope', 'ModalService', '$http', '$sce', '$c
       $http.post("/userinfo", userobj).then(function (response) {
 
         $scope.checkedInterest= response.data.interest;
-        //console.log(checkedData);
       });
     };
 
     $scope.categoryList();
 
-    // $scope.checkArrayFor = function (category) {
-    //   return ($scope.checkedInterest.indexOf(category)>-1);
-    // };
+    $scope.checkArrayFor = function (category) {
+      return ($scope.checkedInterest.indexOf(category)>-1);
+    };
 
     $scope.getSubredditInfo = function () {
       var subscriberobj = {
         category:  CategoryService.categoryList()
       };
-
-      console.log(subscriberobj);
       $http.post("/subscriber", subscriberobj).then(function (response) {
-        console.log(response);
       });
     };
 
     $scope.getStateInfo = function () {
       return CategoryService.getState().then(function (response) {
-        console.log(response);
       });
-      //   console.log("here");
+
       //  var subscriberobj = {
       //    category:  CategoryService.states()
       //  };
-      //  console.log(subscriberobj);
+
       //  $http.post("/subscriberstate", subscriberobj).then(function (response) {
-      //    console.log(response);
+
       //  });
     };
 
-    // console.log($scope.getStateInfo());
+
 
     $scope.interestInsert = function (category) {
+
       $scope.interest = [];
       var interestobj = {
         user_id:$scope.loggedInUser,
@@ -205,7 +230,6 @@ app.controller('MainController', ['$scope', 'ModalService', '$http', '$sce', '$c
 
     $scope.liked = function () {
       $scope.likedchecked=true;
-      console.log($scope.likedchecked=true);
       $scope.likedvalue = "liked";
       var likedobj = {
         user_id:$scope.loggedInUser,
@@ -228,22 +252,14 @@ app.controller('MainController', ['$scope', 'ModalService', '$http', '$sce', '$c
     $scope.getwords = function (category) {
     return CategoryService.getwords().then(function (response) {
       $scope.wordarray = response;
-      // console.log($scope.wordarray.Art);
       testing=[];
-      console.log('before', testing);
       for (var i = 0; i < 30; i++) {
 
         testing.push({name:$scope.wordarray[category][i][0] , balance:$scope.wordarray[category][i][1]});
       }
-      console.log(testing);
 
     $scope.net_worth = {
         assets: testing,
-          // liabilities: [
-          //     { name: 'Credit Cards', balance: 5000 },
-          //     { name: 'Laptop', balance: 1500 },
-          //     { name: 'Student Loans', balance: 35000 },
-          // ],
       };
     });
 
@@ -265,7 +281,6 @@ app.controller('MainController', ['$scope', 'ModalService', '$http', '$sce', '$c
 
     $scope.trending = function () {
       $http.get("/reddittrend").then(function (response) {
-        console.log(response.data[0]);
         $scope.trendings = response.data;
       });
     };

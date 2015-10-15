@@ -296,6 +296,11 @@ text.now
 	margin-left: 10px;
 }
 
+.chart {
+ width: 500px;
+ height: 500px;
+}
+
 
 /*.title{
 	background-color: blue;
