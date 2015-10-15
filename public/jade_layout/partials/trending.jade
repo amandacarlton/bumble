@@ -3,14 +3,14 @@ div.col-md-6
   table(class="table") 
     tr(ng-repeat="trending in trendings | limitTo:5")
       td.pic
-        img(src="{{trending.data.thumbnail}}")
+        img(src="{{trending.data.thumbnail}}" ng-click='trendart()')
       td.trend
         h2 {{trending.data.title}}
 div.col-md-6
   table(class="table") 
-    tr(ng-repeat="trending in trendings | limitTo:5")
-      td.pic
-        img(src="{{trending.data.thumbnail}}")
+    tr(ng-repeat="trending in trendings | limitTo:5:5" )
+      td(class='pic')
+        img(src="{{trending.data.thumbnail}}" ng-click='trendart()')
       td.trend
         h2 {{trending.data.title}}
   

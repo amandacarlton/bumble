@@ -134,6 +134,9 @@ app.controller('MainController', ['$scope', 'ModalService', '$http', '$sce', '$c
 
     $scope.userpref();
 
+    $scope.trendart = function () {
+      console.log('here');
+    };
 
     $scope.starttimer = function () {
       $scope.prevStart = $scope.startTime;
