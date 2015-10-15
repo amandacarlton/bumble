@@ -302,7 +302,17 @@ text.now
  margin: 30px;
 }
 
+.bar{
+	float: left;
+}
 
+.pie{
+	float: left;
+}
+
+.time{
+	margin-left: 250px;
+}
 /*.title{
 	background-color: blue;
 }*/

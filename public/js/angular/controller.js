@@ -91,8 +91,9 @@ app.controller('MainController', ['$scope', 'ModalService', '$http', '$sce', '$c
            position: 'right'
          }
        };
+
        $scope.data = {
-         series: ['Liked', 'Disliked', 'Indiff'],
+         series: ['Liked', 'Disliked', 'Indifferent'],
          data: $scope.bardata,
        };
 
@@ -109,17 +110,17 @@ app.controller('MainController', ['$scope', 'ModalService', '$http', '$sce', '$c
        }
 
        $scope.datapie = {
-          series: ['Liked', 'Disliked', 'Indiff'],
+          series: ['Liked', 'Disliked', 'Indifferent'],
           data:[
           {
-          x:'liked',
+          x:'Liked',
           y: [positive,0,0]
         },
           {
-          x:'disliked',
+          x:'Disliked',
           y: [neg,0,0]
         },
-          {x: 'indifferent',
+          {x: 'Indifferent',
           y: [neutral,0,0]
         }],
       };
