@@ -1,6 +1,16 @@
-div.col-md-12(ng-repeat="trending in trendings | limitTo:10")
-  div.trend
-   div.pic
-    img(src="{{trending.data.thumbnail}}")
-   div.title
-    h2 {{trending.data.title}}
+
+div.col-md-6
+  table(class="table") 
+    tr(ng-repeat="trending in trendings | limitTo:5")
+      td.pic
+        img(src="{{trending.data.thumbnail}}")
+      td.trend
+        h2 {{trending.data.title}}
+div.col-md-6
+  table(class="table") 
+    tr(ng-repeat="trending in trendings | limitTo:5")
+      td.pic
+        img(src="{{trending.data.thumbnail}}")
+      td.trend
+        h2 {{trending.data.title}}
+  

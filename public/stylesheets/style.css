@@ -120,24 +120,13 @@ iframe{
 	color:green;
 }
 
-.trend{
 
-	text-align: center;
-	/*margin: 20px;*/
-	/*border-radius: 25px;*/
-}
 
 h2{
-	font-size: 20px;
+	font-size: 15px;
 }
 
-.pic{
-	float: left;
-}
 
-.title{
-	float: left;
-}
 
 .statesubs{
 	text-align: center;
@@ -218,6 +207,7 @@ Remove comment to apply this style to date with value equal to 0
 .q3
 {
 	background-color: #b5cf6b;
+
 	fill: #669d45
 }
 
@@ -312,6 +302,20 @@ text.now
 
 .time{
 	margin-left: 250px;
+}
+
+
+
+.popular{
+	float: left;
+}
+
+tr{
+	height: 150px !important;
+}
+
+td{
+	max-height: 150px;
 }
 /*.title{
 	background-color: blue;
