@@ -24,8 +24,13 @@ article, aside, details, figcaption, figure,
 footer, header, hgroup, menu, nav, section {
 	display: block;
 }
+html{
+	height: 100%;
+}
 body {
 	line-height: 1;
+	height: 100%;
+	font-family: 'Lobster';
 }
 ol, ul {
 	list-style: none;
@@ -322,6 +327,33 @@ td{
 	margin-left: 100px;
 }
 
+div.frame{
+	margin: 0 auto;
+}
+
+.splash{
+	height: 100%;
+	width:100%;
+	background-size: 100%;
+	background-image: url('https://images.unsplash.com/photo-1444253324313-0dce942d572c?dpr=2&fit=crop&fm=jpg&h=725&q=50&w=1300')
+}
+
+.view{
+	height: 90%;
+	width:100%;
+}
+
+.navbar, .view{
+	margin: 0 !important;
+}
+
+body{
+	margin: 0px !important;
+}
+
+html{
+	margin: 0px !important;
+}
 
 /*.title{
 	background-color: blue;
