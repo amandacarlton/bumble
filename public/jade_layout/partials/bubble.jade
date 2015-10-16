@@ -1,7 +1,7 @@
-h1 Category
 
-select#category(ng-model='category' ng-change='getwords(category)')
-  option(ng-repeat='cat in allcats', value='{{cat}}') {{cat}}
-
-
+div.category
+  h1 Select a Category
+    select#category(ng-model='category' ng-change='getwords(category)')
+      option(ng-repeat='cat in allcats', value='{{cat}}') {{cat}}
+  
 bubble-cloud(diameter='1000', watch='true', data='net_worth', value-attr='balance', label-attr='name', fill-color-fn='fill_color', label-color-fn='label_color', tooltip-format-fn='tooltip_format')
