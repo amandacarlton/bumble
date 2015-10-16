@@ -281,7 +281,8 @@ app.controller('MainController', ['$scope', 'ModalService', '$http', '$sce', '$c
         user_id: $scope.loggedInUser,
         timer:$scope.timeDiff,
         opinion:$scope.preliked,
-        url: $scope.preurl
+        url: $scope.preurl,
+        visit: Date.now() / 1000 | 0,
       };
       $http.post('/articleInfo', articleObj).then(function (response) {
         $scope.userpref();

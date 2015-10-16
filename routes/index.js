@@ -9,6 +9,7 @@ var states = bumdb.get('states');
 var posts = bumdb.get('posts');
 var wordcount= bumdb.get('wordcount');
 var heatmap= bumdb.get('heatmap');
+var test = 'test';
 // var google = require('googleapis');
 // var urlshortener = google.urlshortener('v1');
 /* GET home page. */
@@ -92,7 +93,8 @@ router.get('/senddata', function (req, res, next) {
 });
 
 router.post('/articleInfo', function (req, res, next) {
-  catCollection.update({user_id:req.body.user_id, categoryname:req.body.category}, {$push:{site:{url:req.body.url, opinion:req.body.opinion, time:req.body.timer}}}).then(function (response) {
+  console.log(req.body);
+  catCollection.update({user_id:req.body.user_id, categoryname:req.body.category}, {$push:{site:{url:req.body.url, opinion:req.body.opinion, time:req.body.timer, visit:req.body.visit}}}).then(function (response) {
     res.json(response);
   });
 });
