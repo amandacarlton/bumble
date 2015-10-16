@@ -2,7 +2,6 @@ doctype html
 html(ng-app="bumble")
   head
     title= title
-    link(href='https://fonts.googleapis.com/css?family=Lobster' rel='stylesheet' type='text/css')
     link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css')
     link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css')
     link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css')
@@ -48,16 +47,16 @@ html(ng-app="bumble")
             #bs-example-navbar-collapse-1.collapse.navbar-collapse
               ul.nav.navbar-nav
                 li
-                  a(href='#' ng-hide="loggedInUser" ng-click="signin()")
+                  a(href='#' ng-hide="loggedInUser" ng-click="signin(); thumbsoff()")
                     | Sign-in
                     span.sr-only (current)
                 li
-                  a(href='#' ng-click="removeCookie()" ng-show="loggedInUser")
+                  a(href='#' ng-click="removeCookie(); thumbsoff()" ng-show="loggedInUser")
                     | Sign-out
                     span.sr-only (current)
                 |         
                 li
-                  a(href='#' ng-hide="loggedInUser" ng-click="signup()") Sign-up
+                  a(href='#' ng-hide="loggedInUser" ng-click="signup(); thumbsoff()") Sign-up
                 |         
                 li.dropdown
                   a.dropdown-toggle(href='#', data-toggle='dropdown', role='button', aria-haspopup='true', aria-expanded='false')
@@ -66,41 +65,41 @@ html(ng-app="bumble")
                   |           
                   ul.dropdown-menu
                     li
-                      a(href='/#/userpref' ng-click="categoryList()") Change Interest
+                      a(href='/#/userpref' ng-click="categoryList(); thumbsoff()") Change Interest
                     |             
                     li
                       a(href='#' ng-click="getSubredditInfo()") Subscriber
                     |             
                     li
-                      a(href='/#/statesub' ng-click="statesubinfo()") State Subscriber
+                      a(href='/#/statesub' ng-click="statesubinfo(); thumbsoff()") State Subscriber
                     |             
                     li.divider(role='separator')
                     |             
                     li
-                      a(href='/#/bubble') Bubble
+                      a(href='/#/bubble' ng-click = 'thumbsoff()') Bubble
                     |             
                     li.divider(role='separator')
                     |             
                     li
-                      a(href='/#/zoom') Zoom Map
+                      a(href='/#/zoom' ng-click = 'thumbsoff()') Zoom Map
                     |             
                     li
-                      a(href='/#/heat') Heat Map
+                      a(href='/#/heat' ng-click = 'thumbsoff()') Heat Map
                        
                  
               form.navbar-form.navbar-left.search(role='search')
                 //- .form-group
                 //-   input.form-control(type='text', placeholder='Search') 
-                i.fa-2x.fa.fa-thumbs-o-up(ng-show="loggedInUser", ng-click="liked()" ng-class="{'unliked':likedchecked}")   
-                button.btn.btn-success.bumblebtn(type='submit' ng-click="reddit(); starttimer(); endtimer(); articleInfo()") Search
-                i.fa-2x.fa.fa-thumbs-o-down(ng-show="loggedInUser" ng-click="disliked()" ng-class="{'unliked':dislikedchecked}") 
+                i.fa-2x.fa.fa-thumbs-o-up(ng-show="thumbs", ng-click="liked()" ng-class="{'unliked':likedchecked}")   
+                button.btn.btn-success.bumblebtn(type='submit' ng-click="reddit(); starttimer(); endtimer(); articleInfo(); thumbson()") Search
+                i.fa-2x.fa.fa-thumbs-o-down(ng-show="thumbs" ng-click="disliked()" ng-class="{'unliked':dislikedchecked}") 
               |       
               ul.nav.navbar-nav.navbar-right
                 li
-                  a(href='/#/dashboard') Your Data
+                  a(href='/#/dashboard' ng-click = 'thumbsoff()') Your Data
                   
                 li
-                  a(href='/#/trending' ng-click="trending()") Top 10 Trending
+                  a(href='/#/trending' ng-click="trending(); thumbsoff()" ) Top 10 Trending
                 |         
                 li.dropdown
                   a.dropdown-toggle(href='#', data-toggle='dropdown', role='button', aria-haspopup='true', aria-expanded='false')
@@ -124,7 +123,5 @@ html(ng-app="bumble")
             // /.navbar-collapse
           // /.container-fluid
      
-      
-
-    div.view(ui-view)
+      div.view(ui-view)
       

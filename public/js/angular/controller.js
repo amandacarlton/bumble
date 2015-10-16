@@ -1,6 +1,6 @@
 
 app.controller('MainController', ['$scope', 'ModalService', '$http', '$sce', '$cookies', '$cookieStore','SessionService', '$location', 'CategoryService', function ($scope, ModalService, $http, $sce, $cookies, $cookieStore, SessionService, $location, CategoryService) {
-
+  $scope.thumbs = false;
   $scope.loggedInUser = $cookies.get('session_id');
   $scope.categoryChosen="";
   $scope.preurl="";
@@ -221,6 +221,14 @@ app.controller('MainController', ['$scope', 'ModalService', '$http', '$sce', '$c
       });
     };
 
+    $scope.thumbson = function () {
+      $scope.thumbs = true;
+    };
+
+    $scope.thumbsoff = function () {
+      $scope.thumbs = false;
+    };
+
     $scope.reddit = function () {
       $scope.likedchecked=false;
       $scope.dislikedchecked=false;
@@ -233,6 +241,7 @@ app.controller('MainController', ['$scope', 'ModalService', '$http', '$sce', '$c
         $scope.categoryChosen = info.data.category;
         $scope.preurl = info.data.url;
         $scope.url = $sce.trustAsResourceUrl(info.data.url);
+        console.log($scope.url);
         $location.path('/stumble');
       });
     };
@@ -245,7 +254,9 @@ app.controller('MainController', ['$scope', 'ModalService', '$http', '$sce', '$c
         opinion:$scope.preliked,
         url: $scope.preurl
       };
-      $http.post('/articleInfo', articleObj);
+      $http.post('/articleInfo', articleObj).then(function (response) {
+        $scope.userpref();
+      });
     };
 
     $scope.removeCookie = function () {
@@ -333,7 +344,7 @@ app.controller('MainController', ['$scope', 'ModalService', '$http', '$sce', '$c
       testing=[];
       for (var i = 0; i < 30; i++) {
 
-        testing.push({name:$scope.wordarray[category][i][0] , balance:$scope.wordarray[category][i][1]});
+        testing.push({name:$scope.wordarray[category][i][0] + ' '+ $scope.wordarray[category][i][1], balance:$scope.wordarray[category][i][1]});
       }
 
     $scope.net_worth = {
