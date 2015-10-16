@@ -74,9 +74,7 @@ router.post('/userpref', function (req, res, next) {
 });
 
 router.post('/userlikes', function (req, res, next) {
-  console.log(req.body);
   catCollection.find({user_id:req.body.id}).then(function (response) {
-    console.log(response);
     res.json(response);
   });
 });
@@ -90,7 +88,6 @@ router.get('/senddata', function (req, res, next) {
       'x-sent': true
     }
   };
-  console.log(__dirname);
   res.sendFile('data.tsv', options);
 });
 
@@ -101,8 +98,8 @@ router.post('/articleInfo', function (req, res, next) {
 });
 
 router.post('/created', function (req, res, next) {
-  console.log(req.body.category);
-  heatmap.find({subreddit:"puppies"}).then(function (response) {
+  console.log(req.body);
+  heatmap.find({subreddit: req.body.category}).then(function (response) {
     console.log(response);
     res.json(response);
   });
@@ -152,16 +149,13 @@ router.get("/findwords", function (req, res, next) {
 });
 
 router.get("/statefind", function (req, res, next) {
-  console.log("here");
   states.find({}).then(function (response) {
     res.json(response);
   });
 });
 
 router.get("/getposts", function (req, res, next) {
-  console.log("here");
   posts.find({}).then(function (response) {
-    console.log(response);
     res.json(response);
   });
 });

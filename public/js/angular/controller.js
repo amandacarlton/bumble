@@ -2,6 +2,7 @@
 app.controller('MainController', ['$scope', 'ModalService', '$http', '$sce', '$cookies', '$cookieStore','SessionService', '$location', 'CategoryService', function ($scope, ModalService, $http, $sce, $cookies, $cookieStore, SessionService, $location, CategoryService) {
   $scope.thumbs = false;
   $scope.loggedInUser = $cookies.get('session_id');
+
   $scope.categoryChosen="";
   $scope.preurl="";
   $scope.prevStart ="";
@@ -34,34 +35,44 @@ app.controller('MainController', ['$scope', 'ModalService', '$http', '$sce', '$c
       y:[10,30,40]
       }];
 
-  console.log($scope.barinfo);
+
 
     $scope.bardata = "";
+    $scope.linedata = "";
     $scope.userpref = function () {
       var user = {
         id:$scope.loggedInUser
       };
       return $http.post('/userpref', user).then(function (response) {
-       console.log(response);
       return  $http.post('/userlikes',user).then(function (catresponse) {
-         console.log(catresponse);
          var bararray = [];
+         var linearray = [];
          var indiff = 0;
          var liked = 0;
          var disliked = 0;
+         var likedtime = 0;
+         var dislikedtime = 0;
+         var indifftime = 0;
          for (var i = 0; i < catresponse.data.length; i++) {
            for (var j = 0; j < catresponse.data[i].site.length; j++) {
              if(catresponse.data[i].site[j].opinion === 'indifferent'){
              indiff++;
+             indifftime+=catresponse.data[i].site[j].time;
            } else if(catresponse.data[i].site[j].opinion === 'liked'){
              liked++;
+             likedtime+=catresponse.data[i].site[j].time;
            } else{
              disliked++;
+             dislikedtime+=catresponse.data[i].site[j].time;
            }
         }
            bararray.push({x: catresponse.data[i].categoryname,
                           y:[liked, disliked, indiff]});
+           linearray.push({x:catresponse.data[i].categoryname,
+                            y:[((likedtime/1000)/liked)||0, ((dislikedtime/1000)/disliked)||0, ((indifftime/1000)/indiff)||0] });
          }
+
+         $scope.linedata = linearray;
 
          $scope.bardata = (bararray);
          $scope.config = {
@@ -92,6 +103,26 @@ app.controller('MainController', ['$scope', 'ModalService', '$http', '$sce', '$c
          }
        };
 
+         $scope.lineconfig = {
+         title: 'Avg Time Spent in Seconds by Category',
+         tooltips: true,
+         labels: false,
+         mouseover: function() {},
+         mouseout: function() {},
+         click: function() {},
+         legend: {
+           display: true,
+           //could be 'left, right'
+           position: 'right'
+         }
+       };
+
+       $scope.dataline = {
+         series: ['Liked', 'Disliked', 'Indifferent'],
+         data: $scope.linedata
+       };
+
+
        $scope.data = {
          series: ['Liked', 'Disliked', 'Indifferent'],
          data: $scope.bardata,
@@ -103,10 +134,8 @@ app.controller('MainController', ['$scope', 'ModalService', '$http', '$sce', '$c
 
        for (var k = 0; k < $scope.bardata.length; k++) {
          positive += $scope.bardata[k].y[0];
-        //  console.log(bardata[k].y[0]);
          neg += $scope.bardata[k].y[1];
          neutral +=$scope.bardata[k].y[2];
-         console.log(neutral);
        }
 
        $scope.datapie = {
@@ -125,7 +154,6 @@ app.controller('MainController', ['$scope', 'ModalService', '$http', '$sce', '$c
         }],
       };
 
-      console.log($scope.datapie);
 
        });
 
@@ -168,10 +196,11 @@ app.controller('MainController', ['$scope', 'ModalService', '$http', '$sce', '$c
 
     $scope.trafficobj={};
   $scope.created = function (heatcategory) {
-
-    if (heatcategory==='undefined'){
+      console.log(heatcategory);
+    if (heatcategory=== undefined){
       heatcategory = 'aww';
     }
+     console.log(heatcategory);
     var sendcat = {
       category: heatcategory
     };
@@ -186,6 +215,7 @@ app.controller('MainController', ['$scope', 'ModalService', '$http', '$sce', '$c
         $scope.trafficobj[trafficarray[j]] = $scope.trafficobj[trafficarray[j]] || 0;
         $scope.trafficobj[trafficarray[j]]+= 1;
       }
+      console.log($scope.trafficobj);
     });
   };
 
@@ -241,7 +271,6 @@ app.controller('MainController', ['$scope', 'ModalService', '$http', '$sce', '$c
         $scope.categoryChosen = info.data.category;
         $scope.preurl = info.data.url;
         $scope.url = $sce.trustAsResourceUrl(info.data.url);
-        console.log($scope.url);
         $location.path('/stumble');
       });
     };
@@ -371,7 +400,6 @@ app.controller('MainController', ['$scope', 'ModalService', '$http', '$sce', '$c
     $scope.trending = function () {
       $http.get("/reddittrend").then(function (response) {
         $scope.trendings = response.data;
-        console.log($scope.trendings);
       });
     };
 
@@ -1078,8 +1106,6 @@ app.controller('MainController', ['$scope', 'ModalService', '$http', '$sce', '$c
       $http.post("/insertuser", credentials).then(function (response) {
         SessionService.set(response.data._id);
         $scope.loggedInUser = $cookies.get('session_id');
-        console.log($scope.loggedInUser);
-        console.log("here");
         $location.path('/userpref');
       });
     };
@@ -1087,10 +1113,7 @@ app.controller('MainController', ['$scope', 'ModalService', '$http', '$sce', '$c
 
 
     $scope.checkuser = function (checking) {
-      console.log("here");
-      console.log(checking);
       $http.post("/checkuser", checking).then(function (response) {
-        console.log(response);
         if(response.data === null){
           $scope.errors = "User not found";
         }else if (response.data.good === false){
