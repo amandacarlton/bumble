@@ -1,6 +1,8 @@
 
-app.controller('MainController', ['$scope', 'ModalService', '$http', '$sce', '$cookies', '$cookieStore','SessionService', '$location', 'CategoryService', function ($scope, ModalService, $http, $sce, $cookies, $cookieStore, SessionService, $location, CategoryService) {
+app.controller('MainController', ['$scope', 'ModalService', '$http', '$sce', '$cookies', '$cookieStore','SessionService', '$location', 'CategoryService','$state','$window', function ($scope, ModalService, $http, $sce, $cookies, $cookieStore, SessionService, $location, CategoryService,$state,$window) {
+  $scope.back = true;
   $scope.thumbs = false;
+  $scope.$state = $state;
   $scope.loggedInUser = $cookies.get('session_id');
   $scope.usertrafficobj={};
   $scope.categoryChosen="";
@@ -28,11 +30,13 @@ app.controller('MainController', ['$scope', 'ModalService', '$http', '$sce', '$c
     'there', 'these', 'those', "s",'philosophy'];
 
 
-
-
-
+    console.log($scope.back);
     $scope.pcCategory = CategoryService.pcCategories();
 
+
+    $scope.backfalse = function () {
+      $scope.back = false;
+    };
 
     $scope.bardata = "";
     $scope.linedata = "";

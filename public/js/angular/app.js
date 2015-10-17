@@ -4,6 +4,10 @@ var app = angular.module('bumble', ['ui.router','angularModalService','ngCookies
 app.config(function ($stateProvider) {
   $stateProvider
     .state('home', {
+      data: {
+        bodyClass: 'splash'
+    },
+      name:'work',
       url: '',
       templateUrl: 'partials/splash.html',
       controller: 'MainController'
