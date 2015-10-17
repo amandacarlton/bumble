@@ -29,7 +29,7 @@ router.post('/reddit', function (req,res,next) {
       //console.log(response.body.data.children[5].data);
       //console.log('before',response.body.data.children[5].data.url);
       function security(item){
-        return (item.data.domain != 'google.com');
+        return (item.data.domain != 'google.com' && item.data.domain != 'twitter.com' && item.data.domain.slice(0,5) != 'self.');
             }
       var filteredResponse = response.body.data.children.filter(security);
       //console.log('filtered',filteredResponse[5].data.url);
