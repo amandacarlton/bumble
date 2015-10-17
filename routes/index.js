@@ -18,18 +18,22 @@ router.get('/', function(req, res, next) {
 });
 
 router.post('/reddit', function (req,res,next) {
-  console.log("step 1");
   userCollection.findOne({_id:req.body.user_id}).then(function (response) {
     var testcats = response.interest;
     console.log(testcats);
     var random = Math.floor(Math.random() * (testcats.length));
+    console.log(random);
     var categoryChosen = (testcats[random]);
     console.log(categoryChosen);
     unirest.get('https://www.reddit.com/r/'+testcats[random]+'.json?')
     .end(function (response) {
+      //if
+      console.log(response.body.data.children);
       var randomchild = Math.floor(Math.random() * (response.body.data.children.length));
+      //filter function to remove redditposts,
       var info = response.body.data.children[randomchild].data;
-
+      console.log(info.url);
+      console.log(info.domain);
       // if(info.domain === "self."+categoryChosen)
       info.category = categoryChosen;
       if(info.domain === "youtube.com" || info.domain === "twitter.com" || info.domain === "vine.co" || info.domain === "m.youtube.com" || info.domain === "google.com" || info.domain === "en-maktoob.news.yahoo.com"){
@@ -38,7 +42,8 @@ router.post('/reddit', function (req,res,next) {
           console.log(tube.body);
           var regex = /src="(.+?)"/;
           var matches = regex.exec(tube.body.html);
-          res.json(matches[1]);
+          info.url = matches[1];
+          res.json(info);
         });
       }else{
         res.json(info);

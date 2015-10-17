@@ -84,7 +84,7 @@ app.controller('MainController', ['$scope', 'ModalService', '$http', '$sce', '$c
            $scope.usertrafficobj[visitarray[l]]+= 1;
          }
 
-         console.log($scope.usertrafficobj);
+
          $scope.linedata = linearray;
 
          $scope.bardata = (bararray);
@@ -281,6 +281,9 @@ app.controller('MainController', ['$scope', 'ModalService', '$http', '$sce', '$c
         user_id: $scope.loggedInUser
       };
       $http.post('/reddit', redditobj ).then(function (info) {
+        console.log(info);
+        console.log(info.data);
+        console.log(info.data.url);
         $scope.categoryChosen = info.data.category;
         $scope.preurl = info.data.url;
         $scope.url = $sce.trustAsResourceUrl(info.data.url);
