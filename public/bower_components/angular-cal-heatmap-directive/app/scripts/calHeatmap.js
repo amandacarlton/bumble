@@ -16,7 +16,7 @@ angular.module('calHeatmap',[])
                 cellSize: !config ? 25 : config.cellSize ? config.cellSize : 25,
                 range: !config ? 3 : config.range ? config.range : 3,
                 domainGutter: !config ? 10 : config.domainGutter ? config.domainGutter : 10,
-                legend: !config ? [1,2,5,10,15] : config.legend ? config.legend : [1,2,5,10,15],
+                legend: !config ? [1,2,3,4,5,6] : config.legend ? config.legend : [1,2,3,4,5,6],
                 itemName: !config ? 'item' : config.itemName ? config.itemName : 'item'
               });
           }

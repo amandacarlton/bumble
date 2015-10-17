@@ -2,7 +2,7 @@
 app.controller('MainController', ['$scope', 'ModalService', '$http', '$sce', '$cookies', '$cookieStore','SessionService', '$location', 'CategoryService', function ($scope, ModalService, $http, $sce, $cookies, $cookieStore, SessionService, $location, CategoryService) {
   $scope.thumbs = false;
   $scope.loggedInUser = $cookies.get('session_id');
-
+  $scope.usertrafficobj={};
   $scope.categoryChosen="";
   $scope.preurl="";
   $scope.prevStart ="";
@@ -47,6 +47,7 @@ app.controller('MainController', ['$scope', 'ModalService', '$http', '$sce', '$c
       return  $http.post('/userlikes',user).then(function (catresponse) {
          var bararray = [];
          var linearray = [];
+         var visitarray = [];
          var indiff = 0;
          var liked = 0;
          var disliked = 0;
@@ -55,6 +56,7 @@ app.controller('MainController', ['$scope', 'ModalService', '$http', '$sce', '$c
          var indifftime = 0;
          for (var i = 0; i < catresponse.data.length; i++) {
            for (var j = 0; j < catresponse.data[i].site.length; j++) {
+             console.log(catresponse.data[i].site[j].visit);
              if(catresponse.data[i].site[j].opinion === 'indifferent'){
              indiff++;
              indifftime+=catresponse.data[i].site[j].time;
@@ -65,13 +67,23 @@ app.controller('MainController', ['$scope', 'ModalService', '$http', '$sce', '$c
              disliked++;
              dislikedtime+=catresponse.data[i].site[j].time;
            }
+
+           visitarray.push(catresponse.data[i].site[j].visit.toString());
+           console.log(visitarray);
         }
+
            bararray.push({x: catresponse.data[i].categoryname,
                           y:[liked, disliked, indiff]});
            linearray.push({x:catresponse.data[i].categoryname,
                             y:[((likedtime/1000)/liked)||0, ((dislikedtime/1000)/disliked)||0, ((indifftime/1000)/indiff)||0] });
          }
 
+         for (var l = 0; l < visitarray.length; l++) {
+           $scope.usertrafficobj[visitarray[l]] = $scope.usertrafficobj[visitarray[l]] || 0;
+           $scope.usertrafficobj[visitarray[l]]+= 1;
+         }
+
+         console.log($scope.usertrafficobj);
          $scope.linedata = linearray;
 
          $scope.bardata = (bararray);
