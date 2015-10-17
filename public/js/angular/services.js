@@ -358,6 +358,10 @@ var commonWords =  [
 
   var categoryobj = {
 
+    pcCategories: function () {
+      return pcCategories;
+    },
+
     commonWords: function () {
       return commonWords;
     },

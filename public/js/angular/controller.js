@@ -28,13 +28,10 @@ app.controller('MainController', ['$scope', 'ModalService', '$http', '$sce', '$c
     'there', 'these', 'those', "s",'philosophy'];
 
 
-    $scope.barinfo = [{
-      x:'test',
-      y:[10,20,30]},
-    { x:'test2',
-      y:[10,30,40]
-      }];
 
+
+
+    $scope.pcCategory = CategoryService.pcCategories();
 
 
     $scope.bardata = "";
@@ -72,9 +69,9 @@ app.controller('MainController', ['$scope', 'ModalService', '$http', '$sce', '$c
            console.log(visitarray);
         }
 
-           bararray.push({x: catresponse.data[i].categoryname,
+           bararray.push({x: $scope.pcCategory[catresponse.data[i].categoryname],
                           y:[liked, disliked, indiff]});
-           linearray.push({x:catresponse.data[i].categoryname,
+           linearray.push({x:$scope.pcCategory[catresponse.data[i].categoryname],
                             y:[((likedtime/1000)/liked)||0, ((dislikedtime/1000)/disliked)||0, ((indifftime/1000)/indiff)||0] });
          }
 
