@@ -10,9 +10,7 @@ var posts = bumdb.get('posts');
 var wordcount= bumdb.get('wordcount');
 var heatmap= bumdb.get('heatmap');
 var test = 'test';
-// var google = require('googleapis');
-// var urlshortener = google.urlshortener('v1');
-/* GET home page. */
+
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
@@ -20,26 +18,31 @@ router.get('/', function(req, res, next) {
 router.post('/reddit', function (req,res,next) {
   userCollection.findOne({_id:req.body.user_id}).then(function (response) {
     var testcats = response.interest;
-    console.log(testcats);
+    //console.log(testcats);
     var random = Math.floor(Math.random() * (testcats.length));
-    console.log(random);
+    //console.log(random);
     var categoryChosen = (testcats[random]);
-    console.log(categoryChosen);
+    console.log('Category',categoryChosen);
     unirest.get('https://www.reddit.com/r/'+testcats[random]+'.json?')
     .end(function (response) {
       //if
-      console.log(response.body.data.children);
+      //console.log(response.body.data.children[5].data);
+      //console.log('before',response.body.data.children[5].data.url);
+      function security(item){
+        return (item.data.domain != 'google.com');
+            }
+      var filteredResponse = response.body.data.children.filter(security);
+      //console.log('filtered',filteredResponse[5].data.url);
       var randomchild = Math.floor(Math.random() * (response.body.data.children.length));
       //filter function to remove redditposts,
-      var info = response.body.data.children[randomchild].data;
-      console.log(info.url);
-      console.log(info.domain);
+      var info = filteredResponse[randomchild].data;
+      console.log('Domain', info.domain);
       // if(info.domain === "self."+categoryChosen)
       info.category = categoryChosen;
-      if(info.domain === "youtube.com" || info.domain === "twitter.com" || info.domain === "vine.co" || info.domain === "m.youtube.com" || info.domain === "google.com" || info.domain === "en-maktoob.news.yahoo.com"){
+      if(info.domain === "youtube.com" || info.domain === "twitter.com" || info.domain === "vine.co" || info.domain === "m.youtube.com" || info.domain === "google.com" || info.domain === "en-maktoob.news.yahoo.com" || info.domain === 'flickr.com' || info.domain === 'youtu.be'){
         unirest.get('http://api.embed.ly/1/oembed?key=:'+process.env.EMBEDLY_API+'&url='+info.url)
         .end(function (tube) {
-          console.log(tube.body);
+          // console.log(tube.body);
           var regex = /src="(.+?)"/;
           var matches = regex.exec(tube.body.html);
           info.url = matches[1];
