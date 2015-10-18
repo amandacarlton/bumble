@@ -57,7 +57,6 @@ app.controller('MainController', ['$scope', 'ModalService', '$http', '$sce', '$c
          var indifftime = 0;
          for (var i = 0; i < catresponse.data.length; i++) {
            for (var j = 0; j < catresponse.data[i].site.length; j++) {
-             console.log(catresponse.data[i].site[j].visit);
              if(catresponse.data[i].site[j].opinion === 'indifferent'){
              indiff++;
              indifftime+=catresponse.data[i].site[j].time;
@@ -70,7 +69,6 @@ app.controller('MainController', ['$scope', 'ModalService', '$http', '$sce', '$c
            }
 
            visitarray.push(catresponse.data[i].site[j].visit.toString());
-           console.log(visitarray);
         }
 
            bararray.push({x: $scope.pcCategory[catresponse.data[i].categoryname],
@@ -207,18 +205,17 @@ app.controller('MainController', ['$scope', 'ModalService', '$http', '$sce', '$c
     };
 
 
-    $scope.trafficobj={};
+  //$scope.trafficobj={};
   $scope.created = function (heatcategory) {
-      console.log(heatcategory);
-    if (heatcategory=== undefined){
-      heatcategory = 'aww';
+    if (heatcategory === undefined){
+      heatcategory = 'puppies';
     }
      console.log(heatcategory);
     var sendcat = {
       category: heatcategory
     };
     $scope.trafficobj={};
-    $http.post("/created", sendcat).then(function (response) {
+    return $http.post("/created", sendcat).then(function (response) {
       $scope.traffic = response.data;
       var trafficarray=[];
       for (var i = 0; i < $scope.traffic.length; i++) {
@@ -232,7 +229,10 @@ app.controller('MainController', ['$scope', 'ModalService', '$http', '$sce', '$c
     });
   };
 
-  //$scope.created();
+
+
+  // $scope.$watch('trafficobj', $scope.created);
+  console.log($scope.created());
 
     // $scope.stats = function () {
     //   return CategoryService.stateStats(CategoryService.getState);
@@ -263,6 +263,8 @@ app.controller('MainController', ['$scope', 'ModalService', '$http', '$sce', '$c
         });
       });
     };
+
+
 
     $scope.thumbson = function () {
       $scope.thumbs = true;
@@ -1115,10 +1117,11 @@ app.controller('MainController', ['$scope', 'ModalService', '$http', '$sce', '$c
     $scope.mapObject.responsive = true;
 
 
+
   }]);
 
 
-  app.controller('ModalController', function($scope, close, $http, $cookies, SessionService, $location) {
+  app.controller('ModalController', function($scope, close, $http, $cookies, SessionService, $location,$element) {
     $scope.ok = function (credentials) {
       $http.post("/insertuser", credentials).then(function (response) {
         SessionService.set(response.data._id);
@@ -1130,17 +1133,34 @@ app.controller('MainController', ['$scope', 'ModalService', '$http', '$sce', '$c
 
 
     $scope.checkuser = function (checking) {
+      console.log(checking);
       $http.post("/checkuser", checking).then(function (response) {
+        console.log(response);
+        $scope.showModal = true;
         if(response.data === null){
           $scope.errors = "User not found";
+          $scope.showModal = true;
         }else if (response.data.good === false){
           $scope.errors = "Password does not match";
+          $scope.showModal = true;
         }else{
+          $scope.closeModal();
           SessionService.set(response.data._id);
           $location.path('/stumble');
         }
+        console.log($scope.errors);
       });
     };
+
+
+    $scope.closeModal = function() {
+
+   //  Manually hide the modal using bootstrap.
+   $element.modal('hide');
+
+   //  Now close as normal, but give 500ms for bootstrap to animate
+   close(null, 500);
+ };
 
     $scope.close = function(result) {
       close(result);
