@@ -349,13 +349,22 @@ text-align: center;
 	background-image: url('https://images.unsplash.com/photo-1444253324313-0dce942d572c?dpr=2&fit=crop&fm=jpg&h=725&q=50&w=1300')
 }*/
 
+* {
+
+}
+
 .view{
 	height: 90%;
 	width:100%;
 }
 
+.navbar{
+	-webkit-filter: drop-shadow(5px 5px 10px black) !important;
+}
+
 .navbar, .view{
 	margin: 0 !important;
+	border-radius: 0 !important;
 }
 
 body{

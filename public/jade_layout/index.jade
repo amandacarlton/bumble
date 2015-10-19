@@ -70,22 +70,6 @@ html(ng-app="bumble")
                     |             
                     li
                       a(href='#' ng-click="getSubredditInfo()") Subscriber
-                    |             
-                    li
-                      a(href='/#/statesub' ng-click="statesubinfo(); thumbsoff(); backfalse()") State Subscriber
-                    |             
-                    li.divider(role='separator')
-                    |             
-                    li
-                      a(href='/#/bubble' ng-click = 'thumbsoff(); backfalse()') Bubble
-                    |             
-                    li.divider(role='separator')
-                    |             
-                    li
-                      a(href='/#/zoom' ng-click = 'thumbsoff(); backfalse()') Zoom Map
-                    |             
-                    li
-                      a(href='/#/heat' ng-click = 'thumbsoff(); backfalse()') Heat Map
                        
                  
               form.navbar-form.navbar-left.search(role='search')
@@ -104,23 +88,21 @@ html(ng-app="bumble")
                 |         
                 li.dropdown
                   a.dropdown-toggle(href='#', data-toggle='dropdown', role='button', aria-haspopup='true', aria-expanded='false')
-                    | Dropdown 
+                    | Site Wide Data
                     span.caret
                   |           
                   ul.dropdown-menu
                     li
-                      a(href='#') Action
+                      a(href='/#/statesub' ng-click="statesubinfo(); thumbsoff(); backfalse()") State Subscriber
                     |             
                     li
-                      a(href='#') Another action
+                      a(href='/#/bubble' ng-click = 'thumbsoff(); backfalse()') Bubble
                     |             
                     li
-                      a(href='#') Something else here
-                    |             
-                    li.divider(role='separator')
+                      a(href='/#/zoom' ng-click = 'thumbsoff(); backfalse()') Zoom Map
                     |             
                     li
-                      a(href='#') Separated link
+                      a(href='/#/heat' ng-click = 'thumbsoff(); backfalse()') Heat Map
             // /.navbar-collapse
           // /.container-fluid
     

@@ -1156,12 +1156,8 @@ app.controller('MainController', ['$scope', 'ModalService', '$http', '$sce', '$c
 
 
     $scope.closeModal = function() {
-
-   //  Manually hide the modal using bootstrap.
-   $element.modal('hide');
-
-   //  Now close as normal, but give 500ms for bootstrap to animate
-   close(null, 500);
+     $element.modal('hide');
+     close(null, 500);
  };
 
     $scope.close = function(result) {
