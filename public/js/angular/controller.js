@@ -299,6 +299,7 @@ app.controller('MainController', ['$scope', 'ModalService', '$http', '$sce', '$c
 
     $scope.categoryList = function () {
       // $scope.allcats = CategoryService.categoryList();
+      if($scope.loggedInUser){
       var userobj = {
         user_id:$scope.loggedInUser.currentUser
       };
@@ -306,6 +307,9 @@ app.controller('MainController', ['$scope', 'ModalService', '$http', '$sce', '$c
 
         $scope.checkedInterest= response.data.interest;
       });
+    }else{
+      $scope.checkedInterest = ['puppies', 'aww', 'food', 'news', 'nottheonion', 'gadgets', 'EarthPorn', 'dataisbeautiful', 'science', 'gifs'];
+    }
     };
 
     $scope.categoryList();
