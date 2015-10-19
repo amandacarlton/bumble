@@ -389,7 +389,7 @@ var onlyStates = ["California",
 "Wyoming",
 ];
 
-var commonWords =  [
+var statecommonWords =  [
   'i','a','about', 'an','and','are','as','at',
   'be', 'been','by','com','for', 'from','how','in',
   'is','it','not', 'of','on','or','that',
@@ -407,7 +407,20 @@ var commonWords =  [
   'north', 'okc', 'pa', 'rhode', 'sc', 'south', 'slc', 'vt', 'va', 'dc', 'west', 'wy',
   'out', 'need', 'diego', 'jose', 'best', 'wv', 'good', 'kc', 'know',
   'rapids', 'st', 'las', 'just', 'jc', 'abq', 'ny', 'carolina', 'dakota', 'some', 'up', 'az', 'angeles', 'cities',
-  'springs', 'dc', 'get', 'hampshire', 'area', 'th', 'de', 'me', 'after', 'santa', 'nd', 'area', 'th', 'de', 'me'];
+  'springs', 'dc', 'get', 'hampshire', 'area', 'th', 'de', 'me', 'after', 'santa', 'nd', 'area', 'th', 'de', 'me',
+  'after', 'santa', 'nd'];
+
+  var commonWords = ['i','a','about', 'an','and','are','as','at',
+  'be', 'been','by','com','for', 'from','how','in',
+  'is','it','not', 'of','on','or','that',
+  'the', 'then', 'than', 'this','to','was', 'what','when','where', 'which',
+  'who','will','with', 'www', 'http*','the',
+  'we', 'us', 'our', 'ours',
+  'they', 'them', 'their', 'he', 'him', 'his',
+  'she', 'her', 'hers', 'it', 'its', 'you', 'yours', 'your',
+  'has', 'have', 'would', 'could', 'should', 'shall',
+  'can', 'may', 'if', 'then', 'else', 'but',
+  'there', 'these', 'those','my','so',"", "oc", "x",'s','philosophy'];
 
   var statewordCount = {};
 
@@ -444,7 +457,9 @@ var commonWords =  [
           for (var j = 0; j < filtered.length; j++) {
             for (var k = 0; k < filtered[j].length; k++) {
               if (commonWords.indexOf(filtered[j][k])<0){
+                if(categoryList.indexOf(filtered[j][k])<0){
                 noncommon.push(filtered[j][k]);
+              }
                 }
             }
           }
@@ -505,7 +520,7 @@ var commonWords =  [
            }
           for (var j = 0; j < statefiltered.length; j++) {
             for (var k = 0; k < statefiltered[j].length; k++) {
-              if (commonWords.indexOf(statefiltered[j][k])<0){
+              if (statecommonWords.indexOf(statefiltered[j][k])<0){
                 if (lowerstates.indexOf(statefiltered[j][k])<0){
                 noncommon.push(statefiltered[j][k]);
               }
