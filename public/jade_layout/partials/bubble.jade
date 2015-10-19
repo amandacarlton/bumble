@@ -2,7 +2,7 @@
 div.category
   h1 Bubble Word Count 
   p Choose a category and see the most popular words used in successful posts of that category.
-  p
+  div.bubble
     select#category(ng-model='category' ng-change='getwords(category)')
       option(ng-repeat='cat in allcats', value='{{cat}}') {{cat}}
   

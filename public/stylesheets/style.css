@@ -297,7 +297,6 @@ text.now
 .chart {
  width: 500px;
  height: 500px;
- margin: 30px;
 }
 
 .bar{
@@ -308,10 +307,11 @@ text.now
 	float: left;
 }
 
-.time{
-	margin-left: 250px;
-}
 
+
+.charts{
+	margin-left: 3%;
+}
 
 
 .popular{
@@ -403,6 +403,24 @@ html{
 	 margin: 0 auto;
 	 width: 40%;
 	 margin-top: 5%;
+ }
+
+ .bubble{
+	 margin-top: 2%;
+ }
+
+ .bar{
+	 border: 1px solid black;
+	 margin: 5px;
+ }
+
+ .pie{
+	 border: 1px solid black;
+	 margin: 5px;
+ }
+
+ .charts{
+
  }
 
 
