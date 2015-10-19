@@ -16,28 +16,19 @@ app.controller('MainController', ['$scope', 'ModalService', '$http', '$sce', '$c
   $scope.checkedInterest="";
   $scope.statenums = "";
   $scope.wordarray="";
-  $scope.commonWords = [
-    'i','a','about', 'an','and','are','as','at',
-    'be', 'been','by','com','for', 'from','how','in',
-    'is','it','not', 'of','on','or','that',
-    'the', 'then', 'than', 'this','to','was', 'what','when','where', 'which',
-    'who','will','with', 'www', 'http*','the',
-    'we', 'us', 'our', 'ours',
-    'they', 'them', 'their', 'he', 'him', 'his',
-    'she', 'her', 'hers', 'it', 'its', 'you', 'yours', 'your',
-    'has', 'have', 'would', 'could', 'should', 'shall',
-    'can', 'may', 'if', 'then', 'else', 'but',
-    'there', 'these', 'those', "s",'philosophy'];
-
+  $scope.mapwords = "";
 
 
     $scope.pcCategory = CategoryService.pcCategories();
 
-  //   $scope.stateCount = function () {
-  //   return CategoryService.getStateWords();
-  // };
-  //
-  // $scope.stateCount();
+    $scope.stateCount = function () {
+    return CategoryService.getStateWords().then(function (response) {
+      $scope.mapwords = response;
+       console.log($scope.mapwords.Florida[0]);
+    });
+  };
+
+
 
 
 
@@ -193,22 +184,6 @@ app.controller('MainController', ['$scope', 'ModalService', '$http', '$sce', '$c
     $scope.endtimer = function () {
       $scope.endTime = new Date();
       $scope.timeDiff = $scope.endTime - $scope.prevStart;
-      //timeDiff /= 1000;
-      // var timeobj = {
-      //   user_id:$scope.loggedInUser,
-      //   category : $scope.categoryChosen,
-      //   timer: $scope.timeDiff
-      // };
-      // if($scope.preliked===true){
-      //   $http.post('/timeliked', timeobj);
-      //   $http.post('/alltime', timeobj);
-      // }else if($scope.preliked===false){
-      //   $http.post("/timedisliked", timeobj);
-      //   $http.post("/alltime", timeobj);
-      // // }else{
-      // //   $http.post("/alltime", timeobj);
-      // }
-
     };
 
 
@@ -886,11 +861,12 @@ app.controller('MainController', ['$scope', 'ModalService', '$http', '$sce', '$c
         highlighBorderColor: '#EAA9A8',
         highlighBorderWidth: 2,
         popupTemplate: function(geo, data) {
+          $scope.stateCount();
           var searchterm = geo.properties.name.replace(" ","");
           return ['<div class="hoverinfo"><strong>',
-          geo.properties.name, ' ranked ' + $scope.statesubinfo[searchterm].place,
+          geo.properties.name, ' ranked: ' + $scope.statesubinfo[searchterm].place,
           '<div>',
-          ' Most Common Word',
+          ' Most Common Word: ', $scope.mapwords[searchterm][0],
           '</div>',
           '</strong></div>'].join('');
         }

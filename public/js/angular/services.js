@@ -406,7 +406,8 @@ var commonWords =  [
   'fort', 'grand', 'vegas', 'nh', 'jersey', 'mexico', 'york', 'nc',
   'north', 'okc', 'pa', 'rhode', 'sc', 'south', 'slc', 'vt', 'va', 'dc', 'west', 'wy',
   'out', 'need', 'diego', 'jose', 'best', 'wv', 'good', 'kc', 'know',
-  'rapids', 'st', 'las', 'just', 'jc', 'abq', 'ny', 'carolina', 'dakota', 'some'];
+  'rapids', 'st', 'las', 'just', 'jc', 'abq', 'ny', 'carolina', 'dakota', 'some', 'up', 'az', 'angeles', 'cities',
+  'springs', 'dc', 'get', 'hampshire', 'area', 'th', 'de', 'me', 'after', 'santa', 'nd', 'area', 'th', 'de', 'me'];
 
   var statewordCount = {};
 
@@ -484,7 +485,7 @@ var commonWords =  [
       for (var i = 0; i < onlyStates.length; i++) {
         promises.push($http.post('/statewords', {state:onlyStates[i]}));
       }
-      Promise.all(promises).then(function (response) {
+      return Promise.all(promises).then(function (response) {
           for (var m = 0; m < response.length; m++) {
             var statefiltered = [];
             for (var a = 0; a < response[m].data.length; a++) {
@@ -535,7 +536,7 @@ var commonWords =  [
           mostCommon[response[m].config.data.state] = statewordCount[response[m].config.data.state][0];
 
         }
-        console.log(mostCommon);
+        return mostCommon;
       });
 
 
