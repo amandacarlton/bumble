@@ -3,7 +3,7 @@ app.controller('MainController', ['$scope', 'ModalService', '$http', '$sce', '$c
   $scope.back = true;
   $scope.thumbs = false;
   $scope.$state = $state;
-  $scope.loggedInUser = $cookies.get('session_id');
+  $scope.loggedInUser = SessionService;
   $scope.usertrafficobj={};
   $scope.categoryChosen="";
   $scope.preurl="";
@@ -35,8 +35,9 @@ app.controller('MainController', ['$scope', 'ModalService', '$http', '$sce', '$c
 
   //   $scope.stateCount = function () {
   //   return CategoryService.getStateWords();
-  //
   // };
+  //
+  // $scope.stateCount();
 
 
 
@@ -1133,7 +1134,6 @@ app.controller('MainController', ['$scope', 'ModalService', '$http', '$sce', '$c
     $scope.ok = function (credentials) {
       $http.post("/insertuser", credentials).then(function (response) {
         SessionService.set(response.data._id);
-        $scope.loggedInUser = $cookies.get('session_id');
         $location.path('/userpref');
       });
     };

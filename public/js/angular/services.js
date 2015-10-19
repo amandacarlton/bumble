@@ -13,7 +13,6 @@ app.factory('CategoryService', function ($http) {
   var categoryList = [
     "Art",
     "aww",
-    "books",
     "creepy",
     "dataisbeautiful",
     "DIY",
@@ -24,13 +23,10 @@ app.factory('CategoryService', function ($http) {
     "Futurology",
     "gadgets",
     "gaming",
-    "GetMotivated",
     "gifs",
-    "history",
     "InternetIsBeautiful",
     "listentothis",
     "mildlyinteresting",
-    "movies",
     "Music",
     "news",
     "nottheonion",
@@ -38,7 +34,6 @@ app.factory('CategoryService', function ($http) {
     "philosophy",
     "pics",
     "science",
-    "space",
     "sports",
     "television",
     "todayilearned",
@@ -49,9 +44,7 @@ app.factory('CategoryService', function ($http) {
     "sloth",
     "puppies",
     "homebrewing",
-    "animals",
-    "travel",
-    "wtf"
+    "animals"
   ];
 
   var states = ['Alabama',
@@ -407,7 +400,13 @@ var commonWords =  [
   'she', 'her', 'hers', 'it', 'its', 'you', 'yours', 'your',
   'has', 'have', 'would', 'could', 'should', 'shall',
   'can', 'may', 'if', 'then', 'else', 'but',
-  'there', 'these', 'those','my','so',"", "oc", "x",'s','philosophy','anyone', 'la', 'ct', 'indy', 'oahu', 'any', 'san', 'looking', 'new','state', 'do', 'haven', 'orleans', 'mn', 'little', 'help', 'city', 'louis', 'los', 'fort', 'grand', 'vegas', 'nh', 'jersey', 'mexico', 'york', 'nc', 'north', 'okc', 'pa', 'rhode', 'sc', 'south', 'slc', 'vt', 'va', 'dc', 'west', 'wy'];
+  'there', 'these', 'those','my','so',"", "oc", "x",'s','philosophy','anyone',
+  'la', 'ct', 'indy', 'oahu', 'any', 'san', 'looking', 'new','state', 'do',
+  'haven', 'orleans', 'mn', 'little', 'help', 'city', 'louis', 'los',
+  'fort', 'grand', 'vegas', 'nh', 'jersey', 'mexico', 'york', 'nc',
+  'north', 'okc', 'pa', 'rhode', 'sc', 'south', 'slc', 'vt', 'va', 'dc', 'west', 'wy',
+  'out', 'need', 'diego', 'jose', 'best', 'wv', 'good', 'kc', 'know',
+  'rapids', 'st', 'las', 'just', 'jc', 'abq', 'ny', 'carolina', 'dakota', 'some'];
 
   var statewordCount = {};
 
@@ -483,7 +482,6 @@ var commonWords =  [
       statewordCount = {};
       var promises = [];
       for (var i = 0; i < onlyStates.length; i++) {
-
         promises.push($http.post('/statewords', {state:onlyStates[i]}));
       }
       Promise.all(promises).then(function (response) {
@@ -513,7 +511,7 @@ var commonWords =  [
             }
             }
           }
-          console.log(noncommon);
+          //console.log(noncommon);
 
           var sortObj = function (obj) {
             var sortable = [];
@@ -537,6 +535,7 @@ var commonWords =  [
           mostCommon[response[m].config.data.state] = statewordCount[response[m].config.data.state][0];
 
         }
+        console.log(mostCommon);
       });
 
 
