@@ -50,12 +50,11 @@ table {
 }
 
 .search{
-  margin-left: 25%;
+  margin-left: 20%;
 }
 
 .bumblebtn{
   width: 110px;
-
 }
 
 
@@ -67,11 +66,11 @@ i{
 
 .modal{
     display: block;
-
+		overflow: auto;
     margin: auto;
     /*left: 50px;*/
     width: 490px;
-    height: 300px;
+    height: 350px;
     background-color: white;
     text-align: center;
     padding: 50px;
@@ -202,33 +201,39 @@ Remove comment to apply this style to date with value equal to 0
 
 .q1
 {
-	background-color: #dae289;
-	fill: #dae289
+	background-color: #FFFF99;
+	fill: #FFFF99
 }
 
 .q2
 {
-	background-color: #cedb9c;
-	fill: #9cc069
+	background-color: #FFB266;
+	fill: #FFB266
 }
 
 .q3
 {
-	background-color: #b5cf6b;
+	background-color: #FF8000;
 
-	fill: #669d45
+	fill: #FF8000
 }
 
 .q4
 {
-	background-color: #637939;
-	fill: #637939
+	background-color: #FF3333;
+	fill: #FF3333
 }
 
 .q5
 {
-	background-color: #3b6427;
-	fill: #3b6427
+	background-color: #CC0000;
+	fill: #CC0000
+}
+
+.q6
+{
+	background-color: #990000;
+	fill: #990000
 }
 
 rect.highlight
@@ -291,7 +296,8 @@ text.now
 }
 
 .heat{
-	margin-left: 10px;
+	margin-top: 3%;
+	margin: 0 auto;
 }
 
 .chart {
@@ -349,8 +355,16 @@ text-align: center;
 	background-image: url('https://images.unsplash.com/photo-1444253324313-0dce942d572c?dpr=2&fit=crop&fm=jpg&h=725&q=50&w=1300')
 }*/
 
-* {
+.btn.btn-success{
+background-color: #5E2D79;
+background-image: linear-gradient(to bottom,#5E2D79  0,#5E2D79 100%);
+border: 2px #5E2D79;
+}
 
+.btn.btn-primary{
+background-color: #5E2D79;
+background-image: linear-gradient(to bottom,#5E2D79  0,#5E2D79 100%);
+border: 2px #5E2D79;
 }
 
 .view{

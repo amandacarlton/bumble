@@ -1,8 +1,6 @@
 div.heat
-h1 Category
-
-select#category(ng-model='heatcategory' ng-change='created(heatcategory)')
-  option(ng-repeat='cat in allcats', value='{{cat}}') {{cat}}
+  h1 Category
+  select#category(ng-model='heatcategory' ng-change='created(heatcategory)')
+    option(ng-repeat='cat in allcats', value='{{cat}}') {{cat}}
 div
-  cal-heatmap(config="{domain:'year', range:1, cellSize:21, data:trafficobj}")
-  {{trafficobj}}
+  cal-heatmap(ng-if='trafficobj' config="{domain:'year', range:1, cellSize:21 , data:trafficobj}")

@@ -320,9 +320,9 @@ app.controller('MainController', ['$scope', 'ModalService', '$http', '$sce', '$c
         $scope.checkedInterest= response.data.interest;
       });
     }else{
-      $scope.checkedInterest = ['puppies', 'aww', 'food', 'news', 'nottheonion', 'gadgets', 'EarthPorn', 'dataisbeautiful', 'science', 'gifs'];
+      $scope.checkedInterest = [];
     }
-    };
+  };
 
     $scope.categoryList();
 
