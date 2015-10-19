@@ -26,11 +26,12 @@ footer, header, hgroup, menu, nav, section {
 }
 html{
 	height: 100%;
+	font-family: 'Philosopher', sans-serif;
 }
 body {
 	line-height: 1;
 	height: 100%;
-	font-family: 'Lobster';
+	font-family: 'Philosopher', sans-serif;
 }
 ol, ul {
 	list-style: none;
@@ -49,12 +50,14 @@ table {
 }
 
 .search{
-  margin-left: 250px;
+  margin-left: 25%;
 }
 
 .bumblebtn{
   width: 110px;
+
 }
+
 
 i{
   margin-left: 5px;
@@ -327,7 +330,17 @@ td{
 	margin-left: 100px;
 }
 
+.wrapping{
+color: black;
+display: inline-block;
+background-color: rgba(248, 251, 255, .5);
+margin-top: 10%;
+margin-left: 30%;
+width:500px;
+height:300px;
+text-align: center;
 
+}
 
 .splash{
 	background-size: 100%;
@@ -366,6 +379,15 @@ html{
   opacity: 0;
 }
 
+.categoryLabel{
+	font-size: 18px;
+	overflow: auto;
+}
+
+.categoryLabel:hover {
+    background-color: #685883;
+		color: white;
+}
 
 /*.title{
 	background-color: blue;
