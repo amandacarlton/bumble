@@ -389,6 +389,24 @@ html{
 		color: white;
 }
 
+.mapinfo{
+	margin: 0 auto;
+	width: 40%;
+	margin-top: 5%;
+}
+
+ bubble-cloud{
+	 margin-left: 10%;
+ }
+
+ .category{
+	 margin: 0 auto;
+	 width: 40%;
+	 margin-top: 5%;
+ }
+
+
+
 /*.title{
 	background-color: blue;
 }*/
