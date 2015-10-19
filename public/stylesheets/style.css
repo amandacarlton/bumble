@@ -131,7 +131,7 @@ iframe{
 
 
 h2{
-	font-size: 15px;
+	font-size: 20px;
 }
 
 
@@ -319,11 +319,13 @@ text.now
 }
 
 tr{
-	height: 150px !important;
+	height: 200px !important;
 }
 
+
+
 td{
-	max-height: 150px;
+	max-height: 200px;
 }
 
 .population{
@@ -419,8 +421,8 @@ html{
 	 margin: 5px;
  }
 
- .charts{
-
+ .trendtable{
+	 height: 200px;
  }
 
 
