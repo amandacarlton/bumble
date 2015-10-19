@@ -48,16 +48,16 @@ html(ng-app="bumble")
             #bs-example-navbar-collapse-1.collapse.navbar-collapse
               ul.nav.navbar-nav
                 li
-                  a(href='#' ng-hide="loggedInUser.currentUser" ng-click="signin(); thumbsoff(); backfalse()")
+                  a(href='#' ng-hide="loggedInUser.currentUser || logged" ng-click="signin(); thumbsoff(); backfalse()")
                     | Sign-in
                     span.sr-only (current)
                 li
-                  a(href='#' ng-click="removeCookie(); thumbsoff(); backfalse()" ng-show="loggedInUser.currentUser")
+                  a(href='#' ng-click="removeCookie(); thumbsoff(); backfalse()" ng-show="loggedInUser.currentUser || logged")
                     | Sign-out
                     span.sr-only (current)
                 |         
                 li
-                  a(href='#' ng-hide="loggedInUser.currentUser" ng-click="signup(); thumbsoff(); backfalse()") Sign-up
+                  a(href='#' ng-hide="loggedInUser.currentUser || logged" ng-click="signup(); thumbsoff(); backfalse()") Sign-up
                 |         
                 li.dropdown
                   a.dropdown-toggle(href='#', data-toggle='dropdown', role='button', aria-haspopup='true', aria-expanded='false')

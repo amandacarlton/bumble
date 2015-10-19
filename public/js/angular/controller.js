@@ -4,6 +4,7 @@ app.controller('MainController', ['$scope', 'ModalService', '$http', '$sce', '$c
   $scope.thumbs = false;
   $scope.$state = $state;
   $scope.loggedInUser = SessionService;
+  $scope.logged = $cookies.get('session_id');
   $scope.usertrafficobj={};
   $scope.categoryChosen="";
   $scope.preurl="";
@@ -29,7 +30,13 @@ app.controller('MainController', ['$scope', 'ModalService', '$http', '$sce', '$c
   };
 
 
-
+  $scope.checkloggedin = function () {
+    if($scope.loggedInUser.currentUser){
+      $scope.logger = $scope.loggedInUser.currentUser;
+    }else{
+      $scope.logger = $scope.logged;
+    }
+  };
 
 
     $scope.backfalse = function () {
@@ -39,8 +46,9 @@ app.controller('MainController', ['$scope', 'ModalService', '$http', '$sce', '$c
     $scope.bardata = "";
     $scope.linedata = "";
     $scope.userpref = function () {
+      $scope.checkloggedin()
       var user = {
-        id:$scope.loggedInUser.currentUser
+        id:$scope.logger
       };
       return $http.post('/userpref', user).then(function (response) {
       return  $http.post('/userlikes',user).then(function (catresponse) {
@@ -257,12 +265,13 @@ app.controller('MainController', ['$scope', 'ModalService', '$http', '$sce', '$c
     };
 
     $scope.reddit = function () {
+      $scope.checkloggedin();
       $scope.likedchecked=false;
       $scope.dislikedchecked=false;
       $scope.preliked = $scope.likedvalue;
       $scope.likedvalue="indifferent";
       var redditobj = {
-        user_id: $scope.loggedInUser.currentUser
+        user_id: $scope.logger
       };
       $http.post('/reddit', redditobj ).then(function (info) {
         console.log(info);
@@ -276,9 +285,10 @@ app.controller('MainController', ['$scope', 'ModalService', '$http', '$sce', '$c
     };
 
     $scope.articleInfo = function () {
+      $scope.checkloggedin();
       var articleObj = {
         category: $scope.categoryChosen,
-        user_id: $scope.loggedInUser.currentUser,
+        user_id: $scope.logger,
         timer:$scope.timeDiff,
         opinion:$scope.preliked,
         url: $scope.preurl,
@@ -292,16 +302,18 @@ app.controller('MainController', ['$scope', 'ModalService', '$http', '$sce', '$c
     $scope.removeCookie = function () {
       $cookies.remove('session_id');
       $scope.loggedInUser.currentUser = null;
+      $scope.logged = null;
       $location.path("/");
     };
 
     $scope.allcats = CategoryService.categoryList();
 
     $scope.categoryList = function () {
+      $scope.checkloggedin();
       // $scope.allcats = CategoryService.categoryList();
-      if($scope.loggedInUser){
+      if($scope.logger){
       var userobj = {
-        user_id:$scope.loggedInUser.currentUser
+        user_id:$scope.logger
       };
       $http.post("/userinfo", userobj).then(function (response) {
 
@@ -342,30 +354,32 @@ app.controller('MainController', ['$scope', 'ModalService', '$http', '$sce', '$c
 
 
     $scope.interestInsert = function (category) {
-
+      $scope.checkloggedin();
       $scope.interest = [];
       var interestobj = {
-        user_id:$scope.loggedInUser.currentUser,
+        user_id:$scope.logger,
         interest:category
       };
       $http.post("/insert", interestobj);
     };
 
     $scope.liked = function () {
+      $scope.checkloggedin();
       $scope.likedchecked=true;
       $scope.likedvalue = "liked";
       var likedobj = {
-        user_id:$scope.loggedInUser.currentUser,
+        user_id:$scope.logger,
         category : $scope.categoryChosen,
         site: $scope.preurl
       };
     };
 
     $scope.disliked = function () {
+      $scope.checkloggedin();
       $scope.dislikedchecked=true;
       $scope.likedvalue = "disliked";
       var dislikedobj = {
-        user_id:$scope.loggedInUser.currentUser,
+        user_id:$scope.logger,
         category : $scope.categoryChosen,
         site: $scope.preurl
       };
