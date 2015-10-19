@@ -49,7 +49,7 @@ app.controller('MainController', ['$scope', 'ModalService', '$http', '$sce', '$c
     $scope.linedata = "";
     $scope.userpref = function () {
       var user = {
-        id:$scope.loggedInUser
+        id:$scope.loggedInUser.currentUser
       };
       return $http.post('/userpref', user).then(function (response) {
       return  $http.post('/userlikes',user).then(function (catresponse) {
@@ -287,7 +287,7 @@ app.controller('MainController', ['$scope', 'ModalService', '$http', '$sce', '$c
       $scope.preliked = $scope.likedvalue;
       $scope.likedvalue="indifferent";
       var redditobj = {
-        user_id: $scope.loggedInUser
+        user_id: $scope.loggedInUser.currentUser
       };
       $http.post('/reddit', redditobj ).then(function (info) {
         console.log(info);
@@ -303,7 +303,7 @@ app.controller('MainController', ['$scope', 'ModalService', '$http', '$sce', '$c
     $scope.articleInfo = function () {
       var articleObj = {
         category: $scope.categoryChosen,
-        user_id: $scope.loggedInUser,
+        user_id: $scope.loggedInUser.currentUser,
         timer:$scope.timeDiff,
         opinion:$scope.preliked,
         url: $scope.preurl,
@@ -316,7 +316,7 @@ app.controller('MainController', ['$scope', 'ModalService', '$http', '$sce', '$c
 
     $scope.removeCookie = function () {
       $cookies.remove('session_id');
-      $scope.loggedInUser = null;
+      $scope.loggedInUser.currentUser = null;
       $location.path("/");
     };
 
@@ -325,7 +325,7 @@ app.controller('MainController', ['$scope', 'ModalService', '$http', '$sce', '$c
     $scope.categoryList = function () {
       // $scope.allcats = CategoryService.categoryList();
       var userobj = {
-        user_id:$scope.loggedInUser
+        user_id:$scope.loggedInUser.currentUser
       };
       $http.post("/userinfo", userobj).then(function (response) {
 
@@ -366,7 +366,7 @@ app.controller('MainController', ['$scope', 'ModalService', '$http', '$sce', '$c
 
       $scope.interest = [];
       var interestobj = {
-        user_id:$scope.loggedInUser,
+        user_id:$scope.loggedInUser.currentUser,
         interest:category
       };
       $http.post("/insert", interestobj);
@@ -376,7 +376,7 @@ app.controller('MainController', ['$scope', 'ModalService', '$http', '$sce', '$c
       $scope.likedchecked=true;
       $scope.likedvalue = "liked";
       var likedobj = {
-        user_id:$scope.loggedInUser,
+        user_id:$scope.loggedInUser.currentUser,
         category : $scope.categoryChosen,
         site: $scope.preurl
       };
@@ -386,7 +386,7 @@ app.controller('MainController', ['$scope', 'ModalService', '$http', '$sce', '$c
       $scope.dislikedchecked=true;
       $scope.likedvalue = "disliked";
       var dislikedobj = {
-        user_id:$scope.loggedInUser,
+        user_id:$scope.loggedInUser.currentUser,
         category : $scope.categoryChosen,
         site: $scope.preurl
       };
