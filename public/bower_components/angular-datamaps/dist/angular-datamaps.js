@@ -30,6 +30,7 @@ angular.module('datamaps').directive('datamap', [
               if (angular.isDefined(attrs.onClick)) {
                 datamap.svg.selectAll('.datamaps-subunit').on('click', function (geography) {
                   scope.onClick()(geography);
+                  //alert(geography.properties.name);
                 });
               }
               if (angular.isDefined(attrs.zoomable)) {

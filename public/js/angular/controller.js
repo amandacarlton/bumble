@@ -30,8 +30,14 @@ app.controller('MainController', ['$scope', 'ModalService', '$http', '$sce', '$c
     'there', 'these', 'those', "s",'philosophy'];
 
 
-    console.log($scope.back);
+
     $scope.pcCategory = CategoryService.pcCategories();
+
+  //   $scope.stateCount = function () {
+  //   return CategoryService.getStateWords();
+  //
+  // };
+
 
 
     $scope.backfalse = function () {
@@ -225,7 +231,7 @@ app.controller('MainController', ['$scope', 'ModalService', '$http', '$sce', '$c
         $scope.trafficobj[trafficarray[j]] = $scope.trafficobj[trafficarray[j]] || 0;
         $scope.trafficobj[trafficarray[j]]+= 1;
       }
-      console.log($scope.trafficobj);
+      //console.log($scope.trafficobj);
     });
   };
 
@@ -882,7 +888,9 @@ app.controller('MainController', ['$scope', 'ModalService', '$http', '$sce', '$c
           var searchterm = geo.properties.name.replace(" ","");
           return ['<div class="hoverinfo"><strong>',
           geo.properties.name, ' ranked ' + $scope.statesubinfo[searchterm].place,
-
+          '<div>',
+          ' Most Common Word',
+          '</div>',
           '</strong></div>'].join('');
         }
       },

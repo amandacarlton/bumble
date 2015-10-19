@@ -343,6 +343,59 @@ var populations = {"California": (37253956) ,
 "Wyoming":(563626),
 };
 
+var onlyStates = ["California",
+"Texas",
+"NewYork",
+"Florida",
+"Illinois",
+"Pennsylvania",
+"Ohio",
+"Michigan",
+"Georgia",
+"NorthCarolina",
+"NewJersey",
+"Virginia",
+"Washington",
+"Massachusetts",
+"Indiana",
+"Arizona",
+"Tennessee",
+"Missouri",
+"Maryland",
+"Wisconsin",
+"Minnesota",
+"Colorado",
+"Alabama",
+"SouthCarolina",
+"Louisiana",
+"Kentucky",
+"Oregon",
+"Oklahoma",
+"Connecticut",
+"Iowa",
+"Mississippi",
+"Arkansas",
+"Kansas",
+"Utah",
+"Nevada",
+"NewMexico",
+"WestVirginia",
+"Nebraska",
+"Idaho",
+"Hawaii",
+"Maine",
+"NewHampshire",
+"RhodeIsland",
+"Montana",
+"Delaware",
+"SouthDakota",
+"Alaska",
+"NorthDakota",
+"Vermont",
+"WashingtonDC",
+"Wyoming",
+];
+
 var commonWords =  [
   'i','a','about', 'an','and','are','as','at',
   'be', 'been','by','com','for', 'from','how','in',
@@ -354,7 +407,11 @@ var commonWords =  [
   'she', 'her', 'hers', 'it', 'its', 'you', 'yours', 'your',
   'has', 'have', 'would', 'could', 'should', 'shall',
   'can', 'may', 'if', 'then', 'else', 'but',
-  'there', 'these', 'those','my','so',"", "oc", "x",'s','philosophy'];
+  'there', 'these', 'those','my','so',"", "oc", "x",'s','philosophy','anyone', 'la', 'ct', 'indy', 'oahu', 'any', 'san', 'looking', 'new','state', 'do', 'haven', 'orleans', 'mn', 'little', 'help', 'city', 'louis', 'los', 'fort', 'grand', 'vegas', 'nh', 'jersey', 'mexico', 'york', 'nc', 'north', 'okc', 'pa', 'rhode', 'sc', 'south', 'slc', 'vt', 'va', 'dc', 'west', 'wy'];
+
+  var statewordCount = {};
+
+  var mostCommon = {};
 
   var categoryobj = {
 
@@ -372,63 +429,118 @@ var commonWords =  [
         for (var i = 0; i < categoryList.length; i++) {
           var filtered = [];
           for (var m = 0; m < response.data.length; m++) {
-           if(categoryList[i] === response.data[m].subreddit){
-             //console.log(response.data[m].subreddit);
+            if(categoryList[i] === response.data[m].subreddit){
+              //console.log(response.data[m].subreddit);
               text = response.data[m].title.toLowerCase()
               .replace(/[\n,\r]/g,' ')
+              .replace(/[^a-zA-Z ]/g, "")
+              .replace(/\s{2,}/g, ' ')
+              .split(' ');
+              filtered.push(text);
+
+            }
+          }
+          var noncommon = [];
+          for (var j = 0; j < filtered.length; j++) {
+            for (var k = 0; k < filtered[j].length; k++) {
+              if (commonWords.indexOf(filtered[j][k])<0){
+                noncommon.push(filtered[j][k]);
+                }
+            }
+          }
+
+          var sortObj = function (obj) {
+            var sortable = [];
+            for (var key in obj) {
+              sortable.push([key, obj[key]]);
+            }
+            sortable.sort(function (a, b) {
+              return b[1]-a[1];
+            });
+            return sortable;
+          };
+
+
+          wordCount[categoryList[i]]={};
+          noncommon.forEach(function (e) {
+            wordCount[categoryList[i]][e] = wordCount[categoryList[i]][e] || 0;
+            wordCount[categoryList[i]][e] += 1;
+          });
+
+          wordCount[categoryList[i]] = sortObj(wordCount[categoryList[i]]);
+
+          // console.log(wordCount);
+
+
+        }
+        //console.log(wordCount);
+        return wordCount;
+      });
+    },
+
+
+    getStateWords: function () {
+      statewordCount = {};
+      var promises = [];
+      for (var i = 0; i < onlyStates.length; i++) {
+
+        promises.push($http.post('/statewords', {state:onlyStates[i]}));
+      }
+      Promise.all(promises).then(function (response) {
+          for (var m = 0; m < response.length; m++) {
+            var statefiltered = [];
+            for (var a = 0; a < response[m].data.length; a++) {
+              if(response[m].data[a].title != undefined){
+                text = response[m].data[a].title.toLowerCase()
+                  .replace(/[\n,\r]/g,' ')
                   .replace(/[^a-zA-Z ]/g, "")
                   .replace(/\s{2,}/g, ' ')
                   .split(' ');
-                  filtered.push(text);
-
-                }
+                  statefiltered.push(text);
+          }
+        }
+          var noncommon = [];
+          var lowerstates =[];
+           for (var p = 0; p < states.length; p++) {
+             lowerstates.push(states[p].toLowerCase());
+           }
+          for (var j = 0; j < statefiltered.length; j++) {
+            for (var k = 0; k < statefiltered[j].length; k++) {
+              if (commonWords.indexOf(statefiltered[j][k])<0){
+                if (lowerstates.indexOf(statefiltered[j][k])<0){
+                noncommon.push(statefiltered[j][k]);
               }
-              var noncommon = [];
-                for (var j = 0; j < filtered.length; j++) {
-                  for (var k = 0; k < filtered[j].length; k++) {
-                    if (commonWords.indexOf(filtered[j][k])<0){
-                      noncommon.push(filtered[j][k]);
-                    }
-                  }
-                }
-
-                var sortObj = function (obj) {
-                  var sortable = [];
-                  for (var key in obj) {
-                    sortable.push([key, obj[key]]);
-                  }
-                  sortable.sort(function (a, b) {
-                    return b[1]-a[1];
-                  });
-                  return sortable;
-                };
-
-
-                wordCount[categoryList[i]]={};
-                noncommon.forEach(function (e) {
-                  wordCount[categoryList[i]][e] = wordCount[categoryList[i]][e] || 0;
-                  wordCount[categoryList[i]][e] += 1;
-                });
-
-                wordCount[categoryList[i]] = sortObj(wordCount[categoryList[i]]);
-
-                // console.log(wordCount);
-
-
             }
-            console.log(wordCount);
-            return wordCount;
+            }
+          }
+          console.log(noncommon);
+
+          var sortObj = function (obj) {
+            var sortable = [];
+            for (var key in obj) {
+              sortable.push([key, obj[key]]);
+            }
+            sortable.sort(function (a, b) {
+              return b[1]-a[1];
+            });
+            return sortable;
+          };
+
+          statewordCount[response[m].config.data.state]={};
+          noncommon.forEach(function (e) {
+
+            statewordCount[response[m].config.data.state][e] = statewordCount[response[m].config.data.state][e] || 0;
+            statewordCount[response[m].config.data.state][e] += 1;
           });
-        },
+
+          statewordCount[response[m].config.data.state] = sortObj(statewordCount[response[m].config.data.state]);
+          mostCommon[response[m].config.data.state] = statewordCount[response[m].config.data.state][0];
+
+        }
+      });
 
 
-        //
-
-    //
-    // });
-
-
-
+    },
 
 
     categoryList: function () {
@@ -526,8 +638,6 @@ var commonWords =  [
       });
 
     },
-
-
 
   };
   return categoryobj;

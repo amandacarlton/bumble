@@ -10,6 +10,7 @@ var posts = bumdb.get('posts');
 var wordcount= bumdb.get('wordcount');
 var heatmap= bumdb.get('heatmap');
 var test = 'test';
+var Florida = bumdb.get('Florida');
 
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
@@ -60,7 +61,11 @@ router.post('/reddit', function (req,res,next) {
 router.get("/reddittrend", function (req, res, next) {
   unirest.get("https://www.reddit.com/.json")
   .end(function (response) {
-    var info = response.body.data.children;
+    console.log(response.body.data.children[0].data.thumbnail);
+    function security(item){
+      return (item.data.thumbnail != 'nsfw' && item.data.thumbnail != 'NSFW' && item.data.thumbnail !='self' && item.data.thumbnail !=='');
+          }
+    var info = response.body.data.children.filter(security);
     res.json(info);
   });
 });
@@ -108,9 +113,7 @@ router.post('/articleInfo', function (req, res, next) {
 });
 
 router.post('/created', function (req, res, next) {
-  console.log(req.body);
   heatmap.find({subreddit: req.body.category}).then(function (response) {
-    console.log(response);
     res.json(response);
   });
 });
@@ -134,7 +137,6 @@ router.post("/subscriber", function (req, res, next) {
 });
 
 router.post("/subscriberstate", function (req, res, next) {
-  console.log(req.body);
   var subscriberinfo = {};
   var counter = 0;
   var length = req.body.category.length;
@@ -151,6 +153,8 @@ router.post("/subscriberstate", function (req, res, next) {
     });
   };
 });
+
+
 
 router.get("/findwords", function (req, res, next) {
   wordcount.find().then(function (response) {
@@ -174,6 +178,15 @@ router.post("/userinfo", function (req, res, next) {
   userCollection.findOne({_id:req.body.user_id}).then(function (response) {
     res.json(response);
   });
+});
+
+router.post('/statewords', function (req, res, next) {
+  var state = req.body.state;
+  console.log(state);
+ bumdb.get(state).find().then(function (response) {
+   response.statename = req.body.state;
+  res.json(response);
+ });
 });
 
 router.post('/checkuser', function (req, res, next) {
