@@ -27,12 +27,6 @@ app.controller('MainController', ['$scope', 'ModalService', '$http', '$sce', '$c
     $scope.stateCount = function () {
     return CategoryService.getStateWords().then(function (response) {
       $scope.mapwords = response;
-      console.log(response);
-      for (var i = 0; i < response.length; i++) {
-        console.log(response[i]);
-        console.log(response[i][0]);
-      }
-
     });
   };
 
@@ -211,7 +205,7 @@ app.controller('MainController', ['$scope', 'ModalService', '$http', '$sce', '$c
   //$scope.trafficobj={};
   $scope.created = function (heatcategory) {
     if (heatcategory === undefined){
-      heatcategory = 'funny';
+      heatcategory = 'puppies';
     }
      console.log(heatcategory);
     var sendcat = {
@@ -228,11 +222,11 @@ app.controller('MainController', ['$scope', 'ModalService', '$http', '$sce', '$c
         $scope.trafficobj[trafficarray[j]] = $scope.trafficobj[trafficarray[j]] || 0;
         $scope.trafficobj[trafficarray[j]]+= 1;
       }
-      //console.log($scope.trafficobj);
+      console.log($scope.trafficobj);
     });
   };
 
-
+  $scope.created();
 
   // $scope.$watch('trafficobj', $scope.created);
   //console.log($scope.created());
@@ -279,7 +273,6 @@ app.controller('MainController', ['$scope', 'ModalService', '$http', '$sce', '$c
 
     $scope.reddit = function () {
       $scope.checkloggedin();
-      console.log($scope.checkloggedin());
       $scope.likedchecked=false;
       $scope.dislikedchecked=false;
       $scope.preliked = $scope.likedvalue;
@@ -288,9 +281,6 @@ app.controller('MainController', ['$scope', 'ModalService', '$http', '$sce', '$c
         user_id: $scope.logger
       };
       $http.post('/reddit', redditobj ).then(function (info) {
-        console.log(info);
-        console.log(info.data);
-        console.log(info.data.url);
         $scope.categoryChosen = info.data.category;
         $scope.preurl = info.data.url;
         $scope.url = $sce.trustAsResourceUrl(info.data.url);
@@ -1153,9 +1143,7 @@ app.controller('MainController', ['$scope', 'ModalService', '$http', '$sce', '$c
 
 
     $scope.checkuser = function (checking) {
-      console.log(checking);
       $http.post("/checkuser", checking).then(function (response) {
-        console.log(response);
         $scope.showModal = true;
         if(response.data === null){
           $scope.errors = "User not found";
@@ -1168,7 +1156,6 @@ app.controller('MainController', ['$scope', 'ModalService', '$http', '$sce', '$c
           SessionService.set(response.data._id);
           $location.path('/stumble');
         }
-        console.log($scope.errors);
       });
     };
 

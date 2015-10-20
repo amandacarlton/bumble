@@ -382,6 +382,7 @@ border: 2px #BDA0CB;
 }
 
 .navbar{
+	z-index: 1;
 	-webkit-filter: drop-shadow(5px 5px 10px black) !important;
 }
 
@@ -438,6 +439,7 @@ html{
  }
 
  .bubble{
+	background-color: white;
 	float: left;
  }
 
@@ -532,7 +534,7 @@ border: 2px solid black;
 }
 
 .screenshot{
-	height: 30%;
+	height: 300px;
 	margin-top: 15%;
 	margin-bottom: 1%;
 	border: 2px solid black;
@@ -550,6 +552,16 @@ border: 2px solid black;
 h3{
 	font-size: 20px;
 }
+
+.heat{
+	margin-top: 4%;
+}
+
+/*.heatscreen{
+	height: 100%;
+}*/
+
+
 
 /*.title{
 	background-color: blue;
