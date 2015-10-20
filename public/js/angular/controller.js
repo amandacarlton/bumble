@@ -29,6 +29,8 @@ app.controller('MainController', ['$scope', 'ModalService', '$http', '$sce', '$c
     });
   };
 
+  //$scope.stateCount();
+
 
   $scope.checkloggedin = function () {
     if($scope.loggedInUser.currentUser){
@@ -880,7 +882,6 @@ app.controller('MainController', ['$scope', 'ModalService', '$http', '$sce', '$c
         highlighBorderColor: '#EAA9A8',
         highlighBorderWidth: 2,
         popupTemplate: function(geo, data) {
-          $scope.stateCount();
           var searchterm = geo.properties.name.replace(" ","");
           return ['<div class="hoverinfo"><strong>',
           geo.properties.name, ' ranked: ' + $scope.statesubinfo[searchterm].place,

@@ -4,7 +4,8 @@ div.charts
       h1 Traffic Map by Hour
       p Your time spent browsing articles by hour over the past five days
       div.userheat
-        cal-heatmap(config="{domain:'day', subDomain:'hour', range:-5, cellSize:21, data:usertrafficobj}")
+        cal-heatmap(config="{domain:'day', subDomain:'hour', range:5, cellSize:21, data:usertrafficobj}")
+        //cal-testheatmap(config="{data:{'1445238114':6}}")
   div.bar
     h1 Preference by Category
     .chart( ac-chart="'bar'" ac-data="data" ac-config="config" id='chart' class='chart')

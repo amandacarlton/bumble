@@ -57,5 +57,6 @@ app.config(function ($stateProvider) {
       templateUrl:'partials/trendart.html',
       contoller:'MainController'
     });
+  
 
   });
