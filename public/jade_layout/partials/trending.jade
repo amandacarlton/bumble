@@ -1,18 +1,21 @@
-
-div.col-md-6
-  table(class="table") 
-    tr.trendtable(ng-repeat="trending in trendings | limitTo:5")
-      td.pic
-        img(src="{{trending.data.thumbnail}}" ng-click='trendart(trending.data.url)')
-      td.trend
-        h2 {{trending.data.title}}
-div.col-md-6
-  table(class="table") 
-    tr.trendtable(ng-repeat="trending in trendings | limitTo:5:5" )
-      td.pic
-        img(src="{{trending.data.thumbnail}}" ng-click='trendart(trending.data.url)')
-      td.trend
-        h2 {{trending.data.title}}
+div.trendtable
+  div.description
+    h1 Top 10 Trending Articles
+    p Click on image to view full article
+  div.col-md-6
+    table(class="table") 
+      tr.trendtable(ng-repeat="trending in trendings | limitTo:5")
+        td.pic
+          img(src="{{trending.data.thumbnail}}" ng-click='trendart(trending.data.url)')
+        td.trend
+          h2 {{trending.data.title}}
+  div.col-md-6
+    table(class="table") 
+      tr.trendtable(ng-repeat="trending in trendings | limitTo:5:5" )
+        td.pic
+          img(src="{{trending.data.thumbnail}}" ng-click='trendart(trending.data.url)')
+        td.trend
+          h2 {{trending.data.title}}
         
 
   

@@ -102,7 +102,6 @@ iframe{
 
 .categories{
 	margin-top: 10px;
-
 }
 
 .allcats{
@@ -409,10 +408,10 @@ html{
 	overflow: auto;
 }
 
-.categoryLabel:hover {
+/*.categoryLabel:hover {
     background-color: #685883;
 		color: white;
-}
+}*/
 
 .mapinfo{
 	margin: 0 auto;
@@ -476,6 +475,15 @@ margin-left: 30%;
 	background-image: url('light_grey.png');
 }
 
+.trendtable{
+	margin-top: 2%;
+}
+
+.description{
+	margin-left: 37%;
+	margin-bottom: 3%;
+
+}
 
 /*.title{
 	background-color: blue;

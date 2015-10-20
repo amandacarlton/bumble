@@ -4,5 +4,5 @@ div.allcats
   h1 Choose your interests!
  div.col-md-4.categories.categoryLabel(ng-repeat="category in allcats")
   input(type="checkbox" id='cat' value='category' ng-click="interestInsert(category)" ng-checked="checkArrayFor(category)") 
-  label(for="cat") {{pcCategory[category]}}
+  {{pcCategory[category]}}
  
