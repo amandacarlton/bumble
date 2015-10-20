@@ -10,6 +10,60 @@ app.factory('SessionService', function ($cookies) {
 
 
 app.factory('CategoryService', function ($http) {
+  var statewords = {
+    'Alabama' :'Phone',
+    'Alaska': 'Alaskan',
+    'Arizona': 'Valley',
+    'Arkansas': 'holder',
+    'California': 'Water',
+    'Colorado': 'holder',
+    'Connecticut' : 'holder',
+    'Florida': 'Beach',
+    'Delaware' : 'holder',
+    'Georgia': 'Ratlanta',
+    'Hawaii' :'Island',
+    'Idaho' : 'holder',
+    'Illinois' : 'Rauner',
+    'Indiana': 'Wayne',
+    'Iowa': 'Corn',
+    'Kansas': 'Brownback',
+    'Kentucky': 'holder',
+    'Louisiana': 'Nola',
+    'Maine': 'Lepage',
+    'Maryland': 'Police',
+    'Massachusetts': 'Snow',
+    'Michigan' : 'gr',
+    'Minnesota': 'Lake',
+    'Mississippi': 'Oxford',
+    'Missouri': 'Ferguson',
+    'Montana': 'man',
+    'Nebraska': 'holder',
+    'Nevada': 'Strip',
+    'NewHampshire': 'holder',
+    'NewJersey': 'Downtown',
+    'NewMexico': 'holder',
+    'NewYork': 'all',
+    'NorthCarolina' : 'holder',
+    'NorthDakota': 'oil',
+    'Ohio': 'Police',
+    'Oklahoma': 'holder',
+    'Oregon': 'holder',
+    'Pennsylvania': 'Police',
+    'RhodeIsland': 'holder',
+    'SouthCarolina': 'Downtown',
+    'Tennessee': 'holder',
+    'Texas': 'holder',
+    'Utah': 'holder',
+    'Vermont': 'Police',
+    'Virginia': 'Beach',
+    'Washington': 'Moving',
+    'WashingtonDC': 'Metro',
+    'WestVirginia': 'county',
+    'Wisconsin': 'Walker',
+    'Wyoming': 'Laramie'
+  };
+
+
   var categoryList = [
     "Art",
     "aww",
@@ -427,6 +481,10 @@ var statecommonWords =  [
   var mostCommon = {};
 
   var categoryobj = {
+
+    quickstateWords: function () {
+      return statewords;
+    },
 
     pcCategories: function () {
       return pcCategories;

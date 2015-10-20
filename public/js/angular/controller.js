@@ -22,10 +22,17 @@ app.controller('MainController', ['$scope', 'ModalService', '$http', '$sce', '$c
 
     $scope.pcCategory = CategoryService.pcCategories();
 
+    $scope.quickstate = CategoryService.quickstateWords();
+
     $scope.stateCount = function () {
     return CategoryService.getStateWords().then(function (response) {
       $scope.mapwords = response;
-       console.log($scope.mapwords.Florida[0]);
+      console.log(response);
+      for (var i = 0; i < response.length; i++) {
+        console.log(response[i]);
+        console.log(response[i][0]);
+      }
+
     });
   };
 
@@ -200,7 +207,7 @@ app.controller('MainController', ['$scope', 'ModalService', '$http', '$sce', '$c
   //$scope.trafficobj={};
   $scope.created = function (heatcategory) {
     if (heatcategory === undefined){
-      heatcategory = 'puppies';
+      heatcategory = 'funny';
     }
      console.log(heatcategory);
     var sendcat = {
@@ -224,7 +231,7 @@ app.controller('MainController', ['$scope', 'ModalService', '$http', '$sce', '$c
 
 
   // $scope.$watch('trafficobj', $scope.created);
-  console.log($scope.created());
+  //console.log($scope.created());
 
     // $scope.stats = function () {
     //   return CategoryService.stateStats(CategoryService.getState);
@@ -404,6 +411,8 @@ app.controller('MainController', ['$scope', 'ModalService', '$http', '$sce', '$c
     });
 
   };
+
+    $scope.getwords('Art');
 
         $scope.fill_color = function (group) {
           return group === 'assets' ? '#3eb536' : '#641726';
@@ -643,7 +652,10 @@ app.controller('MainController', ['$scope', 'ModalService', '$http', '$sce', '$c
         popupTemplate: function(geo, data) {
           var searchterm = geo.properties.name.replace(" ","");
           return ['<div class="hoverinfo"><strong>',
-          geo.properties.name, ' ranked ' + $scope.statesubinfo[searchterm].place,
+          geo.properties.name, ' ranked: ' + $scope.statesubinfo[searchterm].place,
+          '<div>',
+          ' Most Common Word: ', $scope.quickstate[searchterm],
+          '</div>',
 
           '</strong></div>'].join('');
         }
@@ -886,7 +898,7 @@ app.controller('MainController', ['$scope', 'ModalService', '$http', '$sce', '$c
           return ['<div class="hoverinfo"><strong>',
           geo.properties.name, ' ranked: ' + $scope.statesubinfo[searchterm].place,
           '<div>',
-          ' Most Common Word: ', $scope.mapwords[searchterm][0],
+          ' Most Common Word: ', $scope.quickstate[searchterm],
           '</div>',
           '</strong></div>'].join('');
         }
