@@ -135,7 +135,7 @@ app.controller('MainController', ['$scope', 'ModalService', '$http', '$sce', '$c
        };
 
        $scope.dataline = {
-         series: ['Liked', 'Disliked', 'Indifferent'],
+         series: ['Liked', 'Disliked', 'Neutral'],
          data: $scope.linedata
        };
 

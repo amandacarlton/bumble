@@ -442,12 +442,36 @@ html{
  .pie{
 	 border: 1px solid black;
 	 margin: 5px;
+	 padding-top: 10px;
+	 padding-left: 10px;
  }
 
  .trendtable{
 	 height: 200px;
  }
 
+.time{
+	margin-top: 3%;
+	padding-top: 10px;
+	padding-left: 10px;
+}
+
+.map{
+margin-left: 30%;
+
+}
+
+.bar{
+	margin-left: 6%;
+	padding-top: 10px;
+	padding-left: 10px;
+}
+
+.line{
+	margin-left: 22%;
+	padding: 10px;
+
+}
 
 
 /*.title{
