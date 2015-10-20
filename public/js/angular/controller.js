@@ -266,6 +266,7 @@ app.controller('MainController', ['$scope', 'ModalService', '$http', '$sce', '$c
 
     $scope.reddit = function () {
       $scope.checkloggedin();
+      console.log($scope.checkloggedin());
       $scope.likedchecked=false;
       $scope.dislikedchecked=false;
       $scope.preliked = $scope.likedvalue;

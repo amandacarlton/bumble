@@ -355,15 +355,17 @@ text-align: center;
 }*/
 
 .btn.btn-success{
-background-color: #5E2D79;
-background-image: linear-gradient(to bottom,#5E2D79  0,#5E2D79 100%);
-border: 2px #5E2D79;
+color: black;
+background-color: #BDA0CB;
+background-image: linear-gradient(to bottom,#BDA0CB  0,#BDA0CB 100%);
+border: 2px #BDA0CB;
 }
 
 .btn.btn-primary{
-background-color: #5E2D79;
-background-image: linear-gradient(to bottom,#5E2D79  0,#5E2D79 100%);
-border: 2px #5E2D79;
+color: black;
+background-color: #BDA0CB;
+background-image: linear-gradient(to bottom,#BDA0CB  0,#BDA0CB 100%);
+border: 2px #BDA0CB;
 }
 
 .view{

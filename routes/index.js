@@ -17,8 +17,9 @@ router.get('/', function(req, res, next) {
 });
 
 router.post('/reddit', function (req,res,next) {
+  console.log(req.body.user_id);
   var testcats;
-  if(req.body.user_id === null){
+  if(req.body.user_id === undefined){
     testcats = ['puppies', 'aww', 'food', 'news', 'nottheonion', 'gadgets', 'EarthPorn', 'dataisbeautiful', 'science', 'gifs'];
     var random = Math.floor(Math.random() * (testcats.length));
     var categoryChosen = (testcats[random]);
@@ -82,7 +83,7 @@ router.get("/reddittrend", function (req, res, next) {
   .end(function (response) {
 
       console.log(response.body.data.children[3].data);
-    
+
     //console.log(response.body.data.children[0].data.thumbnail);
     function security(item){
       return (item.data.thumbnail != 'nsfw' && item.data.thumbnail != 'NSFW' && item.data.thumbnail !='self' && item.data.thumbnail !=='');
