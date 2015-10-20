@@ -209,7 +209,7 @@ angular.module('bubbleCloud', [])
                 return datum.r;
             })
             .style('fill', function (datum) {
-              var colors = ['#2fcbff','#04a0be','#324fff','#0024ff'];
+              var colors = ['#F7D4D4','#FABD9E','#F5CCA3','#FFDD99', '#E0F76E', '#9CF76E', '#6EF7E0', '#6EE0F7', '#A3BEF5', '#EB9EFA'];
               var random =  Math.floor(Math.random() * (colors.length));
                 return colors[random];
             });

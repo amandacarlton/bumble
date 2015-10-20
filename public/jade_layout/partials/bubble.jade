@@ -4,6 +4,6 @@ div.bubblecategory
     p Choose a category and see the most popular words used in successful posts of that category.
     div.chooser
     select#category(ng-model='category' ng-change='getwords(category)')
-      option(ng-repeat='cat in allcats', value='{{cat}}') {{cat}}
+      option(ng-repeat='cat in allcats', value='{{cat}}') {{pcCategory[cat]}}
   div.bubble
     bubble-cloud(diameter='700', watch='true', data='net_worth', value-attr='balance', label-attr='name', fill-color-fn='fill_color', label-color-fn='label_color', tooltip-format-fn='tooltip_format')
