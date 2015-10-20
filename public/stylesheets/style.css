@@ -452,8 +452,6 @@ html{
 
 .time{
 	margin-top: 3%;
-	padding-top: 10px;
-	padding-left: 10px;
 }
 
 .map{
@@ -471,6 +469,11 @@ margin-left: 30%;
 	margin-left: 22%;
 	padding: 10px;
 
+}
+
+
+.pattern{
+	background-image: url('light_grey.png');
 }
 
 
