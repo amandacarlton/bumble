@@ -139,8 +139,8 @@ h2{
 }
 
 bubble-cloud{
-	height: 500px;
-	width: 500px;
+	height: 100px;
+	width: 100px;
 }
 
 .cal-heatmap-container {
@@ -419,9 +419,7 @@ html{
 	margin-top: 5%;
 }
 
- bubble-cloud{
-	 margin-left: 10%;
- }
+
 
  .category{
 	 margin: 0 auto;
@@ -430,8 +428,22 @@ html{
  }
 
  .bubble{
-	 margin-top: 2%;
+	float: left;
  }
+
+ .chooser{
+	 margin-top: 3%;
+ }
+
+ .selector{
+	 float: left;
+	 display: inline-block;
+	 display: inline-block;
+	 width: 25%;
+	 margin-top: 20%;
+	 margin-left: 10%;
+ }
+
 
  .bar{
 	 border: 1px solid black;
@@ -444,6 +456,7 @@ html{
 	 padding-top: 10px;
 	 padding-left: 10px;
  }
+
 
  .trendtable{
 	 height: 200px;

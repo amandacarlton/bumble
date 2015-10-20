@@ -12,7 +12,7 @@ angular.module('calHeatmap',[])
                 subDomain: !config ? 'day': config.subDomain ? config.subDomain : 'day',
                 subDomainTextFormat: !config ? '%d' : config.subDomainTextFormat ? config.subDomainTextFormat : '%d',
                 data: !config ? '' : config.data ? config.data : '',
-                start: !config ? new Date() : config.start ? config.start : new Date(),
+                start: !config ? new Date() : config.start ? config.start : new Date(2000, 0, 0),
                 cellSize: !config ? 25 : config.cellSize ? config.cellSize : 25,
                 range: !config ? 3 : config.range ? config.range : 3,
                 domainGutter: !config ? 10 : config.domainGutter ? config.domainGutter : 10,

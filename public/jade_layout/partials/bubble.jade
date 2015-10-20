@@ -1,9 +1,9 @@
-
-div.category
-  h1 Bubble Word Count 
-  p Choose a category and see the most popular words used in successful posts of that category.
-  div.bubble
+div.bubblecategory
+  div.selector
+    h1 Bubble Word Count 
+    p Choose a category and see the most popular words used in successful posts of that category.
+    div.chooser
     select#category(ng-model='category' ng-change='getwords(category)')
       option(ng-repeat='cat in allcats', value='{{cat}}') {{cat}}
-  
- bubble-cloud(diameter='1000', watch='true', data='net_worth', value-attr='balance', label-attr='name', fill-color-fn='fill_color', label-color-fn='label_color', tooltip-format-fn='tooltip_format')
+  div.bubble
+    bubble-cloud(diameter='700', watch='true', data='net_worth', value-attr='balance', label-attr='name', fill-color-fn='fill_color', label-color-fn='label_color', tooltip-format-fn='tooltip_format')
