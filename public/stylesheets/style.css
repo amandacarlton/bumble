@@ -356,6 +356,8 @@ text-align: center;
 
 .userheat{
 	margin-top: 2%;
+	display: inline-block;
+
 }
 
 
@@ -454,12 +456,13 @@ html{
 
 
  .bar{
-	 border: 1px solid black;
+	 border: 2px solid black;
 	 margin: 5px;
  }
 
  .pie{
-	 border: 1px solid black;
+	 background-color: white;
+	 border: 2px solid black;
 	 margin: 5px;
 	 padding-top: 10px;
 	 padding-left: 10px;
@@ -475,17 +478,23 @@ html{
 }
 
 .map{
+display: inline-block;
+background-color: white;
 margin-left: 30%;
+padding: 10px;
+border: 2px solid black;
 
 }
 
 .bar{
+	background-color: white;
 	margin-left: 6%;
 	padding-top: 10px;
 	padding-left: 10px;
 }
 
 .line{
+	background-color: white;
 	margin-left: 22%;
 	padding: 10px;
 
