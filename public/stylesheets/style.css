@@ -515,6 +515,42 @@ border: 2px solid black;
 
 }
 
+.stumbling{
+	height: 30%;
+	background-color: white;
+	border: 2px solid black;
+	margin-top: 25%;
+	box-sizing: border-box;
+	padding: 5px;
+	margin-bottom: 2%;
+	-webkit-filter: drop-shadow(5px 5px 10px black);
+}
+
+.screenshot:hover{
+	-webkit-filter: drop-shadow(5px 5px 10px black);
+	cursor: pointer;
+}
+
+.screenshot{
+	height: 30%;
+	margin-top: 15%;
+	margin-bottom: 1%;
+	border: 2px solid black;
+}
+
+.screenshot img{
+	height: 100%;
+	width: 100%;
+}
+
+.all{
+	padding:4%;
+}
+
+h3{
+	font-size: 20px;
+}
+
 /*.title{
 	background-color: blue;
 }*/

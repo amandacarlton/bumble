@@ -462,7 +462,7 @@ var statecommonWords =  [
   'out', 'need', 'diego', 'jose', 'best', 'wv', 'good', 'kc', 'know',
   'rapids', 'st', 'las', 'just', 'jc', 'abq', 'ny', 'carolina', 'dakota', 'some', 'up', 'az', 'angeles', 'cities',
   'springs', 'dc', 'get', 'hampshire', 'area', 'th', 'de', 'me', 'after', 'santa', 'nd', 'area', 'th', 'de', 'me',
-  'after', 'santa', 'nd'];
+  'after', 'santa', 'nd', 'xpost'];
 
   var commonWords = ['i','a','about', 'an','and','are','as','at',
   'be', 'been','by','com','for', 'from','how','in',
@@ -474,7 +474,7 @@ var statecommonWords =  [
   'she', 'her', 'hers', 'it', 'its', 'you', 'yours', 'your',
   'has', 'have', 'would', 'could', 'should', 'shall',
   'can', 'may', 'if', 'then', 'else', 'but',
-  'there', 'these', 'those','my','so',"", "oc", "x",'s','philosophy'];
+  'there', 'these', 'those','my','so',"", "oc", "x",'s','philosophy', 'xpost'];
 
   var statewordCount = {};
 
