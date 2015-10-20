@@ -55,7 +55,7 @@ app.controller('MainController', ['$scope', 'ModalService', '$http', '$sce', '$c
     $scope.bardata = "";
     $scope.linedata = "";
     $scope.userpref = function () {
-      $scope.checkloggedin()
+      $scope.checkloggedin();
       var user = {
         id:$scope.logger
       };
@@ -96,6 +96,10 @@ app.controller('MainController', ['$scope', 'ModalService', '$http', '$sce', '$c
            $scope.usertrafficobj[visitarray[l]] = $scope.usertrafficobj[visitarray[l]] || 0;
            $scope.usertrafficobj[visitarray[l]]+= 1;
          }
+
+         $scope.userheatmap = function(){
+           return $scope.usertrafficobj;
+         };
 
 
          $scope.linedata = linearray;

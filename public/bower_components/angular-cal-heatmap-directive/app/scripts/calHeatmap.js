@@ -12,7 +12,8 @@ angular.module('calHeatmap',[])
                 subDomain: !config ? 'day': config.subDomain ? config.subDomain : 'day',
                 subDomainTextFormat: !config ? '%d' : config.subDomainTextFormat ? config.subDomainTextFormat : '%d',
                 data: !config ? '' : config.data ? config.data : '',
-                start: !config ? new Date() : config.start ? config.start : new Date(),
+                start: new Date(2015, 9, 19),
+                //start: !config ? new Date() : config.start ? config.start : new Date(),
                 cellSize: !config ? 25 : config.cellSize ? config.cellSize : 25,
                 range: !config ? 3 : config.range ? config.range : 3,
                 domainGutter: !config ? 10 : config.domainGutter ? config.domainGutter : 10,
@@ -22,7 +23,7 @@ angular.module('calHeatmap',[])
           }
 
         return {
-            template: '<div id="cal-heatmaps" config="config"></div>',
+            template: '<div id="cal-heatmap" config="config"></div>',
             restrict: 'E',
             link: link,
             scope: { config: '=' }
