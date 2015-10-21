@@ -10,7 +10,7 @@ var posts = bumdb.get('posts');
 var wordcount= bumdb.get('wordcount');
 var heatmap= bumdb.get('heatmap');
 var test = 'test';
-var Florida = bumdb.get('Florida');
+var test2 = 'test2';
 
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
