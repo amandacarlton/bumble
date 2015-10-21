@@ -1,7 +1,7 @@
 require('dotenv').load();
 var express = require('express');
 // var http = require('http');
-var enforce = require('express-sslify');
+// var enforce = require('express-sslify');
 var path = require('path');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
@@ -13,8 +13,16 @@ var users = require('./routes/users');
 
 var app = express();
 
+var forceSsl = function (req, res, next) {
+    if (req.headers['x-forwarded-proto'] !== 'https') {
+        return res.redirect(['https://', req.get('Host'), req.url].join(''));
+    }
+    return next();
+ };
 
-app.use(enforce.HTTPS(true));
+ app.use(forceSsl);
+
+// app.use(enforce.HTTPS(true));
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
