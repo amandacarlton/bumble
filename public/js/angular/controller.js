@@ -281,6 +281,7 @@ app.controller('MainController', ['$scope', 'ModalService', '$http', '$sce', '$c
         user_id: $scope.logger
       };
       $http.post('/reddit', redditobj ).then(function (info) {
+        console.log(info);
         $scope.categoryChosen = info.data.category;
         $scope.preurl = info.data.url;
         $scope.url = $sce.trustAsResourceUrl(info.data.url);

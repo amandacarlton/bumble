@@ -11,6 +11,13 @@ var users = require('./routes/users');
 
 var app = express();
 
+app.get('*',function(req,res,next){
+  if(req.headers['x-forwarded-proto']!='https')
+    return res.redirect(['https://', req.get('Host'), req.url].join(''));
+  else
+    next(); /* Continue to other routes if we're not redirecting */
+});
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
