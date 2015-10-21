@@ -20,7 +20,7 @@ router.post('/reddit', function (req,res,next) {
   console.log(req.body.user_id);
   var testcats;
   if(req.body.user_id === undefined){
-    testcats = ['puppies', 'aww', 'food', 'news', 'nottheonion', 'gadgets', 'EarthPorn', 'dataisbeautiful', 'science', 'gifs'];
+    testcats = ['puppies', 'aww', 'food', 'news', 'nottheonion', 'gadgets', 'EarthPorn', 'dataisbeautiful', 'science'];
     var random = Math.floor(Math.random() * (testcats.length));
     var categoryChosen = (testcats[random]);
     unirest.get('https://www.reddit.com/r/'+testcats[random]+'.json?')
