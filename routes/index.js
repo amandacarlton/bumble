@@ -32,6 +32,7 @@ router.post('/reddit', function (req,res,next) {
       var randomchild = Math.floor(Math.random() * (response.body.data.children.length));
       var info = filteredResponse[randomchild].data;
       info.category = categoryChosen;
+      info.thumbnail = info.thumbnail.replace('http:', 'https:');
       info.url = info.url.replace('http:', 'https:');
       //console.log(info.url);
       if(info.domain === "youtube.com" || info.domain === "twitter.com" || info.domain === "vine.co" || info.domain === "m.youtube.com" || info.domain === "google.com" || info.domain === "en-maktoob.news.yahoo.com" || info.domain === 'flickr.com' || info.domain === 'youtu.be'){
@@ -44,7 +45,7 @@ router.post('/reddit', function (req,res,next) {
           res.json(info);
         });
       }else{
-        console.log(info.url);
+        console.log(info);
         res.json(info);
       }
     });
