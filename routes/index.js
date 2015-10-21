@@ -23,7 +23,7 @@ router.post('/reddit', function (req,res,next) {
     testcats = ['puppies', 'aww', 'food', 'news', 'nottheonion', 'gadgets', 'EarthPorn', 'dataisbeautiful', 'science', 'gifs'];
     var random = Math.floor(Math.random() * (testcats.length));
     var categoryChosen = (testcats[random]);
-    unirest.get('http://www.reddit.com/r/'+testcats[random]+'.json?')
+    unirest.get('https://www.reddit.com/r/'+testcats[random]+'.json?')
     .end(function (response) {
       function security(item){
         return (item.data.domain != 'google.com' && item.data.domain != 'twitter.com' && item.data.domain.slice(0,5) != 'self.' && item.data.thumbnail != 'nsfw' && item.data.thumbnail != 'NSFW');
@@ -32,9 +32,11 @@ router.post('/reddit', function (req,res,next) {
       var randomchild = Math.floor(Math.random() * (response.body.data.children.length));
       var info = filteredResponse[randomchild].data;
       info.category = categoryChosen;
+      info.url = info.url.replace('http:', '');
       if(info.domain === "youtube.com" || info.domain === "twitter.com" || info.domain === "vine.co" || info.domain === "m.youtube.com" || info.domain === "google.com" || info.domain === "en-maktoob.news.yahoo.com" || info.domain === 'flickr.com' || info.domain === 'youtu.be'){
         unirest.get('http://api.embed.ly/1/oembed?key=:'+process.env.EMBEDLY_API+'&url='+info.url)
         .end(function (tube) {
+
           var regex = /src="(.+?)"/;
           var matches = regex.exec(tube.body.html);
           info.url = matches[1];
@@ -50,7 +52,7 @@ router.post('/reddit', function (req,res,next) {
       var random = Math.floor(Math.random() * (testcats.length));
       var categoryChosen = (testcats[random]);
       console.log('Category',categoryChosen);
-      unirest.get('http://www.reddit.com/r/'+testcats[random]+'.json?')
+      unirest.get('https://www.reddit.com/r/'+testcats[random]+'.json?')
       .end(function (response) {
         function security(item){
           return (item.data.domain != 'google.com' && item.data.domain != 'twitter.com' && item.data.domain.slice(0,5) != 'self.' && item.data.thumbnail != 'nsfw' && item.data.thumbnail != 'NSFW');
@@ -79,7 +81,7 @@ router.post('/reddit', function (req,res,next) {
 
 
 router.get("/reddittrend", function (req, res, next) {
-  unirest.get("http://www.reddit.com/.json")
+  unirest.get("https://www.reddit.com/.json")
   .end(function (response) {
 
       console.log(response.body.data.children[3].data);
@@ -149,7 +151,7 @@ router.post("/subscriber", function (req, res, next) {
   for (var i = 0; i < length; i++) {
     var last = req.body.category[length-1];
     var catname = req.body.category[i];
-    unirest.get('http://www.reddit.com/r/'+req.body.category[i]+'/about.json?')
+    unirest.get('https://www.reddit.com/r/'+req.body.category[i]+'/about.json?')
     .end(function (response) {
       subscriberinfo[response.body.data.display_name] = response.body.data.subscribers;
       counter ++;
