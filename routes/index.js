@@ -33,6 +33,7 @@ router.post('/reddit', function (req,res,next) {
       var info = filteredResponse[randomchild].data;
       info.category = categoryChosen;
       info.url = info.url.replace('http:', 'https:');
+      //console.log(info.url);
       if(info.domain === "youtube.com" || info.domain === "twitter.com" || info.domain === "vine.co" || info.domain === "m.youtube.com" || info.domain === "google.com" || info.domain === "en-maktoob.news.yahoo.com" || info.domain === 'flickr.com' || info.domain === 'youtu.be'){
         unirest.get('http://api.embed.ly/1/oembed?key=:'+process.env.EMBEDLY_API+'&url='+info.url)
         .end(function (tube) {
@@ -43,6 +44,7 @@ router.post('/reddit', function (req,res,next) {
           res.json(info);
         });
       }else{
+        console.log(info.url);
         res.json(info);
       }
     });
