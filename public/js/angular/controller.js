@@ -282,9 +282,11 @@ app.controller('MainController', ['$scope', 'ModalService', '$http', '$sce', '$c
       };
       $http.post('/reddit', redditobj ).then(function (info) {
         console.log(info);
+        $scope.replacedUrl = info.data.url.replace('http', 'https');
+        console.log($scope.replacedUrl);
         $scope.categoryChosen = info.data.category;
         $scope.preurl = info.data.url;
-        $scope.url = $sce.trustAsResourceUrl(info.data.url.replace('http:', 'https:'));
+        $scope.url = $sce.trustAsResourceUrl($scope.replacedUrl);
         $location.path('/stumble');
       });
     };
