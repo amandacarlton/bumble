@@ -11,6 +11,7 @@ var wordcount= bumdb.get('wordcount');
 var heatmap= bumdb.get('heatmap');
 var test = 'test';
 var test2 = 'test2';
+var test3 = 'test3';
 
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
