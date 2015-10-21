@@ -284,7 +284,7 @@ app.controller('MainController', ['$scope', 'ModalService', '$http', '$sce', '$c
         console.log(info);
         $scope.categoryChosen = info.data.category;
         $scope.preurl = info.data.url;
-        $scope.url = $sce.trustAsResourceUrl(info.data.url);
+        $scope.url = $sce.trustAsResourceUrl(info.data.url.replace('http:', 'https:'));
         $location.path('/stumble');
       });
     };
