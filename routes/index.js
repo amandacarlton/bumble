@@ -18,7 +18,6 @@ router.get('/', function(req, res, next) {
 });
 
 router.post('/reddit', function (req,res,next) {
-  console.log(req.body.user_id);
   var testcats;
   if(req.body.user_id === undefined){
     testcats = ['puppies', 'aww', 'food', 'news', 'nottheonion', 'gadgets', 'EarthPorn', 'dataisbeautiful', 'science', 'gifs'];
@@ -27,16 +26,15 @@ router.post('/reddit', function (req,res,next) {
     unirest.get('https://www.reddit.com/r/'+testcats[random]+'.json?')
     .end(function (response) {
       function security(item){
-        return (item.data.domain != 'google.com' && item.data.domain != 'twitter.com' && item.data.domain.slice(0,5) != 'self.' && item.data.thumbnail != 'nsfw' && item.data.thumbnail != 'NSFW');
+        return (item.data.domain != 'google.com' && item.data.domain != 'twitter.com' && item.data.domain.slice(0,5) != 'self.' && item.data.thumbnail != 'nsfw' && item.data.thumbnail != 'NSFW' && item.data.domain != 'yahoo.com' && item.data.domain != 'flickr.com' &&
+        item.data.domain !=  'vine.co');
       }
       var filteredResponse = response.body.data.children.filter(security);
-      var randomchild = Math.floor(Math.random() * (response.body.data.children.length));
+      var randomchild = Math.floor(Math.random() * (filteredResponse.length));
       var info = filteredResponse[randomchild].data;
       info.category = categoryChosen;
-      info.thumbnail = info.thumbnail.replace('http:', 'https:');
-      info.url = info.url.replace('http:', 'https:');
       //console.log(info.url);
-      if(info.domain === "youtube.com" || info.domain === "twitter.com" || info.domain === "vine.co" || info.domain === "m.youtube.com" || info.domain === "google.com" || info.domain === "en-maktoob.news.yahoo.com" || info.domain === 'flickr.com' || info.domain === 'youtu.be'){
+      if(info.domain === "youtube.com" || info.domain === "m.youtube.com" || info.domain === "en-maktoob.news.yahoo.com" || info.domain === 'youtu.be'){
         unirest.get('http://api.embed.ly/1/oembed?key=:'+process.env.EMBEDLY_API+'&url='+info.url)
         .end(function (tube) {
 
@@ -58,16 +56,21 @@ router.post('/reddit', function (req,res,next) {
       console.log('Category',categoryChosen);
       unirest.get('https://www.reddit.com/r/'+testcats[random]+'.json?')
       .end(function (response) {
+        console.log('Response', response);
         function security(item){
-          return (item.data.domain != 'google.com' && item.data.domain != 'twitter.com' && item.data.domain.slice(0,5) != 'self.' && item.data.thumbnail != 'nsfw' && item.data.thumbnail != 'NSFW');
+          return (item.data.domain != 'google.com' && item.data.domain != 'twitter.com' && item.data.domain.slice(0,5) != 'self.' && item.data.thumbnail != 'nsfw' && item.data.thumbnail != 'NSFW' && item.data.domain != 'yahoo.com' && item.data.domain != 'flickr.com' &&
+          item.data.domain !=  'vine.co');
         }
         var filteredResponse = response.body.data.children.filter(security);
-        var randomchild = Math.floor(Math.random() * (response.body.data.children.length));
+        var randomchild = Math.floor(Math.random() * (filteredResponse.length));
+        console.log('Filtered', filteredResponse);
         var info = filteredResponse[randomchild].data;
         info.category = categoryChosen;
-        if(info.domain === "youtube.com" || info.domain === "twitter.com" || info.domain === "vine.co" || info.domain === "m.youtube.com" || info.domain === "google.com" || info.domain === "en-maktoob.news.yahoo.com" || info.domain === 'flickr.com' || info.domain === 'youtu.be'){
+        if(info.domain === "youtube.com" || info.domain === "m.youtube.com" || info.domain === "en-maktoob.news.yahoo.com" || info.domain === 'youtu.be'){
           unirest.get('http://api.embed.ly/1/oembed?key=:'+process.env.EMBEDLY_API+'&url='+info.url)
           .end(function (tube) {
+            console.log(info.domain);
+            console.log(tube);
             var regex = /src="(.+?)"/;
             var matches = regex.exec(tube.body.html);
             info.url = matches[1];
