@@ -95,7 +95,7 @@ router.get("/reddittrend", function (req, res, next) {
 
     //console.log(response.body.data.children[0].data.thumbnail);
     function security(item){
-      return (item.data.thumbnail != 'nsfw' && item.data.thumbnail != 'NSFW' && item.data.thumbnail !='self' && item.data.thumbnail !=='');
+      return (item.data.thumbnail != 'nsfw' && item.data.thumbnail != 'NSFW' && item.data.thumbnail !='self' && item.data.thumbnail !=='' && item.data.title.indexOf('fuck')<0 );
     }
     var info = response.body.data.children.filter(security);
     //console.log('AFTER FILTER', info);

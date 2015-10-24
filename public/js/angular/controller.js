@@ -68,13 +68,13 @@ app.controller('MainController', ['$scope', 'ModalService', '$http', '$sce', '$c
            for (var j = 0; j < catresponse.data[i].site.length; j++) {
              if(catresponse.data[i].site[j].opinion === 'indifferent'){
              indiff++;
-             indifftime+=catresponse.data[i].site[j].time;
+             indifftime+=Number(catresponse.data[i].site[j].time);
            } else if(catresponse.data[i].site[j].opinion === 'liked'){
              liked++;
-             likedtime+=catresponse.data[i].site[j].time;
+             likedtime+=Number(catresponse.data[i].site[j].time);
            } else{
              disliked++;
-             dislikedtime+=catresponse.data[i].site[j].time;
+             dislikedtime+=Number(catresponse.data[i].site[j].time);
            }
 
            visitarray.push(catresponse.data[i].site[j].visit.toString());
